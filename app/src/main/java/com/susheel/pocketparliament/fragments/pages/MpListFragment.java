@@ -18,7 +18,7 @@ import com.susheel.pocketparliament.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MpListFragment extends Fragment {
+public class MpListFragment extends AbstractPageFragment {
 
 
     public MpListFragment() {
@@ -35,19 +35,21 @@ public class MpListFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
+        super.onViewCreated(view, savedInstanceState);
+        loadNavigation("MPs");
+//        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
+//        AppCompatActivity activity = (AppCompatActivity) getActivity();
+//        activity.setSupportActionBar(toolbar);
+//
+//        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout,R.string.app_name, R.string.hello_blank_fragment);
+//        drawerToggle.setDrawerIndicatorEnabled(true);
+//        drawerLayout.addDrawerListener(drawerToggle);
+//        drawerToggle.syncState();
+//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        activity.getSupportActionBar().setTitle("MPs");
 
-        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout,R.string.app_name, R.string.hello_blank_fragment);
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setTitle("MPs");
 
-
-        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        parentActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 }

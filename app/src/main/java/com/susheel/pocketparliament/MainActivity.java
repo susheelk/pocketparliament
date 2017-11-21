@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.susheel.pocketparliament.fragments.pages.AbstractPageFragment;
 import com.susheel.pocketparliament.fragments.pages.HomeFragment;
 import com.susheel.pocketparliament.fragments.pages.MpListFragment;
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadPage(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.content_frame, fragment);
+        transaction.replace(R.id.content_frame, (Fragment) fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

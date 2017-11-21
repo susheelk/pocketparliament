@@ -24,7 +24,7 @@ import com.susheel.pocketparliament.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends AbstractPageFragment {
 
 
     public HomeFragment() {
@@ -41,25 +41,11 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.i("Home", "View Created");
-        final Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
-
-        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout,R.string.app_name, R.string.hello_blank_fragment);
-        drawerToggle.setDrawerIndicatorEnabled(true);
-        drawerLayout.addDrawerListener(drawerToggle);
-        drawerToggle.syncState();
-        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setCollapsible(false);
-//        activity.getSupportActionBar().setTitle("Pocket Parliament");
-        activity.getSupportActionBar().setTitle("Pocket Parliament");
+        super.onViewCreated(view, savedInstanceState);
+        loadNavigation("Pocket Parliament", true);
 
         AppBarLayout appBarLayout = (AppBarLayout) getView().findViewById(R.id.app_bar_layout);
-
-        // Idek what this does but stack overflow came clutch
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() { // Idek what this does but stack overflow came clutch
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if(verticalOffset == 0 || verticalOffset <= toolbar.getHeight() && !toolbar.getTitle().equals("")){
@@ -71,7 +57,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        parentActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
 
