@@ -1,4 +1,4 @@
-package com.susheel.pocketparliament;
+package com.susheel.pocketparliament.ui;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -6,16 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 
-import com.susheel.pocketparliament.fragments.pages.AbstractPageFragment;
-import com.susheel.pocketparliament.fragments.pages.HomeFragment;
-import com.susheel.pocketparliament.fragments.pages.MpListFragment;
+import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.ui.pages.home.HomeFragment;
+import com.susheel.pocketparliament.ui.pages.mp_list.MpListFragment;
 
 import java.util.HashMap;
 
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Load the home page
-        loadPage(new HomeFragment());
+        loadPage(new HomeFragment(), false);
 
         final NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -43,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 item.setChecked(true);
                 switch (item.getItemId()) {
-                    case R.id.home_menu_link: loadPage(new HomeFragment());
+                    case R.id.home_menu_link: loadPage(new HomeFragment(), true);
                         break;
-                    case R.id.mp_menu_link: loadPage(new MpListFragment());
+                    case R.id.mp_menu_link: loadPage(new MpListFragment(), true);
                         break;
 
                 }
@@ -64,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void loadPage(Fragment fragment) {
+    private void loadPage(Fragment fragment, boolean backStack) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.content_frame, (Fragment) fragment);
-        transaction.addToBackStack(null);
+        if (backStack) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 

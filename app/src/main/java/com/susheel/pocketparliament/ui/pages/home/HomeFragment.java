@@ -1,25 +1,16 @@
-package com.susheel.pocketparliament.fragments.pages;
+package com.susheel.pocketparliament.ui.pages.home;
 
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
-import com.susheel.pocketparliament.MainActivity;
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
 
 /**
  * A simple {@link Fragment} subclass.
