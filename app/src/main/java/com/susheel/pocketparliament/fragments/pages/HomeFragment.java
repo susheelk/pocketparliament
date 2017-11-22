@@ -50,14 +50,13 @@ public class HomeFragment extends AbstractPageFragment {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if(verticalOffset == 0 || verticalOffset <= toolbar.getHeight() && !toolbar.getTitle().equals("")){
                     toolbar.setTitle("");
-                }else if(!toolbar.getTitle().equals(toolbar)){
+                } else if(!toolbar.getTitle().equals(toolbar)){
                     toolbar.setTitle("Ttt");
                 }
 
             }
         });
 
-//        parentActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
 

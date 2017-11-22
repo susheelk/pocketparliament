@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -8,5 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    <!--<style name="Widget.MyApp.Toolbar.Solid" parent="Widget.AppCompat.ActionBar">-->
+        <!--<item name="android:elevation" tools:ignore="NewApi">4dp</item>-->
+    <!--</style>-->
+
+    <!--<style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">-->
+        <!--&lt;!&ndash; Parent theme sets colorControlNormal to textColorPrimary. &ndash;&gt;-->
+        <!--<item name="android:textColorPrimary">@color/white</item>-->
+    <!--</style>-->
 
 </resources>

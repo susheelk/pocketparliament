@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.susheel.pocketparliament.fragments.pages.AbstractPageFragment;
@@ -20,6 +21,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
+    private DrawerLayout drawerLayout;
+
     public static final HashMap<Integer, Class> pageFragmentMap = new HashMap<Integer, Class>(){{
         put(R.id.home_menu_link, HomeFragment.class);
     }};
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         // Load the home page
         loadPage(new HomeFragment());
@@ -44,10 +49,19 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                 }
+                closeNavigationDrawer();
                 return true;
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
+            closeNavigationDrawer();
+            return;
+        }
+        super.onBackPressed();
     }
 
     private void loadPage(Fragment fragment) {
@@ -58,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    private void loadActionBar(String title) {
-
+    protected void closeNavigationDrawer() {
+        drawerLayout.closeDrawer(Gravity.LEFT);
     }
-
 }

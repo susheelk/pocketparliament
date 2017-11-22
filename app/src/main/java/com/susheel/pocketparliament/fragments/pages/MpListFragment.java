@@ -37,19 +37,6 @@ public class MpListFragment extends AbstractPageFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadNavigation("MPs");
-//        Toolbar toolbar = (Toolbar) getView().findViewById(R.id.toolbar);
-//        AppCompatActivity activity = (AppCompatActivity) getActivity();
-//        activity.setSupportActionBar(toolbar);
-//
-//        DrawerLayout drawerLayout = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(activity, drawerLayout,R.string.app_name, R.string.hello_blank_fragment);
-//        drawerToggle.setDrawerIndicatorEnabled(true);
-//        drawerLayout.addDrawerListener(drawerToggle);
-//        drawerToggle.syncState();
-//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        activity.getSupportActionBar().setTitle("MPs");
 
-
-//        parentActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 }
