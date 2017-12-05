@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.MemberParliamentService;
+import com.susheel.pocketparliament.services.filters.Filter;
 
 import java.util.List;
 import java.util.Set;
@@ -13,15 +14,16 @@ import java.util.Set;
  * @author Susheel Kona
  */
 
-public class GetMemberParliamentTask extends AbstractAsyncTask<String, Void, List<MemberParliament>>{
+public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParliament>, Void, List<MemberParliament>>{
 
     private MemberParliamentService service = MemberParliamentService.getInstance();
 
+
     @Override
-    protected List<MemberParliament> doInBackground(String... params) {
+    protected List<MemberParliament> doInBackground(Filter<MemberParliament>... params) {
         Log.i("GetMemberParliamentTask", "doInBackground");
         try {
-            return service.getAll();
+            return service.get(null);
         } catch (Exception e) {
             e.printStackTrace();
         }

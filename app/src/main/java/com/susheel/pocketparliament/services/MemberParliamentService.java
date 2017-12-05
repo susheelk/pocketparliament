@@ -3,6 +3,7 @@ package com.susheel.pocketparliament.services;
 import android.util.Log;
 
 import com.susheel.pocketparliament.model.MemberParliament;
+import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.parsers.MemberParliamentParser;
 
 import java.util.ArrayList;
@@ -20,8 +21,10 @@ public class MemberParliamentService extends HttpService{
         return instance;
     }
 
-    public List<MemberParliament> getAll() throws Exception{
+    public List<MemberParliament> get(Filter<MemberParliament> filter) throws Exception{
         String response = doRequest(HttpService.OPEN_PARL, "politicians");
-        return MemberParliamentParser.getInstance().fromJson(response);
+        List<MemberParliament> data =  MemberParliamentParser.getInstance().fromJson(response);
+
+        return filter.doFilter(data);
     }
 }
