@@ -35,4 +35,9 @@ public class Party {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public boolean isGovernment() {
+        // NOT GOOD PRACTICE DO NOT DO THIS ACTUALLY MAKE SOMETHING PROPER
+        return name.matches("Liberal");
+    }
 }
