@@ -3,8 +3,11 @@ package com.susheel.pocketparliament.services;
 import android.util.Log;
 
 import com.susheel.pocketparliament.model.MemberParliament;
+import com.susheel.pocketparliament.services.parsers.MemberParliamentParser;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,8 +20,8 @@ public class MemberParliamentService extends HttpService{
         return instance;
     }
 
-    public Set<MemberParliament> getAll() throws Exception{
+    public List<MemberParliament> getAll() throws Exception{
         String response = doRequest(HttpService.OPEN_PARL, "politicians");
-        return new HashSet<MemberParliament>(); // TODO Fill this in
+        return MemberParliamentParser.getInstance().fromJson(response);
     }
 }

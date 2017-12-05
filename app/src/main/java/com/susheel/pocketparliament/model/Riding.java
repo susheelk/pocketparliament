@@ -5,6 +5,14 @@ package com.susheel.pocketparliament.model;
  */
 
 public class Riding {
+
+    public static Riding forList(final String name, final String province) {
+        return new Riding() {{
+            setName(name);
+            setName(province);
+        }};
+    }
+
     private int id;
     private String province;
     private String name;

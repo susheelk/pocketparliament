@@ -45,13 +45,13 @@ public class MpsPageFragment extends AbstractPageFragment {
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-    }
-
-    private void setUpViewPager(ViewPager viewPager) {
 
     }
+
 
 }
+
+
 
 class GenericViewPagerAdapter extends FragmentStatePagerAdapter {
 

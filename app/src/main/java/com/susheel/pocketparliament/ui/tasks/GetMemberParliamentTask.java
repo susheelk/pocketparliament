@@ -6,18 +6,19 @@ import android.util.Log;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.MemberParliamentService;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author Susheel Kona
  */
 
-public class GetMemberParliamentTask extends AbstractAsyncTask<String, Void, Set<MemberParliament>>{
+public class GetMemberParliamentTask extends AbstractAsyncTask<String, Void, List<MemberParliament>>{
 
     private MemberParliamentService service = MemberParliamentService.getInstance();
 
     @Override
-    protected Set<MemberParliament> doInBackground(String... params) {
+    protected List<MemberParliament> doInBackground(String... params) {
         Log.i("GetMemberParliamentTask", "doInBackground");
         try {
             return service.getAll();
@@ -29,7 +30,7 @@ public class GetMemberParliamentTask extends AbstractAsyncTask<String, Void, Set
     }
 
     @Override
-    protected void onPostExecute(Set<MemberParliament> set) {
-        getAsyncResponseListener().onTaskSuccess(this.getClass(), set);
+    protected void onPostExecute(List<MemberParliament> list) {
+        getAsyncResponseListener().onTaskSuccess(this.getClass(), list);
     }
 }

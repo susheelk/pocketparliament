@@ -14,6 +14,7 @@ import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,15 +42,14 @@ public class AllMpTabFragment extends Fragment {
 
     private void getData() {
         GetMemberParliamentTask task = new GetMemberParliamentTask();
-        task.setAsyncResponseListener(new AsyncResponseListener<Set<MemberParliament>>() {
-
+        task.setAsyncResponseListener(new AsyncResponseListener<List<MemberParliament>>() {
             @Override
-            public void onTaskSuccess(Class source, Set<MemberParliament> data) {
+            public void onTaskSuccess(Class source, List<MemberParliament> data) {
 
             }
 
             @Override
-            public void onTaskError(Class source, Set<MemberParliament> data) {
+            public void onTaskError(Class source, List<MemberParliament> data) {
 
             }
         });

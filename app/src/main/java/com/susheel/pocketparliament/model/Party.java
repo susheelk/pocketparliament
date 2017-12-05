@@ -7,8 +7,18 @@ import android.graphics.Color;
  */
 
 public class Party {
+
+    public static Party fromName(String name) {
+        return new Party(name, null); // TODO implement getting this from an external source
+    }
+
     private String name;
     private Color color;
+
+    private Party(String name, Color color) {
+        this.name = name;
+        this.color = color;
+    }
 
     public String getName() {
         return name;
