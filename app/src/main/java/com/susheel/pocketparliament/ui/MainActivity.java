@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.ui.pages.home.HomeFragment;
-import com.susheel.pocketparliament.ui.pages.mp_list.MpListFragment;
+import com.susheel.pocketparliament.ui.pages.mp_list.MpsPageFragment;
 
 import java.util.HashMap;
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.home_menu_link: loadPage(new HomeFragment(), true);
                         break;
-                    case R.id.mp_menu_link: loadPage(new MpListFragment(), true);
+                    case R.id.mp_menu_link: loadPage(new MpsPageFragment(), true);
                         break;
 
                 }

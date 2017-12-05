@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.susheel.pocketparliament.model.MemberParliament;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Susheel Kona
  */
@@ -14,8 +17,8 @@ public class MemberParliamentService extends HttpService{
         return instance;
     }
 
-    public MemberParliament[] getAll() throws Exception{
+    public Set<MemberParliament> getAll() throws Exception{
         String response = doRequest(HttpService.OPEN_PARL, "politicians");
-        return new MemberParliament[]{}; // TODO Fill this in
+        return new HashSet<MemberParliament>(); // TODO Fill this in
     }
 }

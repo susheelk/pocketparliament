@@ -3,7 +3,7 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--tools:context=".ui.pages.mp_list.MpListFragment"-->
+    <!--tools:context=".ui.pages.mp_list.MpsPageFragment"-->
     <!--android:fitsSystemWindows="true"-->
     <!--app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"-->
     <!--android:orientation="vertical">-->
@@ -32,7 +32,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.pages.mp_list.MpListFragment"
+    tools:context=".ui.pages.mp_list.MpsPageFragment"
     android:fitsSystemWindows="true"
     app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
 

@@ -4,6 +4,7 @@ package com.susheel.pocketparliament.ui.pages.mp_list;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,11 @@ import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
 
+import java.util.Set;
+
 /**
  * A simple {@link Fragment} subclass.
+ * @deprecated
  */
 public class AllMpTabFragment extends Fragment {
 
@@ -37,14 +41,15 @@ public class AllMpTabFragment extends Fragment {
 
     private void getData() {
         GetMemberParliamentTask task = new GetMemberParliamentTask();
-        task.setAsyncResponseListener(new AsyncResponseListener<MemberParliament[]>() {
+        task.setAsyncResponseListener(new AsyncResponseListener<Set<MemberParliament>>() {
+
             @Override
-            public void onTaskSuccess(Class source, MemberParliament[] data) {
+            public void onTaskSuccess(Class source, Set<MemberParliament> data) {
 
             }
 
             @Override
-            public void onTaskError(Class source, MemberParliament[] data) {
+            public void onTaskError(Class source, Set<MemberParliament> data) {
 
             }
         });

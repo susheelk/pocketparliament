@@ -16,22 +16,21 @@ import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MpListFragment extends AbstractPageFragment {
+public class MpsPageFragment extends AbstractPageFragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-    public MpListFragment() {}
+    public MpsPageFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_mp_list, container, false);
+        return inflater.inflate(R.layout.fragment_mps_page, container, false);
     }
 
     @Override

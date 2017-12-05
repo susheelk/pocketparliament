@@ -11,6 +11,7 @@ import com.susheel.pocketparliament.R;
 
 /**
  * A simple {@link Fragment} subclass.
+ * @deprecated
  */
 public class FavouriteMpTabFragment extends Fragment {
 

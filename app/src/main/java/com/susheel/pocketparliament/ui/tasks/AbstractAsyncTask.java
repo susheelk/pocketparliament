@@ -9,13 +9,13 @@ import com.susheel.pocketparliament.model.MemberParliament;
  */
 
 abstract class AbstractAsyncTask<A, B, C> extends AsyncTask<A, B, C> {
-    private AsyncResponseListener<MemberParliament[]> asyncResponseListener;
+    private AsyncResponseListener<C> asyncResponseListener;
 
-    public void setAsyncResponseListener(AsyncResponseListener<MemberParliament[]> asyncResponseListener) {
+    public void setAsyncResponseListener(AsyncResponseListener<C> asyncResponseListener) {
         this.asyncResponseListener = asyncResponseListener;
     }
 
-    public AsyncResponseListener<MemberParliament[]> getAsyncResponseListener() {
+    public AsyncResponseListener<C> getAsyncResponseListener() {
         return asyncResponseListener;
     }
 }
