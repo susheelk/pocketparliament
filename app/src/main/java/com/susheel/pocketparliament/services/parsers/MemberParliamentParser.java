@@ -9,6 +9,8 @@ import com.susheel.pocketparliament.model.Riding;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -39,16 +41,19 @@ public class MemberParliamentParser {
             JsonNode memberNode = iterator.next();
 
             JsonNode ridingInfo = memberNode.path("current_riding");
-            Riding riding = Riding.forList(ridingInfo.path("name").get("en").asText(), ridingInfo.get("province").asText());
+            JsonNode ridingName = ridingInfo.path("name");
+            String rname = ridingName.get("en").asText();
+            Riding riding = Riding.forList(ridingName.get("en").asText(), ridingInfo.get("province").asText());
 
             String name = memberNode.get("name").asText();
             String imageUrl = memberNode.get("image").asText();
             String partyName = memberNode.path("current_party").path("short_name").get("en").asText();
 
             list.add(MemberParliament.forList(name, imageUrl, riding, Party.fromName(partyName)));
+            System.out.println();
         }
 
-
+        Collections.sort(list, (a, b) -> a.getLastName().compareTo(b.getLastName()));
         return list;
     }
 }

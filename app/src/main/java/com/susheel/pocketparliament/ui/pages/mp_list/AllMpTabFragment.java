@@ -41,17 +41,6 @@ public class AllMpTabFragment extends Fragment {
 
     private void getData() {
         GetMemberParliamentTask task = new GetMemberParliamentTask();
-        task.setAsyncResponseListener(new AsyncResponseListener<List<MemberParliament>>() {
-            @Override
-            public void onTaskSuccess(Class source, List<MemberParliament> data) {
-
-            }
-
-            @Override
-            public void onTaskError(Class source, List<MemberParliament> data) {
-
-            }
-        });
 
         task.execute();
     }

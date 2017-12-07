@@ -20,10 +20,12 @@ public class MpListAdapter extends RecyclerView.Adapter<MpListAdapter.ViewHolder
     private List<MemberParliament> list;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView name;
+        public TextView name; // VERY bad practice TODO fix
+        public TextView description;
         public ViewHolder(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.name);
+            description = (TextView) view.findViewById(R.id.description);
         }
     }
 
@@ -41,6 +43,7 @@ public class MpListAdapter extends RecyclerView.Adapter<MpListAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         MemberParliament item = list.get(position);
         holder.name.setText(item.getName());
+        holder.description.setText(item.getBlurb());
     }
 
     @Override

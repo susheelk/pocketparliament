@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.susheel.pocketparliament.R;
@@ -34,6 +36,8 @@ public class MpListFragment extends Fragment {
 
     // Views
     RecyclerView recyclerView;
+    ProgressBar progressBar;
+    TextView noConnectionText;
 
     MpListAdapter adapter;
 
@@ -50,6 +54,7 @@ public class MpListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         filter.fromBundle(getArguments());
+        bindViews(view);
         getData(view);
 
     }
@@ -61,12 +66,14 @@ public class MpListFragment extends Fragment {
     }
 
     private void setupUI(View view) {
-        bindViews(view);
         setupRecyclerView();
     }
 
     private void bindViews(View parentView) {
         recyclerView = (RecyclerView) parentView.findViewById(R.id.recycler_view);
+        progressBar = (ProgressBar) parentView.findViewById(R.id.progress_bar);
+        noConnectionText = (TextView) parentView.findViewById(R.id.no_connection);
+        noConnectionText.setVisibility(View.GONE);
     }
 
     private void setupRecyclerView() {
@@ -75,26 +82,26 @@ public class MpListFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
     }
 
     private void getData(View view) {
+        progressBar.setVisibility(View.VISIBLE);
         task = new GetMemberParliamentTask();
         task.setAsyncResponseListener(new AsyncResponseListener<List<MemberParliament>>() {
             @Override
             public void onTaskSuccess(Class source, List<MemberParliament> data) {
                 members = data;
-//                try {
-//                    Thread.sleep(150);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
+                progressBar.setVisibility(View.GONE);
                 setupUI(view);
             }
 
             @Override
-            public void onTaskError(Class source, List<MemberParliament> data) {
-
+            public void onTaskError(Class source, String error) {
+                System.out.println(error);
+                progressBar.setVisibility(View.GONE);
+                noConnectionText.setVisibility(View.VISIBLE);
             }
         });
 

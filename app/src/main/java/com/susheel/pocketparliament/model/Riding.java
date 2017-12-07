@@ -6,11 +6,11 @@ package com.susheel.pocketparliament.model;
 
 public class Riding {
 
-    public static Riding forList(final String name, final String province) {
-        return new Riding() {{
-            setName(name);
-            setName(province);
-        }};
+    public static Riding forList(String name, String province) {
+        Riding riding = new Riding();
+        riding.setName(name);
+        riding.setProvince(province);
+        return riding;
     }
 
     private int id;

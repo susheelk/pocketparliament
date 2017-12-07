@@ -88,7 +88,9 @@ public class MemberParliament extends Person {
         this.riding = riding;
     }
 
-
+    public String getBlurb() {
+        return getParty().getName()+" MP for "+ getRiding().getName()+", "+getRiding().getProvince();
+    }
 
     public static MemberParliament forList(String name, String imageUrl, Riding riding, Party party){
         MemberParliament member = new MemberParliament();
@@ -96,6 +98,8 @@ public class MemberParliament extends Person {
         member.setFirstName(names[0]);
         member.setLastName(names[1]);
         member.setImageUrl(imageUrl);
+        member.setRiding(riding);
+        member.setParty(party);
         return member;
     }
 }

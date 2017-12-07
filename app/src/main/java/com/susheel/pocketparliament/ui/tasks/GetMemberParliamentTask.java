@@ -25,7 +25,8 @@ public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParl
         try {
             return service.get(params[0]);
         } catch (Exception e) {
-            e.printStackTrace();
+            this.cancel(true);
+            getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());
         }
 
         return null;

@@ -1,5 +1,8 @@
 package com.susheel.pocketparliament.services;
 
+import android.app.Activity;
+import android.net.ConnectivityManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -28,7 +31,7 @@ abstract class HttpService {
         return buffer.toString();
     }
 
-    public String doRequest(String source, String endpoint, Map<String, String> parameters) throws Exception{
+    public String doRequest(String source, String endpoint, Map<String, String> parameters) throws Exception {
         StringBuffer urlBuilder = new StringBuffer(source+endpoint);
         if (parameters != null) {
             urlBuilder.append(stringifyParameters(parameters));

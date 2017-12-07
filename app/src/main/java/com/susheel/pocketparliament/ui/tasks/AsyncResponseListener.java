@@ -6,5 +6,5 @@ package com.susheel.pocketparliament.ui.tasks;
 
 public interface AsyncResponseListener<T> {
     void onTaskSuccess(Class source, T data);
-    void onTaskError(Class source, T data);
+    void onTaskError(Class source, String message);
 }
