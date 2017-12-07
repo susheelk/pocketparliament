@@ -1,7 +1,12 @@
 package com.susheel.pocketparliament.services.filters;
 
+import android.os.Bundle;
+
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Susheel Kona
@@ -9,20 +14,31 @@ import java.util.List;
  */
 
 public abstract class Filter<T> {
-    final EnumMap<FilterType, String> filters;
+    final Map<String, String> filters;
 
-    public Filter(EnumMap<FilterType, String> filters) {
+    public Filter(Map<String, String> filters) {
         this.filters = filters;
     }
 
     // No Filters
     public Filter() {
-        filters = new EnumMap<FilterType, String>(FilterType.class);
+        filters = new HashMap<>();
     }
 
-    public void addConstraint(FilterType type, String value) {
+    public void addConstraint(String type, String value) {
         filters.put(type, value);
     }
 
     public abstract List<T> doFilter(List<T> initialData);
+
+    public abstract void fromBundle(Bundle bundle);
+
+//    public List<String> getFilterKeys() {
+//        // Goddamn android doesn't let me use lambdas
+//        List<String> keys = new ArrayList<String>();
+//        for ()
+//            new Bundle()
+//    }
+
+
 }

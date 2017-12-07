@@ -23,7 +23,7 @@ public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParl
     protected List<MemberParliament> doInBackground(Filter<MemberParliament>... params) {
         Log.i("GetMemberParliamentTask", "doInBackground");
         try {
-            return service.get(null);
+            return service.get(params[0]);
         } catch (Exception e) {
             e.printStackTrace();
         }

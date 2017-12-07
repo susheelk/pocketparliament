@@ -1,15 +1,15 @@
 package com.susheel.pocketparliament.services.filters;
 
 /**
- * @author Susheel Kona
+ *
  */
 
-public enum FilterType {
-    // Generic Filters
-    ID,
-    NAME,
+public interface FilterType {
+    // Generic Stuff
+    String ID = "id";
+    String NAME = "name";
 
     // MemberParliament Filters
-    PARTY,
-    GOVERNMENT
+    String GOVERNMENT = "govt";
+    String PARTY = "party";
 }
