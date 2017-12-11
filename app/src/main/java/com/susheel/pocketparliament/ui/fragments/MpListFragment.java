@@ -4,6 +4,7 @@ package com.susheel.pocketparliament.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +18,6 @@ import android.widget.TextView;
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.filters.Filter;
-import com.susheel.pocketparliament.services.filters.FilterType;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
 import com.susheel.pocketparliament.ui.adapters.MpListAdapter;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
@@ -77,7 +77,7 @@ public class MpListFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new MpListAdapter(members);
+        adapter = new MpListAdapter(members, (AppCompatActivity)getActivity());
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);

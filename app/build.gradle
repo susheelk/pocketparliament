@@ -9,17 +9,22 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+//        jackOptions {
+//            enabled true
+//        }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        jackOptions {
-            enabled true;
-        }
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 
     packagingOptions {
         exclude 'META-INF/NOTICE' // will not include NOTICE file
@@ -29,11 +34,16 @@ android {
         exclude 'META-INF/NOTICE.txt'
     }
     compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
-
+repositories {
+    flatDir{
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -45,12 +55,22 @@ dependencies {
             [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1']
     )
+
+//    compile 'com.squareup.picasso:picasso:2.5.2'
+//    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
     compile 'com.annimon:stream:1.1.9'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+//    compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+
+//    compile 'com.github.bumptech.glide:glide:4.0.0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
+    compile 'com.facebook.fresco:fresco:1.5.0'
     testCompile 'junit:junit:4.12'
+
 
 }
 

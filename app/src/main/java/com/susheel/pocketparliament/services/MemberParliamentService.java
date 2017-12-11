@@ -1,15 +1,14 @@
 package com.susheel.pocketparliament.services;
 
-import android.util.Log;
+
 
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.parsers.MemberParliamentParser;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * @author Susheel Kona

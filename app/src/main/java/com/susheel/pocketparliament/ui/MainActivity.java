@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.ui.pages.home.HomeFragment;
 import com.susheel.pocketparliament.ui.pages.mp_list.MpsPageFragment;
@@ -21,13 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
-    public static final HashMap<Integer, Class> pageFragmentMap = new HashMap<Integer, Class>(){{
-        put(R.id.home_menu_link, HomeFragment.class);
-    }};
+//    public static final HashMap<Integer, Class> pageFragmentMap = new HashMap<Integer, Class>(){{
+//        put(R.id.home_menu_link, HomeFragment.class);
+//    }};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
+
         setContentView(R.layout.activity_main);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

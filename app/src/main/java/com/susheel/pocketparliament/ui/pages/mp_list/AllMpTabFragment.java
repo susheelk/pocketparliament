@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.susheel.pocketparliament.R;
-import com.susheel.pocketparliament.model.MemberParliament;
-import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
+
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
 
 
-import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.

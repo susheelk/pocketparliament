@@ -1,6 +1,8 @@
 package com.susheel.pocketparliament.model;
 
-import java.util.ArrayList;
+import com.susheel.pocketparliament.services.MemberParliamentService;
+
+
 
 /**
  * @author Susheel
@@ -41,7 +43,7 @@ public class MemberParliament extends Person {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return MemberParliamentService.OPEN_PARL+imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {

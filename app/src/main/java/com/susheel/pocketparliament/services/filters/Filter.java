@@ -2,8 +2,7 @@ package com.susheel.pocketparliament.services.filters;
 
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,5 @@
 package com.susheel.pocketparliament.ui.tasks;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.susheel.pocketparliament.model.MemberParliament;
@@ -8,7 +7,7 @@ import com.susheel.pocketparliament.services.MemberParliamentService;
 import com.susheel.pocketparliament.services.filters.Filter;
 
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * @author Susheel Kona
