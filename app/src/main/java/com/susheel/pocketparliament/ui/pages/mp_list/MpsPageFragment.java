@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.susheel.pocketparliament.R;
 
-import com.susheel.pocketparliament.services.filters.FilterType;
+import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
 import com.susheel.pocketparliament.ui.fragments.MpListFragment;
 import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
@@ -46,9 +46,9 @@ public class MpsPageFragment extends AbstractPageFragment {
 //        adapter.add("Favourites", new FavouriteMpTabFragment());
 //        adapter.add("All", new AllMpTabFragment());
         adapter.add("All", MpListFragment.forAll());
-        adapter.add("Cabinet", MpListFragment.forGroup(FilterType.GOVERNMENT, true));
-        adapter.add("Government", MpListFragment.forGroup(FilterType.GOVERNMENT, true));
-        adapter.add("Opposition", MpListFragment.forGroup(FilterType.GOVERNMENT, false));
+        adapter.add("Cabinet", MpListFragment.forGroup(FilterParameters.GOVERNMENT, true));
+        adapter.add("Government", MpListFragment.forGroup(FilterParameters.GOVERNMENT, true));
+        adapter.add("Opposition", MpListFragment.forGroup(FilterParameters.GOVERNMENT, false));
         viewPager.setAdapter(adapter);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);

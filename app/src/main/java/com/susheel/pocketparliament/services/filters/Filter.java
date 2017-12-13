@@ -13,9 +13,13 @@ import java.util.Map;
  */
 
 public abstract class Filter<T> {
-    final Map<String, String> filters;
+    final Map<String, Object> filters;
 
-    public Filter(Map<String, String> filters) {
+    public static void fromBundle() {
+
+    }
+
+    public Filter(Map<String, Object> filters) {
         this.filters = filters;
     }
 
@@ -24,7 +28,7 @@ public abstract class Filter<T> {
         filters = new HashMap<>();
     }
 
-    public void addConstraint(String type, String value) {
+    public void addConstraint(String type, Object value) {
         filters.put(type, value);
     }
 
