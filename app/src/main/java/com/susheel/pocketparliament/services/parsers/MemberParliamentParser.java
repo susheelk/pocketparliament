@@ -31,7 +31,7 @@ public class MemberParliamentParser {
     final ObjectMapper mapper = new ObjectMapper();
 
 
-    public List<MemberParliament> fromJson(String json) throws IOException {
+    public List<MemberParliament> listFromJson(String json) throws IOException {
         List<MemberParliament> list = new ArrayList<>();
         JsonNode root = mapper.readTree(json);
         JsonNode objectsNode = root.get("objects");
@@ -55,5 +55,25 @@ public class MemberParliamentParser {
 
         Collections.sort(list, (a, b) -> a.getLastName().compareTo(b.getLastName()));
         return list;
+    }
+
+    public MemberParliament objectFromJson(String json) throws IOException {
+        MemberParliament object = new MemberParliament();
+        JsonNode root = mapper.readTree(json);
+
+        JsonNode linksNode = root.get("links");
+        Iterator<JsonNode> iterator = linksNode.elements();
+        while (iterator.hasNext()) {
+            JsonNode link = iterator.next();
+            if(link.get("note").asText().equals("Page on parl.gc.ca")) {
+                object.setParlUrl(link.get("url").asText());
+            }
+        }
+
+        object.setImageUrl(root.get("image").asText());
+        object.setFirstName(root.get("given_name").asText());
+        object.setLastName(root.get("family_name").asText());
+
+        return object;
     }
 }

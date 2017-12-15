@@ -23,6 +23,7 @@ import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
 import com.susheel.pocketparliament.ui.MemberParliamentActivity;
 import com.susheel.pocketparliament.ui.adapters.MpListAdapter;
+import com.susheel.pocketparliament.ui.adapters.RecyclerViewListener;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
 
@@ -33,6 +34,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
+// TODO: Fragment does not redraw on back press
 public class MpListFragment extends Fragment {
 
     Filter<MemberParliament> filter;
@@ -76,6 +78,13 @@ public class MpListFragment extends Fragment {
         task.cancel(true);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        bindViews(getView());
+        getData(getView());
+    }
+
     private void setupUI(View view) {
         setupRecyclerView();
     }
@@ -94,6 +103,13 @@ public class MpListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        adapter.addRecyclerViewListener(new RecyclerViewListener() {
+            @Override
+            public void onItemClick(Object object) {
+                System.out.println(((MemberParliament)object).getName()+" Clicked");
+                gotoActivity();
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 

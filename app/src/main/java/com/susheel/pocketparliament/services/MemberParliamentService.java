@@ -20,10 +20,23 @@ public class MemberParliamentService extends HttpService{
         return instance;
     }
 
+    private MemberParliamentParser parser = MemberParliamentParser.getInstance();
+
     public List<MemberParliament> get(Filter<MemberParliament> filter) throws Exception{
         String response = doRequest(HttpService.OPEN_PARL, "politicians");
-        List<MemberParliament> data =  MemberParliamentParser.getInstance().fromJson(response);
+        List<MemberParliament> data =  parser.listFromJson(response);
 
         return filter.doFilter(data);
+    }
+
+    /** This skips the filter to avoid double requests
+     *
+     * @param name
+     * @return
+     * @throws Exception
+     */
+    public MemberParliament getUniqueByName(String name) throws Exception{
+        String response = doRequest(HttpService.OPEN_PARL, "politicians/"+name);
+        return parser.objectFromJson(response);
     }
 }

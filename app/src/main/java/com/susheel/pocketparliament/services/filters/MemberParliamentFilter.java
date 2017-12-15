@@ -32,7 +32,7 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
                 continue;
             }
         }
-        return data; // Does not filter currently
+        return data;
     }
 
     private List<MemberParliament> group(List<MemberParliament> data, Object value) {
@@ -41,6 +41,14 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
                 return Stream.of(data).filter(member-> member.getParty().isGovernment()).collect(Collectors.toList());
         }
         return data;
+    }
+
+    /** Check if filter will return only one object. Useful for performance reasons
+     *
+     * @return
+     */
+    public boolean isForOne() {
+        return filters != null ? filters.containsKey(FilterParameters.FOR_ONE) : false;
     }
 
     @Override

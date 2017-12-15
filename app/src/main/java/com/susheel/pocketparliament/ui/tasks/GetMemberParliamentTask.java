@@ -5,7 +5,10 @@ import android.util.Log;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.MemberParliamentService;
 import com.susheel.pocketparliament.services.filters.Filter;
+import com.susheel.pocketparliament.services.filters.FilterParameters;
+import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -22,9 +25,17 @@ public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParl
     protected List<MemberParliament> doInBackground(Filter<MemberParliament>... params) {
         Log.i("GetMemberParliamentTask", "doInBackground");
         try {
-            return service.get(params[0]);
+            MemberParliamentFilter filter = (MemberParliamentFilter)params[0];
+            if (filter != null) {
+                if (filter.isForOne()){
+                    return Arrays.asList(service.getUniqueByName(filter.getConstraint(FilterParameters.NAME).toString()));
+                }
+                return service.get(params[0]);
+            }
+            throw new IllegalArgumentException("No filter was provided");
         } catch (Exception e) {
             this.cancel(true);
+            Log.e("ERROR", e.getMessage());
             getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());
         }
 

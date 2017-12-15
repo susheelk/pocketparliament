@@ -36,6 +36,10 @@ public abstract class Filter<T> {
 
     public abstract void fromBundle(Bundle bundle);
 
+    public Object getConstraint(String key) {
+        return filters.get(key);
+    }
+
 //    public List<String> getFilterKeys() {
 //        // Goddamn android doesn't let me use lambdas
 //        List<String> keys = new ArrayList<String>();
