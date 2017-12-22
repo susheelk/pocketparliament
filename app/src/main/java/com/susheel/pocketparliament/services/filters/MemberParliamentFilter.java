@@ -51,6 +51,14 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         return filters != null ? filters.containsKey(FilterParameters.FOR_ONE) : false;
     }
 
+    /** Check if filter contains a url in order to bypass filter
+     *
+     * @return
+     */
+    public boolean containsUrl() {
+        return filters != null ? filters.containsKey(FilterParameters.URL) : false;
+    }
+
     @Override
     public void fromBundle(Bundle bundle) {
 //        String name = bundle.getString("name");

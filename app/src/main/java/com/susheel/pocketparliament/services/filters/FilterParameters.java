@@ -10,6 +10,7 @@ public interface FilterParameters {
     String ID = "id";
     String NAME = "name";
     String FOR_ONE = "for_one";
+    String URL = "url";
 
     // MemberParliament Filters
     String GROUP = "group";

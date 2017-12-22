@@ -12,6 +12,15 @@ public class MemberParliament extends Person {
     private String parlUrl;
     private String personalUrl;
     private String imageUrl;
+    private String apiUrl;
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
+    }
 
     private String twitterUsername;
     private String emailAddress;
@@ -93,6 +102,7 @@ public class MemberParliament extends Person {
     public String getBlurb() {
         return getParty().getName()+" MP for "+ getRiding().getName()+", "+getRiding().getProvince();
     }
+
 
     public static MemberParliament forList(String name, String imageUrl, Riding riding, Party party){
         MemberParliament member = new MemberParliament();

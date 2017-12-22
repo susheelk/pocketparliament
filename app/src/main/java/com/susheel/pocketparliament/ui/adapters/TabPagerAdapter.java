@@ -1,5 +1,6 @@
 package com.susheel.pocketparliament.ui.adapters;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -37,6 +38,17 @@ public class TabPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return list.get(position).getTitle();
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        List<FragmentTitlePair> duplicate = new ArrayList<>();
+        for(FragmentTitlePair pair: list) {
+            duplicate.add(pair);
+        }
+        list.clear();
+        list = new ArrayList<>(duplicate);
     }
 }
 

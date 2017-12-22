@@ -3,6 +3,7 @@ package com.susheel.pocketparliament.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +22,15 @@ import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
+import com.susheel.pocketparliament.ui.MainActivity;
 import com.susheel.pocketparliament.ui.MemberParliamentActivity;
 import com.susheel.pocketparliament.ui.adapters.MpListAdapter;
 import com.susheel.pocketparliament.ui.adapters.RecyclerViewListener;
+import com.susheel.pocketparliament.ui.pages.mp_list.MpsPageFragment;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
 
+import java.lang.reflect.Member;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +51,7 @@ public class MpListFragment extends Fragment {
     TextView noConnectionText;
 
     MpListAdapter adapter;
+    RecyclerView.LayoutManager manager;
 
     public MpListFragment() {
     }
@@ -54,6 +59,7 @@ public class MpListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         HashMap<String, Object> map = (HashMap<String, Object>) (getArguments().getSerializable(FilterParameters.FILTER));
         filter = new MemberParliamentFilter(map);
     }
@@ -64,25 +70,25 @@ public class MpListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_mp_list, container, false);
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        filter.fromBundle(getArguments());
-        bindViews(view);
-        getData(view);
-
-    }
 
     @Override
     public void onPause() {
         super.onPause();
         task.cancel(true);
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        bindViews(getView());
-        getData(getView());
+        View view = getView();
+        System.out.println("View is null: "+ view == null);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        bindViews(view);
+        getData(view);
+
+
     }
 
     private void setupUI(View view) {
@@ -98,16 +104,16 @@ public class MpListFragment extends Fragment {
 
     private void setupRecyclerView() {
         adapter = new MpListAdapter(members, (AppCompatActivity)getActivity());
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         adapter.addRecyclerViewListener(new RecyclerViewListener() {
             @Override
             public void onItemClick(Object object) {
-                System.out.println(((MemberParliament)object).getName()+" Clicked");
-                gotoActivity();
+                MemberParliament memberParliament = (MemberParliament) object;
+                System.out.println(memberParliament.getName()+" Clicked");
+                gotoActivity(memberParliament.getApiUrl());
             }
         });
         recyclerView.setAdapter(adapter);
@@ -115,6 +121,7 @@ public class MpListFragment extends Fragment {
 
     private void getData(View view) {
         progressBar.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
         task = new GetMemberParliamentTask();
         task.setAsyncResponseListener(new AsyncResponseListener<List<MemberParliament>>() {
 
@@ -122,6 +129,7 @@ public class MpListFragment extends Fragment {
             public void onTaskSuccess(Class source, List<MemberParliament> data) {
                 members = data;
                 progressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 setupUI(view);
             }
 
@@ -136,8 +144,11 @@ public class MpListFragment extends Fragment {
         task.execute(filter);
     }
 
-    private void gotoActivity(){
+    private void gotoActivity(String memberParliamentUrl){
         Intent intent = new Intent(this.getActivity(), MemberParliamentActivity.class);
+        Bundle args = new Bundle();
+        intent.putExtras(args);
+        args.putString(FilterParameters.URL, memberParliamentUrl);
         startActivity(intent);
     }
 

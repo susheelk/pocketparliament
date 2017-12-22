@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    private void loadPage(Fragment fragment, boolean backStack) {
+    public void loadPage(Fragment fragment, boolean backStack) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.content_frame, (Fragment) fragment);

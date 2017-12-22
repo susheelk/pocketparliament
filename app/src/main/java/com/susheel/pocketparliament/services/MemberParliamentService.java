@@ -31,12 +31,13 @@ public class MemberParliamentService extends HttpService{
 
     /** This skips the filter to avoid double requests
      *
-     * @param name
+     * @param url
      * @return
      * @throws Exception
      */
-    public MemberParliament getUniqueByName(String name) throws Exception{
-        String response = doRequest(HttpService.OPEN_PARL, "politicians/"+name);
+    public MemberParliament getUniqueByUrl(String url) throws Exception{
+        String response = doRequest(HttpService.OPEN_PARL, url);
         return parser.objectFromJson(response);
     }
+
 }

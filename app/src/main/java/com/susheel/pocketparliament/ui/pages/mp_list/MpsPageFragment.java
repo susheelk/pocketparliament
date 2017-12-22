@@ -27,8 +27,16 @@ public class MpsPageFragment extends AbstractPageFragment {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private TabPagerAdapter adapter;
 
     public MpsPageFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(false);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,10 +47,25 @@ public class MpsPageFragment extends AbstractPageFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setRetainInstance(false);
         loadNavigation("MPs");
+        addPages(getView());
 
+    }
+
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
+
+    }
+
+    private void addPages(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        TabPagerAdapter adapter = new TabPagerAdapter(getFragmentManager());
+//        viewPager.setSaveFromParentEnabled(false);
+        adapter = new TabPagerAdapter(getChildFragmentManager());
 //        adapter.add("Favourites", new FavouriteMpTabFragment());
 //        adapter.add("All", new AllMpTabFragment());
         adapter.add("All", MpListFragment.forAll());
@@ -50,12 +73,17 @@ public class MpsPageFragment extends AbstractPageFragment {
         adapter.add("Government", MpListFragment.forGroup(FilterParameters.GOVERNMENT, true));
         adapter.add("Opposition", MpListFragment.forGroup(FilterParameters.GOVERNMENT, false));
         viewPager.setAdapter(adapter);
+//        viewPager.setSaveFromParentEnabled(false);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
 
+    }
 }
 
