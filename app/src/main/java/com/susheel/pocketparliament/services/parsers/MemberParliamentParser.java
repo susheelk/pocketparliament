@@ -70,6 +70,9 @@ public class MemberParliamentParser {
             if(link.get("note").asText().equals("Page on parl.gc.ca")) {
                 object.setParlUrl(link.get("url").asText());
             }
+            if (link.get("note").asText().equals("Official site")) {
+                object.setPersonalUrl(link.get("url").asText());
+            }
         }
 
         Riding riding = new Riding();

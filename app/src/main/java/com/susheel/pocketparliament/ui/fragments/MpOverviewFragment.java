@@ -1,6 +1,9 @@
 package com.susheel.pocketparliament.ui.fragments;
 
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,8 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.MemberParliament;
@@ -29,6 +35,10 @@ public class MpOverviewFragment extends Fragment {
 
     // Views
     private RecyclerView tweetsRecyclerView;
+    private Button callButton;
+    private Button emailButton;
+    private Button websiteButton;
+    private Button parlButton;
 
     public MpOverviewFragment() {}
 
@@ -49,10 +59,15 @@ public class MpOverviewFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
         buildTweetsView();
+        attachButtonClickListeners();
     }
 
     private void bindViews(View view) {
         tweetsRecyclerView = (RecyclerView) view.findViewById(R.id.tweets_recycler_view);
+        callButton = (Button) view.findViewById(R.id.call_button);
+        emailButton = (Button) view.findViewById(R.id.email_button);
+        websiteButton = (Button) view.findViewById(R.id.website_button);
+        parlButton = (Button) view.findViewById(R.id.parl_site_button);
     }
 
     private void buildTweetsView(){
@@ -72,6 +87,14 @@ public class MpOverviewFragment extends Fragment {
         tweetsRecyclerView.setAdapter(adapter);
     }
 
+    private void attachButtonClickListeners() {
+        ButtonClickListener listener = new ButtonClickListener();
+        callButton.setOnClickListener(listener);
+        emailButton.setOnClickListener(listener);
+        websiteButton.setOnClickListener(listener);
+        parlButton.setOnClickListener(listener);
+    }
+
     public static Fragment getForMemberParliament(MemberParliament memberParliament) {
         Fragment fragment = new MpOverviewFragment();
         Bundle args = new Bundle();
@@ -79,4 +102,26 @@ public class MpOverviewFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    class ButtonClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            try {
+                if (v.equals(callButton)) {
+                    startActivity(new Intent(Intent.ACTION_DIAL).setData(Uri.parse("tel:"+memberParliament.getPhoneNumber())));
+                } else if (v.equals(emailButton)) {
+                    String mailto = "mailto:"+memberParliament.getEmailAddress()+"?body="+Uri.encode("\nSent from the PocketParliament App");
+                    startActivity(new Intent(Intent.ACTION_SENDTO).setData(Uri.parse(mailto)));
+                } else if (v.equals(websiteButton)) {
+                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(memberParliament.getPersonalUrl())));
+                } else if (v.equals(parlButton)) {
+                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(memberParliament.getParlUrl())));
+                }
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(getContext(), "No Suitable app found for action", Toast.LENGTH_LONG);
+            }
+        }
+    }
+
 }
