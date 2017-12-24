@@ -93,6 +93,14 @@ public class MemberParliamentParser {
             }
         }
 
+        JsonNode otherInfoNode = root.path("other_info");
+        JsonNode twitterNameNode = otherInfoNode.get("twitter");
+        iterator = twitterNameNode.elements();
+        String twitterName = "";
+        while (iterator.hasNext()) {
+            twitterName = iterator.next().asText();
+        }
+
         object.setRiding(riding);
         object.setParty(party);
         object.setImageUrl(root.get("image").asText());
@@ -101,6 +109,8 @@ public class MemberParliamentParser {
         object.setEmailAddress(root.get("email").asText());
         object.setPhoneNumber(root.get("voice").asText());
         object.setImageUrl(root.get("image").asText());
+        object.setTwitterUsername(twitterName);
+
 
         return object;
     }

@@ -9,6 +9,21 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="GenericCard">
+        <item name="cardElevation">150dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="contentPadding">10dp</item>
+    </style>
+
+    <style name="SmallActionButton">
+        <item name="android:elevation">0dp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
+
+
     <!--<style name="Widget.MyApp.Toolbar.Solid" parent="Widget.AppCompat.ActionBar">-->
         <!--<item name="android:elevation" tools:ignore="NewApi">4dp</item>-->
     <!--</style>-->

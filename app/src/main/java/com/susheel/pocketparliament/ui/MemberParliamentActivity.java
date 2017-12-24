@@ -18,6 +18,7 @@ import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -28,6 +29,7 @@ import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
 import com.susheel.pocketparliament.ui.fragments.MpListFragment;
+import com.susheel.pocketparliament.ui.fragments.MpOverviewFragment;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.ColorUtils;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
@@ -42,6 +44,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
     private TextView nameTextView;
     private SimpleDraweeView image;
     private TextView blurb;
+    private ProgressBar progressBar;
 
     private MemberParliament memberParliament;
 
@@ -54,7 +57,6 @@ public class MemberParliamentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_parliament);
         bindViews();
-        setupTabs();
 
         Bundle arguments = getIntent().getExtras();
 
@@ -79,6 +81,11 @@ public class MemberParliamentActivity extends AppCompatActivity {
         titleBarLayout = (ViewGroup) findViewById(R.id.title_bar);
         image = (SimpleDraweeView) findViewById(R.id.drawee);
         blurb = (TextView) findViewById(R.id.blurb);
+
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
     }
 
     private void updateView() {
@@ -90,13 +97,10 @@ public class MemberParliamentActivity extends AppCompatActivity {
     }
 
     private void setupTabs(){
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
         adapter = new TabPagerAdapter(getSupportFragmentManager());
-        adapter.add("Overview", MpListFragment.forAll());
+
+        adapter.add("Overview", MpOverviewFragment.getForMemberParliament(memberParliament));
         viewPager.setAdapter(adapter);
-
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -108,6 +112,9 @@ public class MemberParliamentActivity extends AppCompatActivity {
             @Override
             public void onTaskSuccess(Class source, List<MemberParliament> data) {
                 memberParliament = data.get(0);
+                progressBar.setVisibility(View.INVISIBLE);
+                viewPager.setVisibility(View.VISIBLE);
+                setupTabs();
                 updateView();
             }
 
@@ -116,6 +123,8 @@ public class MemberParliamentActivity extends AppCompatActivity {
 
             }
         });
+        progressBar.setVisibility(View.VISIBLE);
+        viewPager.setVisibility(View.INVISIBLE);
         task.execute(filter);
     }
 

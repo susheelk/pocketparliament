@@ -1,0 +1,103 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.susheel.pocketparliament.ui.fragments.MpOverviewFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/GenericCard"
+                app:contentPadding="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/call_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/phone_icon"
+                        android:background="@drawable/ripple_bg"
+                        android:padding="9dp"
+                        android:layout_weight="1"
+                        android:text="@string/call" />
+
+                    <Button
+                        android:id="@+id/email_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/email_icon"
+                        android:background="@drawable/ripple_bg"
+                        android:padding="9dp"
+                        android:layout_weight="1"
+                        android:text="@string/email" />
+
+                    <Button
+                        android:id="@+id/website_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/website_icon"
+                        android:background="@drawable/ripple_bg"
+                        android:padding="9dp"
+                        android:layout_weight="1"
+                        android:text="@string/website" />
+
+                    <Button
+                        android:id="@+id/parl_site_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/suitcase_icon"
+                        android:background="@drawable/ripple_bg"
+                        android:padding="9dp"
+                        android:layout_weight="1"
+                        android:text="@string/parl_site" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/GenericCard"
+                android:layout_marginBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recent_tweets"
+                        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/tweets_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

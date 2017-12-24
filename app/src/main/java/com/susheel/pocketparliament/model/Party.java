@@ -1,6 +1,8 @@
 package com.susheel.pocketparliament.model;
 
 import android.graphics.Color;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
  * @author Susheel
  */
 
-public class Party {
+public class Party implements Parcelable {
 
     public static Party fromName(String name) {
         return new Party(name, 0); // TODO implement getting this from an external source
@@ -68,4 +70,34 @@ public class Party {
     public boolean isGovernment(){
         return this.government;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeByte(this.government ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.color);
+    }
+
+    protected Party(Parcel in) {
+        this.name = in.readString();
+        this.government = in.readByte() != 0;
+        this.color = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Party> CREATOR = new Parcelable.Creator<Party>() {
+        @Override
+        public Party createFromParcel(Parcel source) {
+            return new Party(source);
+        }
+
+        @Override
+        public Party[] newArray(int size) {
+            return new Party[size];
+        }
+    };
 }

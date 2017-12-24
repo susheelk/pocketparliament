@@ -1,5 +1,8 @@
 package com.susheel.pocketparliament.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.susheel.pocketparliament.services.MemberParliamentService;
 
 
@@ -8,7 +11,7 @@ import com.susheel.pocketparliament.services.MemberParliamentService;
  * @author Susheel
  */
 
-public class MemberParliament extends Person {
+public class MemberParliament extends Person implements Parcelable {
     private String parlUrl;
     private String personalUrl;
     private String imageUrl;
@@ -124,4 +127,46 @@ public class MemberParliament extends Person {
         member.setApiUrl(apiUrl);
         return member;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.parlUrl);
+        dest.writeString(this.personalUrl);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.apiUrl);
+        dest.writeString(this.twitterUsername);
+        dest.writeString(this.emailAddress);
+        dest.writeString(this.phoneNumber);
+        dest.writeParcelable(this.party, flags);
+        dest.writeParcelable(this.riding, flags);
+    }
+
+    protected MemberParliament(Parcel in) {
+        this.parlUrl = in.readString();
+        this.personalUrl = in.readString();
+        this.imageUrl = in.readString();
+        this.apiUrl = in.readString();
+        this.twitterUsername = in.readString();
+        this.emailAddress = in.readString();
+        this.phoneNumber = in.readString();
+        this.party = in.readParcelable(Party.class.getClassLoader());
+        this.riding = in.readParcelable(Riding.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<MemberParliament> CREATOR = new Parcelable.Creator<MemberParliament>() {
+        @Override
+        public MemberParliament createFromParcel(Parcel source) {
+            return new MemberParliament(source);
+        }
+
+        @Override
+        public MemberParliament[] newArray(int size) {
+            return new MemberParliament[size];
+        }
+    };
 }

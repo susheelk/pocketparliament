@@ -18,6 +18,7 @@ import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.services.PartyService;
 import com.susheel.pocketparliament.ui.pages.home.HomeFragment;
 import com.susheel.pocketparliament.ui.pages.mp_list.MpsPageFragment;
+import com.twitter.sdk.android.core.Twitter;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: move this to application class
         Fresco.initialize(this);
+        Twitter.initialize(getApplication());
         PartyService partyService = PartyService.getInstance();
         partyService.setInputStream(getResources().openRawResource(R.raw.parties));
         partyService.loadParties();

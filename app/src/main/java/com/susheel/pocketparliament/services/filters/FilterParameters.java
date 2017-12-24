@@ -16,6 +16,7 @@ public interface FilterParameters {
     String GROUP = "group";
     String GOVERNMENT = "govt";
     String PARTY = "party";
+    String MEMBER_PARLIAMENT = "mp";
 
     // Party Filters
     String COLOR = "color";
