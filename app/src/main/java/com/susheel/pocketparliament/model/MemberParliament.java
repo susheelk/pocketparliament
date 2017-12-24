@@ -88,7 +88,11 @@ public class MemberParliament extends Person {
     }
 
     public void setParty(Party party) {
-        this.party = party;
+        if (party != null){
+            this.party = party;
+        } else {
+            this.party = Party.fromName("Unknown");
+        }
     }
 
     public Riding getRiding() {
@@ -100,11 +104,16 @@ public class MemberParliament extends Person {
     }
 
     public String getBlurb() {
-        return getParty().getName()+" MP for "+ getRiding().getName()+", "+getRiding().getProvince();
+        try {
+            return getParty().getName()+" MP for "+ getRiding().getName()+", "+getRiding().getProvince();
+        } catch (Exception e) {
+            System.out.println(getName());
+        }
+        return null;
     }
 
 
-    public static MemberParliament forList(String name, String imageUrl, Riding riding, Party party){
+    public static MemberParliament forList(String name, String imageUrl, Riding riding, Party party, String apiUrl){
         MemberParliament member = new MemberParliament();
         String[] names = name.split(" ");
         member.setFirstName(names[0]);
@@ -112,6 +121,7 @@ public class MemberParliament extends Person {
         member.setImageUrl(imageUrl);
         member.setRiding(riding);
         member.setParty(party);
+        member.setApiUrl(apiUrl);
         return member;
     }
 }

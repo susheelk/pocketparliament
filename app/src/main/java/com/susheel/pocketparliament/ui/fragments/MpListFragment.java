@@ -2,6 +2,7 @@ package com.susheel.pocketparliament.ui.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -113,7 +114,7 @@ public class MpListFragment extends Fragment {
             public void onItemClick(Object object) {
                 MemberParliament memberParliament = (MemberParliament) object;
                 System.out.println(memberParliament.getName()+" Clicked");
-                gotoActivity(memberParliament.getApiUrl());
+                gotoActivity(memberParliament);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -144,11 +145,12 @@ public class MpListFragment extends Fragment {
         task.execute(filter);
     }
 
-    private void gotoActivity(String memberParliamentUrl){
-        Intent intent = new Intent(this.getActivity(), MemberParliamentActivity.class);
+    private void gotoActivity(MemberParliament memberParliament){
+        Intent intent = new Intent((MainActivity)getActivity(), MemberParliamentActivity.class);
         Bundle args = new Bundle();
+        args.putString(FilterParameters.URL, memberParliament.getApiUrl());
+        args.putInt(FilterParameters.COLOR, memberParliament.getParty().getColor());
         intent.putExtras(args);
-        args.putString(FilterParameters.URL, memberParliamentUrl);
         startActivity(intent);
     }
 

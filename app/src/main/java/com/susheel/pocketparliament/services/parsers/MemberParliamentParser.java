@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.model.Party;
 import com.susheel.pocketparliament.model.Riding;
+import com.susheel.pocketparliament.services.PartyService;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class MemberParliamentParser {
     }
 
     final ObjectMapper mapper = new ObjectMapper();
-
+    final PartyService partyService = PartyService.getInstance();
 
     public List<MemberParliament> listFromJson(String json) throws IOException {
         List<MemberParliament> list = new ArrayList<>();
@@ -48,8 +49,9 @@ public class MemberParliamentParser {
             String name = memberNode.get("name").asText();
             String imageUrl = memberNode.get("image").asText();
             String partyName = memberNode.path("current_party").path("short_name").get("en").asText();
+            String apiUrl = memberNode.get("url").asText();
 
-            list.add(MemberParliament.forList(name, imageUrl, riding, Party.fromName(partyName)));
+            list.add(MemberParliament.forList(name, imageUrl, riding, partyService.getPartyByName(partyName), apiUrl));
             System.out.println();
         }
 
@@ -70,9 +72,35 @@ public class MemberParliamentParser {
             }
         }
 
+        Riding riding = new Riding();
+        Party party = new Party();
+        JsonNode membershipsNode = root.get("memberships");
+        iterator = membershipsNode.elements();
+        while (iterator.hasNext()) {
+            JsonNode membership = iterator.next();
+            try {
+                JsonNode ridingNode = membership.path("riding");
+                String province = ridingNode.get("province").asText();
+                JsonNode nameNode = ridingNode.path("name");
+                String name = nameNode.get("en").asText();
+                riding = Riding.forList(name, province);
+
+                JsonNode partyNode = membership.path("party");
+                JsonNode partyNameNode = partyNode.path("short_name").get("en");
+                party = partyService.getPartyByName(partyNameNode.asText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        object.setRiding(riding);
+        object.setParty(party);
         object.setImageUrl(root.get("image").asText());
         object.setFirstName(root.get("given_name").asText());
         object.setLastName(root.get("family_name").asText());
+        object.setEmailAddress(root.get("email").asText());
+        object.setPhoneNumber(root.get("voice").asText());
+        object.setImageUrl(root.get("image").asText());
 
         return object;
     }

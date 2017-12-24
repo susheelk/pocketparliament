@@ -19,28 +19,21 @@ import java.util.List;
 public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParliament>, Void, List<MemberParliament>>{
 
     private MemberParliamentService service = MemberParliamentService.getInstance();
-    private static List<MemberParliament>  cache = null;
+    private static List<MemberParliament> cache = null; // This serves as an informal RAM cache
 
     @Override
     protected List<MemberParliament> doInBackground(Filter<MemberParliament>... params) {
         Log.i("GetMemberParliamentTask", "doInBackground");
-
-        if (GetMemberParliamentTask.cache != null) {
-            return cache;
-        }
-
         try {
             MemberParliamentFilter filter = (MemberParliamentFilter)params[0];
             if (filter != null) {
-//                if (filter.isForOne()){
-//                    return Arrays.asList(service.getUniqueByName(filter.getConstraint(FilterParameters.NAME).toString()));
-//                }
                 if (filter.containsUrl()) {
-                    cache =  Arrays.asList(service.getUniqueByUrl(filter.getConstraint(FilterParameters.URL).toString()));
-
+                    return Arrays.asList(service.getUniqueByUrl(filter.getConstraint(FilterParameters.URL).toString()));
                 }
-                cache =  service.get(params[0]);
-                return cache;
+                if (cache == null) {
+                    cache =  service.get();
+                }
+                return filter.doFilter(cache);
             }
             throw new IllegalArgumentException("No filter was provided");
         } catch (Exception e) {
@@ -48,12 +41,8 @@ public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParl
             Log.e("ERROR", e.getMessage());
             getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());
         }
-
         return null;
     }
-
-
-
 
     @Override
     protected void onPostExecute(List<MemberParliament> list) {

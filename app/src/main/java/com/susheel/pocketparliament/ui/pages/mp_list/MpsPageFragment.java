@@ -51,6 +51,7 @@ public class MpsPageFragment extends AbstractPageFragment {
         loadNavigation("MPs");
         addPages(getView());
 
+
     }
 
 

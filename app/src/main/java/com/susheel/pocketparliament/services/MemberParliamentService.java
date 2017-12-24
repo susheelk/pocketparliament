@@ -22,11 +22,11 @@ public class MemberParliamentService extends HttpService{
 
     private MemberParliamentParser parser = MemberParliamentParser.getInstance();
 
-    public List<MemberParliament> get(Filter<MemberParliament> filter) throws Exception{
+    public List<MemberParliament> get() throws Exception{
         String response = doRequest(HttpService.OPEN_PARL, "politicians");
         List<MemberParliament> data =  parser.listFromJson(response);
 
-        return filter.doFilter(data);
+        return data;
     }
 
     /** This skips the filter to avoid double requests

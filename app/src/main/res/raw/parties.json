@@ -1,0 +1,8 @@
+[
+  {"name": "Conservative", "government": false, "color": "#123486"},
+  {"name": "Liberal", "government": true, "color": "#c12900"},
+  {"name": "NDP", "government": false, "color": "#d8820a"},
+  {"name": "Bloc", "government": false, "color": "#4286f4"},
+  {"name": "Green", "government": false, "color": "#00bc1f"},
+  {"name": "Independent", "government": false, "color": "#777b84"}
+]

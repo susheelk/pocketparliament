@@ -21,6 +21,8 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         super(filters);
     }
 
+    public MemberParliamentFilter(){}
+
     @Override
     public List<MemberParliament> doFilter(List<MemberParliament> data) {
 //        System.out.println("Initiated Filters");
