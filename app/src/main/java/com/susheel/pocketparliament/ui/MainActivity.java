@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.services.PartyService;
+import com.susheel.pocketparliament.ui.pages.bills.BillsPageFragment;
 import com.susheel.pocketparliament.ui.pages.home.HomeFragment;
 import com.susheel.pocketparliament.ui.pages.mp_list.MpsPageFragment;
 import com.twitter.sdk.android.core.Twitter;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.mp_menu_link: loadPage(new MpsPageFragment(), true);
                         break;
+                    case R.id.bills_menu_link: loadPage(new BillsPageFragment(), true);
 
                 }
                 closeNavigationDrawer();

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="@drawable/ripple_bg"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:minHeight="120dp">
+
+    <TextView
+        android:id="@+id/bill_number"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="X-888"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/bill_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bill_number"
+        android:text="FEB 31, 2000"/>
+
+    <TextView
+        android:id="@+id/bill_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/bill_number"
+        android:text="A bill that does a bunch of stuff some of which has questionable legality"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bill_title"
+        android:layout_toRightOf="@id/bill_date"
+        android:paddingTop="2dp"
+        android:text="Referred to some random subcommittee"/>
+
+</RelativeLayout>

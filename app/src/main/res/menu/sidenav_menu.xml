@@ -12,5 +12,11 @@
         android:icon="@drawable/people">
     </item>
 
+    <item
+        android:id="@+id/bills_menu_link"
+        android:title="Bills"
+        android:icon="@drawable/ic_subject">
+    </item>
+
 
 </menu>

@@ -17,6 +17,7 @@ import java.util.Map;
 
 abstract class HttpService {
     public static final String OPEN_PARL = "https://api.openparliament.ca/";
+    public static final String BILLSEARCH = "https://billsearch.herokuapp.com/g";
 
     private String stringifyParameters(Map<String, String> parameters) {
         StringBuffer buffer = new StringBuffer("?");
