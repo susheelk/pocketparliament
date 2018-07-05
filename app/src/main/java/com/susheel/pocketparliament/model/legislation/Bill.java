@@ -4,6 +4,8 @@ package com.susheel.pocketparliament.model.legislation;
 
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.susheel.pocketparliament.model.Person;
 
 import java.util.Date;
@@ -13,6 +15,7 @@ import java.util.List;
  * @author Susheel Kona
  */
 @JsonFilter("includer")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Bill {
     private int id;
     private String session; // ie 42-1
@@ -32,6 +35,8 @@ public class Bill {
 
     private boolean law;
 
+    public Bill(){}
+
     public int getId() {
         return id;
     }
@@ -48,7 +53,6 @@ public class Bill {
     public void setSession(String session) {
         this.session = session;
     }
-
 
     public void setNumber(String number) {
         this.number = number;
@@ -137,4 +141,6 @@ public class Bill {
     public void setLaw(boolean law) {
         this.law = law;
     }
+
+
 }

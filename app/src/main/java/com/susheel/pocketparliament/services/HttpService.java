@@ -17,7 +17,7 @@ import java.util.Map;
 
 abstract class HttpService {
     public static final String OPEN_PARL = "https://api.openparliament.ca/";
-    public static final String BILLSEARCH = "https://billsearch.herokuapp.com/g";
+    public static final String BILLSEARCH = "https://billsearch.herokuapp.com/";
 
     private String stringifyParameters(Map<String, String> parameters) {
         StringBuffer buffer = new StringBuffer("?");
@@ -41,7 +41,7 @@ abstract class HttpService {
 
         int statusCode = connection.getResponseCode();
 
-        if (statusCode == HttpURLConnection.HTTP_OK) {
+        if (statusCode == HttpURLConnection.HTTP_OK || statusCode == 202) {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuffer response = new StringBuffer();
             String line;
