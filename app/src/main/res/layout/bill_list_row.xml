@@ -10,15 +10,17 @@
 
     <TextView
         android:id="@+id/bill_number"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:text="X-888"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
 
     <TextView
         android:id="@+id/bill_date"
-        android:layout_width="100dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bill_number"
         android:text="FEB 31, 2000"/>
@@ -29,9 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/bill_number"
         android:text="A bill that does a bunch of stuff some of which has questionable legality"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/event"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bill_title"

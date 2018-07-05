@@ -20,7 +20,7 @@ public class BillParser {
     }
 
     private final ObjectMapper mapper = new ObjectMapper(){{
-        setDateFormat(new SimpleDateFormat("YYYY-mm-dd"));
+        setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
     }};
 
     public List<Bill> listFromJson(String json) throws IOException {

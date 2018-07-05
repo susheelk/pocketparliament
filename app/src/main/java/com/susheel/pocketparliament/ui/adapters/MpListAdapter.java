@@ -84,13 +84,6 @@ public class MpListAdapter extends RecyclerView.Adapter<MpListAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         MemberParliament item = list.get(position);
         holder.updateData(item);
-//        holder.name.setText(item.getName());
-//        holder.description.setText(item.getBlurb());
-//
-//
-//        holder.image.setImageURI(item.getImageUrl());
-//        holder.image.getHierarchy().setActualImageFocusPoint(new PointF(0.5f, 0.35f));
-//        Glide.with(context).load("http://i.imgur.com/DvpvklR.png");
     }
 
     @Override

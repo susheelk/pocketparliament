@@ -12,7 +12,7 @@ public class BillService extends HttpService {
     }
 
     public List<Bill> get() throws Exception{
-        String response = doRequest(HttpService.BILLSEARCH, "bills?include=all");
+        String response = doRequest(HttpService.BILLSEARCH, "bills?include=number,title,lastMajorEvent,dateLastUpdated&size=50");
         List<Bill> list = BillParser.getInstance().listFromJson(response);
         return list;
     }

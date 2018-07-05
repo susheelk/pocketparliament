@@ -4,8 +4,9 @@
     <color name="colorPrimaryDark">#003d00</color>
     <color name="colorAccent">#629749</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
     <color name="test">#123486</color>
 
-
+    <color name="senate">#8c010c</color>
 </resources>
