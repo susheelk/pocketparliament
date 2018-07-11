@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">PocketParliament</string>
+    <string name="app_name_short">PocketParl</string>
+
+    <string name="search_hint">Search MPs, Bills, Committees</string>
+
 
     <string name="com.twitter.sdk.android.CONSUMER_KEY">O8CxZsCPK7v6iIeUng9k6lwPn </string>
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">7O1VaCQerpOPjwYsj6SrCcF4oCaXxmlmTnmns0KudXVY878Laa</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

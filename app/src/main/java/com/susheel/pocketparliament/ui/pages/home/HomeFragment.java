@@ -19,6 +19,7 @@ public class HomeFragment extends AbstractPageFragment {
 
 
     public HomeFragment() {
+
     }
 
 
@@ -47,6 +48,7 @@ public class HomeFragment extends AbstractPageFragment {
 
             }
         });
+
 
     }
 

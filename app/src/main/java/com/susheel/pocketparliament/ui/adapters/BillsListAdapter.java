@@ -42,6 +42,9 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
             number.setText(bill.getNumber());
             if(bill.getNumber().startsWith("S")){
                 number.setTextColor(context.getResources().getColor(R.color.senate));
+                System.out.println(bill.getNumber()+" red");
+            } else {
+                number.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
             }
 
             title.setText(bill.getTitle());

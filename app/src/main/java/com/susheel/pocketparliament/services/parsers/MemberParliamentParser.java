@@ -96,6 +96,8 @@ public class MemberParliamentParser {
             }
         }
 
+
+
         JsonNode otherInfoNode = root.path("other_info");
         JsonNode twitterNameNode = otherInfoNode.get("twitter");
         iterator = twitterNameNode.elements();
@@ -103,6 +105,11 @@ public class MemberParliamentParser {
         while (iterator.hasNext()) {
             twitterName = iterator.next().asText();
         }
+
+        JsonNode idsNode = otherInfoNode.get("parl_id");
+        iterator = idsNode.elements();
+        int id = iterator.next().asInt();
+        object.setId(id);
 
         object.setRiding(riding);
         object.setParty(party);

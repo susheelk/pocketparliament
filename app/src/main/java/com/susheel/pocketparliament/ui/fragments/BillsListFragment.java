@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.legislation.Bill;
@@ -45,7 +46,6 @@ public class BillsListFragment extends Fragment {
 
 
     public BillsListFragment() {
-
     }
 
 
@@ -59,11 +59,13 @@ public class BillsListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         View view = getView();
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
+//        view.setFocusableInTouchMode(true);
+//        view.requestFocus();
         bindViews(view);
         getData(view);
     }
+
+
 
     @Override
     public void onPause() {
@@ -109,6 +111,11 @@ public class BillsListFragment extends Fragment {
                 bills = data;
                 setUpRecyclerView();
                 swipeRefreshLayout.setRefreshing(false);
+
+                if(data.size() == 0){
+                    Log.i("empty", "empty");
+                    Toast.makeText(getContext(), "No bills", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -117,6 +124,78 @@ public class BillsListFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        task.execute();
+        task.execute(getArguments().getString("params"));
     }
+
+    /** Returns list of recent bills
+     *
+     * @return
+     */
+    public static Fragment forRecent() {
+        Bundle bundle = new Bundle();
+        bundle.putString("params", "?include=number,title,lastMajorEvent,dateLastUpdated&size=900");
+        Fragment fragment = new BillsListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    /** Returns list of bills of a certain sponsor
+     *
+     * @param name Full name of Sponsor
+     * @return
+     */
+    public static Fragment forSponsor(String name) {
+        Bundle bundle = new Bundle();
+        name = name.replace(" ", "_");
+        bundle.putString("params", "?include=number,title,lastMajorEvent,sponsor,dateLastUpdated&size=50&sponsor_name="+name);
+
+        Fragment fragment = new BillsListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    /** Returns list of bills based on whether they have passed
+     *
+     * @param law Whether a bill is law yet or not
+     * @return
+     */
+    public static Fragment forLaw(boolean law) {
+        Bundle bundle = new Bundle();
+        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=500&law="+law);
+
+        Fragment fragment = new BillsListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    /** Returns bills of a certain status
+     *
+     * @param status
+     * @return
+     */
+    public static Fragment forStatus(String status) {
+        Bundle bundle = new Bundle();
+        status = status.replace(" ", "_");
+        bundle.putString("params", "?include=number,title,lastMajorEvent,dateLastUpdated&size=50&bill_state="+status);
+
+        Fragment fragment = new BillsListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    /** Returns new bills
+     *
+     * @param bnew
+     * @return
+     */
+    public static Fragment forNew(boolean bnew) {
+        Bundle bundle = new Bundle();
+        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=50&new="+bnew);
+
+        Fragment fragment = new BillsListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+
 }

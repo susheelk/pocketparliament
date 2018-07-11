@@ -7,14 +7,14 @@ import com.susheel.pocketparliament.services.BillService;
 
 import java.util.List;
 
-public class GetBillsTask extends AbstractAsyncTask<Void, Void, List<Bill>> {
+public class GetBillsTask extends AbstractAsyncTask<String, Void, List<Bill>> {
 
     private final BillService service = BillService.getInstance();
 
     @Override
-    protected List<Bill> doInBackground(Void... voids) {
+    protected List<Bill> doInBackground(String... args) {
         try {
-            return service.get();
+            return service.get(args[0]);
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
             getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());

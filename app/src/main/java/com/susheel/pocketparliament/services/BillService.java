@@ -11,8 +11,8 @@ public class BillService extends HttpService {
         return instance;
     }
 
-    public List<Bill> get() throws Exception{
-        String response = doRequest(HttpService.BILLSEARCH, "bills?include=number,title,lastMajorEvent,dateLastUpdated&size=50");
+    public List<Bill> get(String params) throws Exception{
+        String response = doRequest(HttpService.BILLSEARCH, "bills"+params);
         List<Bill> list = BillParser.getInstance().listFromJson(response);
         return list;
     }

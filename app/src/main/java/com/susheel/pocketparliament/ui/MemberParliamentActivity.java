@@ -28,6 +28,7 @@ import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
+import com.susheel.pocketparliament.ui.fragments.BillsListFragment;
 import com.susheel.pocketparliament.ui.fragments.MpListFragment;
 import com.susheel.pocketparliament.ui.fragments.MpOverviewFragment;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
@@ -100,6 +101,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
         adapter = new TabPagerAdapter(getSupportFragmentManager());
 
         adapter.add("Overview", MpOverviewFragment.getForMemberParliament(memberParliament));
+        adapter.add("Bills", BillsListFragment.forSponsor(memberParliament.getName()));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
