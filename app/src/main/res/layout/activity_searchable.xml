@@ -7,16 +7,61 @@
     android:orientation="vertical"
     tools:context=".ui.SearchableActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingTop="75dp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/mps_search_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Base.Theme.AppCompat.Light">
-            <android.support.v7.widget.SearchView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-            </android.support.v7.widget.SearchView>
+        android:text="@string/MPs"
+        android:paddingTop="15dp"
+        android:paddingLeft="7dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        style="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
+        android:visibility="gone"/>
 
-    </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground">
+        <FrameLayout
+            android:id="@+id/mps_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </FrameLayout>
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/bills_search_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Bills"
+        android:paddingTop="15dp"
+        android:paddingLeft="7dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        style="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/bills_content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </FrameLayout>
+
 
 </LinearLayout>

@@ -45,6 +45,7 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         return data;
     }
 
+
     /** Check if filter will return only one object. Useful for performance reasons
      *
      * @return
@@ -60,6 +61,8 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
     public boolean containsUrl() {
         return filters != null ? filters.containsKey(FilterParameters.URL) : false;
     }
+
+
 
     @Override
     public void fromBundle(Bundle bundle) {

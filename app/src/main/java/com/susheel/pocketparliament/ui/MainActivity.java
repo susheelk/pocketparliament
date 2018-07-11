@@ -3,6 +3,7 @@ package com.susheel.pocketparliament.ui;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -105,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_options, menu);
         MenuItem searchItem = menu.findItem(R.id.search_button);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint("Search MPs, Bills, Committees...");
-
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        ComponentName componentName = new ComponentName(getApplicationContext(), SearchableActivity.class);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+//        searchView.setQueryHint("Search MPs, Bills, Committees...");
+//
+//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        ComponentName componentName = new ComponentName(getApplicationContext(), SearchableActivity.class);
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName));
         return true;
     }
 
@@ -118,12 +119,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_button:
-                onSearchRequested();
+                openSearchActivity();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    protected void openSearchActivity(){
+        Intent intent = new Intent(this, SearchableActivity.class);
+        startActivity(intent);
     }
 
     protected void closeNavigationDrawer() {

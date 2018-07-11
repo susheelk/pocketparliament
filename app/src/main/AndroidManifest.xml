@@ -28,7 +28,8 @@
 
         <activity android:name=".ui.MemberParliamentActivity" />
 
-        <activity android:name=".ui.SearchableActivity">
+        <activity android:name=".ui.SearchableActivity"
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>

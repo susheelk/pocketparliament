@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.susheel.pocketparliament.model.Person;
+import com.susheel.pocketparliament.model.Searchable;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @JsonFilter("includer")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Bill {
+public class Bill implements Searchable{
     private int id;
     private String session; // ie 42-1
     private String number; //ie C-2
@@ -142,5 +143,8 @@ public class Bill {
         this.law = law;
     }
 
-
+    @Override
+    public boolean contains(String query) {
+        return (title.contains(query) || number.contains(query) || id == Integer.parseInt(query));
+    }
 }

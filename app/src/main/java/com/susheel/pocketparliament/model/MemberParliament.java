@@ -11,7 +11,7 @@ import com.susheel.pocketparliament.services.MemberParliamentService;
  * @author Susheel
  */
 
-public class MemberParliament extends Person implements Parcelable {
+public class MemberParliament extends Person implements Parcelable, Searchable {
     private String parlUrl;
     private String personalUrl;
     private String imageUrl;
@@ -169,4 +169,9 @@ public class MemberParliament extends Person implements Parcelable {
             return new MemberParliament[size];
         }
     };
+
+    @Override
+    public boolean contains(String query) {
+        return (getName().contains(query) || getRiding().getName().contains(query));
+    }
 }

@@ -197,5 +197,19 @@ public class BillsListFragment extends Fragment {
         return fragment;
     }
 
+    /** Returns Bills of a certain search query
+     *
+     * @param query
+     * @return
+     */
+    public static Fragment forSearch(String query){
+        Bundle bundle = new Bundle();
+        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=50&query="+query);
+
+        Fragment fragment = new BillsListFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
 
 }

@@ -180,6 +180,8 @@ public class MpListFragment extends Fragment {
         return withFilterMap(map);
     }
 
+
+
     /** For a fragment with specified filters. Use instead of forAll() and forGroup()
      *
      * @param map
