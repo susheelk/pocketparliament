@@ -181,6 +181,16 @@ public class MpListFragment extends Fragment {
     }
 
 
+    /** Searches mps based on query
+     *
+     * @param query
+     * @return
+     */
+    public static Fragment forSearch(String query) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(FilterParameters.QUERY, query);
+        return withFilterMap(map);
+    }
 
     /** For a fragment with specified filters. Use instead of forAll() and forGroup()
      *

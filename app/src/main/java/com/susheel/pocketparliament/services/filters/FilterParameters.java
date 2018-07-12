@@ -11,6 +11,7 @@ public interface FilterParameters {
     String NAME = "name";
     String FOR_ONE = "for_one";
     String URL = "url";
+    String QUERY = "query";
 
     // MemberParliament Filters
     String GROUP = "group";

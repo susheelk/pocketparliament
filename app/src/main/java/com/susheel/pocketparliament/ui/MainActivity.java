@@ -9,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -122,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
                 openSearchActivity();
                 return true;
 
+            case android.R.id.home:
+                openDrawer();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -134,5 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
     protected void closeNavigationDrawer() {
         drawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    public void openDrawer(){
+        drawerLayout.openDrawer(GravityCompat.START);
     }
 }

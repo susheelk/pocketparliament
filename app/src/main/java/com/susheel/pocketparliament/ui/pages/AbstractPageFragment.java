@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.ui.MainActivity;
 
 /**
  * Created by Susheel on 11/20/2017.

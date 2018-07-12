@@ -35,12 +35,7 @@ public class SearchableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchable);
 
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            setTitle("Search results for \""+query+"\"");
-        }
-        setTitle("Search results");
+        setTitle("");
 
         bindViews();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,13 +65,12 @@ public class SearchableActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                setTitle("Search results for \""+query+"\"");
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                setTitle("Search results for \""+query+"\"");
 
                 mpSearchTitle.setVisibility(View.GONE);
                 billSearchTitle.setVisibility(View.GONE);
@@ -93,14 +87,30 @@ public class SearchableActivity extends AppCompatActivity {
                 return false;
             }
         });
-//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
 //            @Override
-//            public boolean onClose() {
-//                onBackPressed();
-//                onBackPressed();
+//            public boolean onMenuItemActionExpand(MenuItem item) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem item) {
 //                return false;
 //            }
 //        });
+        MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                onBackPressed();
+                item.setVisible(false);
+                return true;
+            }
+        });
         return true;
     }
 

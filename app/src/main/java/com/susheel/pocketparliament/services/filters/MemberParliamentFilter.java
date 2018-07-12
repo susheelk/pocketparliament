@@ -41,10 +41,12 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         switch (value.toString()) {
             case FilterParameters.GOVERNMENT:
                 return Stream.of(data).filter(member-> member.getParty().isGovernment()).collect(Collectors.toList());
+
         }
         return data;
     }
 
+//    private List<Member>
 
     /** Check if filter will return only one object. Useful for performance reasons
      *
