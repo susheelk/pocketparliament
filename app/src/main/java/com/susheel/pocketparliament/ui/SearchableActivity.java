@@ -1,15 +1,12 @@
 package com.susheel.pocketparliament.ui;
 
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.susheel.pocketparliament.R;
-import com.susheel.pocketparliament.ui.fragments.BillsListFragment;
-import com.susheel.pocketparliament.ui.fragments.MpListFragment;
-import com.susheel.pocketparliament.ui.pages.bills.BillsPageFragment;
+import com.susheel.pocketparliament.ui.fragments.bills.BillsListFragment;
 
 public class SearchableActivity extends AppCompatActivity {
 

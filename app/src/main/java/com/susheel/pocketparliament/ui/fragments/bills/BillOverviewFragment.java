@@ -1,4 +1,4 @@
-package com.susheel.pocketparliament.ui.fragments;
+package com.susheel.pocketparliament.ui.fragments.bills;
 
 
 import android.os.Bundle;
@@ -8,14 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.ui.BillActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BillOverview extends Fragment {
+public class BillOverviewFragment extends Fragment {
 
 
-    public BillOverview() {
+    public BillOverviewFragment() {
         // Required empty public constructor
     }
 
@@ -23,8 +24,15 @@ public class BillOverview extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_bill_overview, container, false);
+    }
+
+    public static Fragment forBill(int id) {
+        Fragment fragment = new BillOverviewFragment();
+        Bundle args = new Bundle();
+        args.putInt(BillActivity.ID, id);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 }

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
-import com.susheel.pocketparliament.ui.fragments.BillsListFragment;
+import com.susheel.pocketparliament.ui.fragments.bills.BillsListFragment;
 import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
 
 /**

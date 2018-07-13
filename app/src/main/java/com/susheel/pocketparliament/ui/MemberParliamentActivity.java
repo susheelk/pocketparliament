@@ -1,23 +1,16 @@
 package com.susheel.pocketparliament.ui;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,9 +21,8 @@ import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
-import com.susheel.pocketparliament.ui.fragments.BillsListFragment;
-import com.susheel.pocketparliament.ui.fragments.MpListFragment;
-import com.susheel.pocketparliament.ui.fragments.MpOverviewFragment;
+import com.susheel.pocketparliament.ui.fragments.bills.BillsListFragment;
+import com.susheel.pocketparliament.ui.fragments.mps.MpOverviewFragment;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.ColorUtils;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;

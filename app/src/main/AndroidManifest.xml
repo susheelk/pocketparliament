@@ -44,7 +44,10 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".ui.BillActivity"></activity>
+        <activity
+            android:name=".ui.BillActivity"
+            android:theme="@style/AppThemeNoActionBar">
+        </activity>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import com.susheel.pocketparliament.R;
 
 import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
-import com.susheel.pocketparliament.ui.fragments.MpListFragment;
+import com.susheel.pocketparliament.ui.fragments.mps.MpListFragment;
 import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
 
 
