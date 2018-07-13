@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.ui.fragments.BillsListFragment;
+import com.susheel.pocketparliament.ui.fragments.MpListFragment;
 import com.susheel.pocketparliament.ui.pages.bills.BillsPageFragment;
 
 public class SearchableActivity extends AppCompatActivity {
@@ -118,6 +119,7 @@ public class SearchableActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.bills_content_frame, BillsListFragment.forSearch(query));
+//        transaction.replace(R.id.mps_content_frame, MpListFragment.forSearch(query));
         transaction.commit();
 
     }

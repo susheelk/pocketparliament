@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.susheel.pocketparliament.model.MemberParliament;
 
 import java.util.Collections;
@@ -30,6 +31,7 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
             for(Map.Entry<String, Object> entry: filters.entrySet()) {
                 switch (entry.getKey()) {
                     case FilterParameters.GROUP: data = group(data, entry.getValue()); break;
+                    case FilterParameters.QUERY: data = forQuery(data, entry.getValue()); break;
                 }
                 continue;
             }
@@ -46,7 +48,9 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         return data;
     }
 
-//    private List<Member>
+    private List<MemberParliament> forQuery(List<MemberParliament> data, Object value) {
+        return Stream.of(data).filter(member -> member.contains(value.toString())).collect(Collectors.toList());
+    }
 
     /** Check if filter will return only one object. Useful for performance reasons
      *

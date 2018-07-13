@@ -18,7 +18,9 @@
         <!-- <meta-data android:name="android.app.default_searchable" -->
         <!-- android:value=".SearchableActivity" /> -->
 
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,16 +28,23 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MemberParliamentActivity" />
+        <activity
+            android:name=".ui.MemberParliamentActivity"
+            android:theme="@style/AppThemeNoActionBar"/>
 
-        <activity android:name=".ui.SearchableActivity"
+        <activity
+            android:name=".ui.SearchableActivity"
             android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
+
+        <activity android:name=".ui.BillActivity"></activity>
     </application>
 
 </manifest>

@@ -28,6 +28,8 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         private TextView date;
         private TextView event;
 
+        private Bill bill;
+
         public ViewHolder(View itemView) {
             super(itemView);
             number = (TextView) itemView.findViewById(R.id.bill_number);
@@ -39,6 +41,7 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         }
 
         public void updateData(Bill bill) {
+            this.bill = bill;
             number.setText(bill.getNumber());
             if(bill.getNumber().startsWith("S")){
                 number.setTextColor(context.getResources().getColor(R.color.senate));
@@ -57,6 +60,7 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         @Override
         public void onClick(View view) {
             Log.i("CLICK", number.getText().toString());
+            listener.onItemClick(bill);
         }
     }
 

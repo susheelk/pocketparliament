@@ -1,6 +1,7 @@
 package com.susheel.pocketparliament.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,11 +20,14 @@ import android.widget.Toast;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.legislation.Bill;
+import com.susheel.pocketparliament.ui.BillActivity;
+import com.susheel.pocketparliament.ui.MainActivity;
 import com.susheel.pocketparliament.ui.adapters.BillsListAdapter;
 import com.susheel.pocketparliament.ui.adapters.RecyclerViewListener;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.GetBillsTask;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -95,7 +99,7 @@ public class BillsListFragment extends Fragment {
         adapter.addRecyclerViewListener(new RecyclerViewListener() {
             @Override
             public void onItemClick(Object object) {
-
+                goToActivity((Bill)(object));
             }
         });
         recyclerView.setAdapter(adapter);
@@ -125,6 +129,16 @@ public class BillsListFragment extends Fragment {
             }
         });
         task.execute(getArguments().getString("params"));
+    }
+
+    private void goToActivity(Bill bill){
+        Log.i("GOTO", "bill");
+        Intent intent = new Intent((MainActivity)getActivity(), BillActivity.class);
+        Bundle args = new Bundle();
+        args.putString(BillActivity.NUMBER, bill.getNumber());
+        args.putString(BillActivity.TITLE, bill.getTitle());
+        intent.putExtras(args);
+        startActivity(intent);
     }
 
     /** Returns list of recent bills

@@ -11,6 +11,10 @@ public class GetBillsTask extends AbstractAsyncTask<String, Void, List<Bill>> {
 
     private final BillService service = BillService.getInstance();
 
+    public GetBillsTask() {
+        super();
+    }
+
     @Override
     protected List<Bill> doInBackground(String... args) {
         try {

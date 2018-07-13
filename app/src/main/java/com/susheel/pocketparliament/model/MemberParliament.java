@@ -172,6 +172,6 @@ public class MemberParliament extends Person implements Parcelable, Searchable {
 
     @Override
     public boolean contains(String query) {
-        return (getName().contains(query) || getRiding().getName().contains(query));
+        return (getName().contains(query));
     }
 }
