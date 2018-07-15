@@ -79,6 +79,13 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         this.listener = listener;
     }
 
+    public void update(List<Bill> list){
+        this.list.clear();
+        notifyDataSetChanged();
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_list_row, parent, false);

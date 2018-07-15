@@ -30,4 +30,8 @@ public class BillParser {
         String arrString = data.toString();
         return Arrays.asList(mapper.readValue(arrString, Bill[].class));
     }
+
+    public Bill objectFromJson(String json) throws IOException {
+        return mapper.readValue(json, Bill.class);
+    }
 }

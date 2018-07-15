@@ -142,7 +142,7 @@ public class MpListFragment extends Fragment {
     }
 
     private void gotoActivity(MemberParliament memberParliament){
-        Intent intent = new Intent((MainActivity)getActivity(), MemberParliamentActivity.class);
+        Intent intent = new Intent(getActivity(), MemberParliamentActivity.class);
         Bundle args = new Bundle();
         args.putString(FilterParameters.URL, memberParliament.getApiUrl());
         args.putInt(FilterParameters.COLOR, memberParliament.getParty().getColor());
@@ -185,6 +185,17 @@ public class MpListFragment extends Fragment {
     public static Fragment forSearch(String query) {
         Map<String, Object> map = new HashMap<>();
         map.put(FilterParameters.QUERY, query);
+        return withFilterMap(map);
+    }
+
+    /** For one MP
+     *
+     * @param person
+     * @return
+     */
+    public static Fragment forOne(String name) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(FilterParameters.NAME, name);
         return withFilterMap(map);
     }
 

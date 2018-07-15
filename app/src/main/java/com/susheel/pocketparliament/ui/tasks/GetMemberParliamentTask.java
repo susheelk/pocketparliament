@@ -18,7 +18,7 @@ import java.util.List;
 
 public class GetMemberParliamentTask extends AbstractAsyncTask<Filter<MemberParliament>, Void, List<MemberParliament>>{
 
-    private MemberParliamentService service = MemberParliamentService.getInstance();
+    private final MemberParliamentService service = MemberParliamentService.getInstance();
     private static List<MemberParliament> cache = null; // This serves as an informal RAM cache
 
     @Override

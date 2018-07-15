@@ -11,10 +11,16 @@ public class BillService extends HttpService {
         return instance;
     }
 
+
     public List<Bill> get(String params) throws Exception{
         String response = doRequest(HttpService.BILLSEARCH, "bills"+params);
         List<Bill> list = BillParser.getInstance().listFromJson(response);
         return list;
+    }
+
+    public Bill getById(int id) throws Exception {
+        String response = doRequest(HttpService.BILLSEARCH, "bills/"+id);
+        return BillParser.getInstance().objectFromJson(response);
     }
 
 

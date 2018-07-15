@@ -32,6 +32,7 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
                 switch (entry.getKey()) {
                     case FilterParameters.GROUP: data = group(data, entry.getValue()); break;
                     case FilterParameters.QUERY: data = forQuery(data, entry.getValue()); break;
+                    case FilterParameters.NAME: data = name(data, entry.getValue()); break;
                 }
                 continue;
             }
@@ -50,6 +51,10 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
 
     private List<MemberParliament> forQuery(List<MemberParliament> data, Object value) {
         return Stream.of(data).filter(member -> member.contains(value.toString())).collect(Collectors.toList());
+    }
+
+    private List<MemberParliament> name(List<MemberParliament> data, Object value){
+        return Stream.of(data).filter(member -> member.getName().matches(value.toString())).collect(Collectors.toList());
     }
 
     /** Check if filter will return only one object. Useful for performance reasons

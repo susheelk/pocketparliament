@@ -8,5 +8,7 @@
 
     <color name="test">#123486</color>
 
+    <color name="link">#0000EE</color>
+
     <color name="senate">#8c010c</color>
 </resources>
