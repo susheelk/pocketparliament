@@ -13,6 +13,7 @@ import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.legislation.Bill;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.ViewHolder> {
@@ -64,8 +65,8 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         }
     }
 
-    public BillsListAdapter(List<Bill> list, Context context) {
-        this.list = list;
+    public BillsListAdapter(Context context) {
+        this.list = new ArrayList<>();
         this.context = context;
         this.listener = new RecyclerViewListener() {
             @Override

@@ -2,6 +2,7 @@ package com.susheel.pocketparliament.ui.fragments.bills;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -55,13 +56,21 @@ public class BillsListFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bindViews(view);
+        setUpRecyclerView();
+        getData(view);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         View view = getView();
+        getData(view);
 //        view.setFocusableInTouchMode(true);
 //        view.requestFocus();
-        bindViews(view);
-        getData(view);
+
     }
 
 
@@ -74,6 +83,7 @@ public class BillsListFragment extends Fragment {
 
     private void bindViews(View parent) {
         swipeRefreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.senate);
         recyclerView = (RecyclerView) parent.findViewById(R.id.recycler_view);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -86,7 +96,7 @@ public class BillsListFragment extends Fragment {
     }
 
     public void setUpRecyclerView(){
-        adapter = new BillsListAdapter(bills, (AppCompatActivity)getActivity());
+        adapter = new BillsListAdapter((AppCompatActivity)getActivity());
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -98,6 +108,7 @@ public class BillsListFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(adapter);
+
     }
 
     private void getData(View view) {
@@ -108,12 +119,12 @@ public class BillsListFragment extends Fragment {
             public void onTaskSuccess(Class source, List<Bill> data) {
                 Log.i("getBills", data.size()+"");
                 bills = data;
-                setUpRecyclerView();
+                adapter.update(data);
                 swipeRefreshLayout.setRefreshing(false);
 
                 if(data.size() == 0){
                     Log.i("empty", "empty");
-                    Toast.makeText(getContext(), "No bills", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), "No bills", Toast.LENGTH_LONG).show();
                 }
             }
 

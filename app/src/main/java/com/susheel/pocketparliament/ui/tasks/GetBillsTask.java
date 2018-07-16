@@ -21,7 +21,7 @@ public class GetBillsTask extends AbstractAsyncTask<String, Void, List<Bill>> {
             return service.get(args[0]);
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
-            getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());
+//            getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());
         }
         return null;
     }
