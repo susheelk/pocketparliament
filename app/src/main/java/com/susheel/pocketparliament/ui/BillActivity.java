@@ -11,6 +11,7 @@ import android.view.WindowManager;
 
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
+import com.susheel.pocketparliament.ui.fragments.bills.BillEventsFragment;
 import com.susheel.pocketparliament.ui.fragments.bills.BillOverviewFragment;
 import com.susheel.pocketparliament.ui.tasks.ColorUtils;
 
@@ -62,6 +63,7 @@ public class BillActivity extends AppCompatActivity {
     private void setupTabs(int id){
         adapter = new TabPagerAdapter(getSupportFragmentManager());
         adapter.add("Overview", BillOverviewFragment.forBill(id));
+        adapter.add("Events", BillEventsFragment.forBill(id));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

@@ -6,6 +6,8 @@ import com.susheel.pocketparliament.services.BillService;
 public class GetBillTask extends AbstractAsyncTask<Integer, Void, Bill> {
 
     private final BillService service = BillService.getInstance();
+    private boolean error = false;
+    private Exception exception;
 
     @Override
     protected Bill doInBackground(Integer... ints) {
@@ -13,13 +15,18 @@ public class GetBillTask extends AbstractAsyncTask<Integer, Void, Bill> {
             return service.getById(ints[0]);
         } catch (Exception e) {
             this.cancel(true);
-            getAsyncResponseListener().onTaskError(this.getClass(), e.getMessage());
+            error = true;
+            exception = e;
         }
         return null;
     }
 
     @Override
     protected void onPostExecute(Bill bill) {
-        getAsyncResponseListener().onTaskSuccess(this.getClass(), bill);
+        if (!error) {
+            getAsyncResponseListener().onTaskSuccess(this.getClass(), bill);
+        } else {
+            getAsyncResponseListener().onTaskError(this.getClass(), exception.getMessage());
+        }
     }
 }

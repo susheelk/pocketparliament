@@ -131,10 +131,15 @@ public class BillsListFragment extends Fragment {
             @Override
             public void onTaskError(Class source, String message) {
                 Log.e("getBills", message+"");
-                swipeRefreshLayout.setRefreshing(false);
+                displayError();
             }
         });
         task.execute(getArguments().getString("params"));
+    }
+
+    private synchronized void displayError(){
+        swipeRefreshLayout.setRefreshing(false);
+        Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
     }
 
     private void goToActivity(Bill bill){

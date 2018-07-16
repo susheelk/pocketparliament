@@ -1,6 +1,8 @@
 package com.susheel.pocketparliament.ui.fragments.bills;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,6 +41,7 @@ public class BillOverviewFragment extends Fragment {
     private View content;
     private View senatorLayout;
     private TextView senatorName;
+    private Button legisinfoButton;
 
 
     public BillOverviewFragment() {
@@ -66,6 +70,8 @@ public class BillOverviewFragment extends Fragment {
         content.setVisibility(View.GONE);
         senatorLayout = p.findViewById(R.id.senator_sponsor_layout);
         senatorName = (TextView) p.findViewById(R.id.senator_name);
+        legisinfoButton = (Button) p.findViewById(R.id.legisinfo_button);
+
 
     }
 
@@ -94,6 +100,15 @@ public class BillOverviewFragment extends Fragment {
                     senatorLayout.setVisibility(View.VISIBLE);
                     senatorName.setText("Senator "+data.getSponsor().getName());
                 }
+
+                legisinfoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("http://www.parl.ca/LegisInfo/BillDetails.aspx?Language=E&billId="
+                                        +data.getId())));
+                    }
+                });
             }
 
             @Override

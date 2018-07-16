@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:background="@drawable/ripple_bg"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:minHeight="70dp">
+
+    <TextView
+        android:id="@+id/bill_date"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="FEB 31, 2000"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/bill_date"
+        android:layout_marginLeft="10dp"
+        android:text="Referred to some random subcommittee"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/chamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event"
+        android:layout_toRightOf="@id/bill_date"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        />
+
+</RelativeLayout>
