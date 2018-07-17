@@ -6,13 +6,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.susheel.pocketparliament.R;
@@ -26,6 +30,7 @@ import com.susheel.pocketparliament.ui.fragments.mps.MpOverviewFragment;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.ColorUtils;
 import com.susheel.pocketparliament.ui.tasks.GetMemberParliamentTask;
+import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
 
 import java.util.List;
 
@@ -38,12 +43,15 @@ public class MemberParliamentActivity extends AppCompatActivity {
     private SimpleDraweeView image;
     private TextView blurb;
     private ProgressBar progressBar;
+    private CheckBox checkBox;
 
     private MemberParliament memberParliament;
 
     private GetMemberParliamentTask task;
     private TabPagerAdapter adapter;
     private ViewPager viewPager;
+
+    private SharedPreferenceHelper preferenceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,8 @@ public class MemberParliamentActivity extends AppCompatActivity {
         titleBarLayout.setBackgroundColor(color);
 
         getData(arguments.getString(FilterParameters.URL));
+
+        preferenceHelper = SharedPreferenceHelper.getInstance();
     }
 
     private void bindViews() {
@@ -79,6 +89,19 @@ public class MemberParliamentActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        checkBox = (CheckBox) findViewById(R.id.follow_box);
+//        List<String> followed = preferenceHelper.getFollowedMemberParliamentUrls(getApplicationContext());
+//        checkBox.setChecked(followed != null ? followed.contains(memberParliament.getParlUrl()) : false);
+        checkBox.setChecked(false);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text;
+                text = checkBox.isChecked() ? "You are now following " : "You have now unfollowed ";
+//                preferenceHelper.toggleFollowMemberParliament(memberParliament, getApplicationContext());
+                Toast.makeText(getApplicationContext(), text+memberParliament.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void updateView() {

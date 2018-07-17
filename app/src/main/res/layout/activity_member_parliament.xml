@@ -63,13 +63,15 @@
                 android:text=""/>
 
             <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/follow_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="?android:attr/starStyle"
+                android:button="@drawable/star_checkbox_selector"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:layout_centerVertical="true"
-                android:buttonTint="@color/white"/>
+                android:buttonTint="@color/white"
+                android:checked="false"/>
 
         </RelativeLayout>
 
