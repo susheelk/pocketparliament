@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -90,15 +91,12 @@ public class MemberParliamentActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         checkBox = (CheckBox) findViewById(R.id.follow_box);
-//        List<String> followed = preferenceHelper.getFollowedMemberParliamentUrls(getApplicationContext());
-//        checkBox.setChecked(followed != null ? followed.contains(memberParliament.getParlUrl()) : false);
-        checkBox.setChecked(false);
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text;
                 text = checkBox.isChecked() ? "You are now following " : "You have now unfollowed ";
-//                preferenceHelper.toggleFollowMemberParliament(memberParliament, getApplicationContext());
+                preferenceHelper.toggleFollowMemberParliament(memberParliament, getApplicationContext());
                 Toast.makeText(getApplicationContext(), text+memberParliament.getName(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -133,6 +131,10 @@ public class MemberParliamentActivity extends AppCompatActivity {
                 viewPager.setVisibility(View.VISIBLE);
                 setupTabs();
                 updateView();
+
+                List<String> followed = SharedPreferenceHelper.getInstance().getFollowedMemberParliamentUrls(getApplicationContext());
+                Log.i("FOLLOWED_SIZE", "f"+followed.get(0));
+                checkBox.setChecked(followed != null ? followed.contains(memberParliament.getParlUrl()) : false);
             }
 
             @Override
