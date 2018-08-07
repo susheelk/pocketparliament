@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/cardview_light_background"
+        android:gravity="fill">
+    </item>
+
+
+    <item android:gravity="center"
+        android:width="300dp"
+        android:height="400dp">
+        <bitmap
+            android:src="@drawable/splash_img"
+            android:gravity="fill_horizontal|fill_vertical"/>
+    </item>
+
+</layer-list>

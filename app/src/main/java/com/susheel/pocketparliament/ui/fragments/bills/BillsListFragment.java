@@ -44,6 +44,8 @@ public class BillsListFragment extends Fragment {
     private RecyclerView.LayoutManager manager;
     private BillsListAdapter adapter;
 
+    private boolean following;
+
 
     public BillsListFragment() {
     }
@@ -164,6 +166,8 @@ public class BillsListFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+
 
     /** Returns list of bills of a certain sponsor
      *

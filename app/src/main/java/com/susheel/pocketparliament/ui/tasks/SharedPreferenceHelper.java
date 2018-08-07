@@ -2,7 +2,6 @@ package com.susheel.pocketparliament.ui.tasks;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 
 import com.susheel.pocketparliament.model.MemberParliament;
 
@@ -21,16 +20,16 @@ public class SharedPreferenceHelper {
     }
 
     public void toggleFollowMemberParliament(MemberParliament person, Context context) {
-        List<String> followed = new ArrayList<>(getFollowedMemberParliamentUrls(context));
-        if(followed.contains(person.getParlUrl())) {
-            followed.remove(person.getParlUrl());
+        List<String> followed = new ArrayList<>(getFollowedMemberParliaments(context));
+        if(followed.contains(person.getName())) {
+            followed.remove(person.getName());
         } else {
-            followed.add(person.getParlUrl());
+            followed.add(person.getName());
         }
-        storeStringList("followed_mps", followed, context);
+        storeStringList("mp_follows", followed, context);
     }
 
-    public List<String> getFollowedMemberParliamentUrls(Context context){
+    public List<String> getFollowedMemberParliaments(Context context){
         return Arrays.asList(getSharedPreferences(context).getString("mp_follows", "").split(","));
     }
 
@@ -45,6 +44,10 @@ public class SharedPreferenceHelper {
         String str = buffer.toString();
         editor.putString(key, str.substring(0, str.length() - 1));
         editor.apply();
+    }
+
+    public boolean isFollowed(MemberParliament memberParliament, Context context) {
+        return getFollowedMemberParliaments(context).contains(memberParliament.getName());
     }
 
 }

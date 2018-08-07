@@ -1,13 +1,13 @@
 package com.susheel.pocketparliament.services.filters;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.susheel.pocketparliament.model.MemberParliament;
+import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +18,15 @@ import java.util.Map;
 // TODO implement mp filter
 public class MemberParliamentFilter extends Filter<MemberParliament> {
 
+    private Context context;
+
     public MemberParliamentFilter(Map<String, Object> filters) {
         super(filters);
+    }
+
+    public MemberParliamentFilter(Map<String, Object> filters, Context context) {
+        super(filters);
+        this.context = context;
     }
 
     public MemberParliamentFilter(){}
@@ -33,6 +40,7 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
                     case FilterParameters.GROUP: data = group(data, entry.getValue()); break;
                     case FilterParameters.QUERY: data = forQuery(data, entry.getValue()); break;
                     case FilterParameters.NAME: data = name(data, entry.getValue()); break;
+                    case FilterParameters.FOLLOWED: data = followed(data, true); break;
                 }
                 continue;
             }
@@ -55,6 +63,11 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
 
     private List<MemberParliament> name(List<MemberParliament> data, Object value){
         return Stream.of(data).filter(member -> member.getName().matches(value.toString())).collect(Collectors.toList());
+    }
+
+    private List<MemberParliament> followed(List<MemberParliament> data, boolean followed) {
+        SharedPreferenceHelper helper = SharedPreferenceHelper.getInstance();
+        return Stream.of(data).filter(member -> helper.isFollowed(member, context)).collect(Collectors.toList());
     }
 
     /** Check if filter will return only one object. Useful for performance reasons

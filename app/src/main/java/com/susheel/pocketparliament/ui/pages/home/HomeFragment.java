@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.ui.fragments.mps.MpListFragment;
 import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
 
 /**
@@ -49,7 +53,14 @@ public class HomeFragment extends AbstractPageFragment {
             }
         });
 
+        loadFollowedMps();
+    }
 
+    private void loadFollowedMps(){
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.followed_mp_frame, MpListFragment.forFollowed());
+        transaction.commit();
     }
 
 

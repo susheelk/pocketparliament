@@ -29,6 +29,12 @@
         <item name="android:elevation">0dp</item>
         <item name="android:background">@color/colorPrimaryDark</item>
     </style>
+    
+    <style name="SplashStyle" parent="AppThemeNoActionBar">
+        <item name="android:windowBackground">
+            @drawable/splash
+        </item>
+    </style>
 
 
     <!--<style name="Widget.MyApp.Toolbar.Solid" parent="Widget.AppCompat.ActionBar">-->

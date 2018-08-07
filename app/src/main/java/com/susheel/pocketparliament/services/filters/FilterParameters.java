@@ -13,6 +13,8 @@ public interface FilterParameters {
     String URL = "url";
     String QUERY = "query";
 
+    String FOLLOWED = "followed";
+
     // MemberParliament Filters
     String GROUP = "group";
     String GOVERNMENT = "govt";

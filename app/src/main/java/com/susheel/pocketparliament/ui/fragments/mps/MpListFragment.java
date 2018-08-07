@@ -1,6 +1,7 @@
 package com.susheel.pocketparliament.ui.fragments.mps;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -58,7 +59,7 @@ public class MpListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         HashMap<String, Object> map = (HashMap<String, Object>) (getArguments().getSerializable(FilterParameters.FILTER));
-        filter = new MemberParliamentFilter(map);
+        filter = new MemberParliamentFilter(map, getContext());
     }
 
     @Override
@@ -199,6 +200,12 @@ public class MpListFragment extends Fragment {
         return withFilterMap(map);
     }
 
+    public static Fragment forFollowed(){
+        Map<String, Object> map = new HashMap<>();
+        map.put(FilterParameters.FOLLOWED, true);
+        return withFilterMap(map);
+    }
+
     /** For a fragment with specified filters. Use instead of forAll() and forGroup()
      *
      * @param map
@@ -212,4 +219,6 @@ public class MpListFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
+
+
 }

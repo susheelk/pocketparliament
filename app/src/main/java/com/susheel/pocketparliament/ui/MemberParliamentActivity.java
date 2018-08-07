@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,6 +89,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         checkBox = (CheckBox) findViewById(R.id.follow_box);
+        checkBox.setVisibility(View.INVISIBLE);
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,9 +131,10 @@ public class MemberParliamentActivity extends AppCompatActivity {
                 setupTabs();
                 updateView();
 
-                List<String> followed = SharedPreferenceHelper.getInstance().getFollowedMemberParliamentUrls(getApplicationContext());
+                List<String> followed = SharedPreferenceHelper.getInstance().getFollowedMemberParliaments(getApplicationContext());
                 Log.i("FOLLOWED_SIZE", "f"+followed.get(0));
-                checkBox.setChecked(followed != null ? followed.contains(memberParliament.getParlUrl()) : false);
+                checkBox.setChecked(followed != null ? SharedPreferenceHelper.getInstance().isFollowed(memberParliament, getApplicationContext()) : false);
+                checkBox.setVisibility(View.VISIBLE);
             }
 
             @Override
