@@ -50,7 +50,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
     private TabPagerAdapter adapter;
     private ViewPager viewPager;
 
-    private SharedPreferenceHelper preferenceHelper;
+    private final SharedPreferenceHelper preferences = SharedPreferenceHelper.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
 
         getData(arguments.getString(FilterParameters.URL));
 
-        preferenceHelper = SharedPreferenceHelper.getInstance();
+//        preferences = SharedPreferenceHelper.getInstance();
     }
 
     private void bindViews() {
@@ -95,7 +95,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String text;
                 text = checkBox.isChecked() ? "You are now following " : "You have now unfollowed ";
-                preferenceHelper.toggleFollowMemberParliament(memberParliament, getApplicationContext());
+                preferences.toggleFollowMemberParliament(memberParliament, getApplicationContext());
                 Toast.makeText(getApplicationContext(), text+memberParliament.getName(), Toast.LENGTH_SHORT).show();
             }
         });

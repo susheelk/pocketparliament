@@ -4,12 +4,16 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.susheel.pocketparliament.model.MemberParliament;
+import com.susheel.pocketparliament.model.legislation.Bill;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SharedPreferenceHelper {
+
+    public static final String FOLLOWED_ONLY = "followed";
+
     private static final SharedPreferenceHelper ourInstance = new SharedPreferenceHelper();
     public static SharedPreferenceHelper getInstance() {
         return ourInstance;
@@ -30,7 +34,34 @@ public class SharedPreferenceHelper {
     }
 
     public List<String> getFollowedMemberParliaments(Context context){
-        return Arrays.asList(getSharedPreferences(context).getString("mp_follows", "").split(","));
+//        return Arrays.asList(getSharedPreferences(context).getString("mp_follows", "").split(","));
+        return getStringList("mp_follows", context);
+    }
+
+    public boolean isFollowed(MemberParliament memberParliament, Context context) {
+        return getFollowedMemberParliaments(context).contains(memberParliament.getName());
+    }
+
+    public void toggleFollowBill(Bill bill, Context context) {
+        List<String> followed = new ArrayList<>(getFollowedMemberParliaments(context));
+        if(followed.contains(bill.getNumber())) {
+            followed.remove(bill.getNumber());
+        } else {
+            followed.add(bill.getNumber());
+        }
+        storeStringList("bill_follows", followed, context);
+    }
+
+    public List<String> getFollowedBills(Context context){
+        return getStringList("bill_follows", context);
+    }
+
+    public boolean isFollowed(Bill bill, Context context){
+        return getFollowedBills(context).contains(bill.getNumber());
+    }
+
+    private List<String> getStringList(String key, Context context){
+        return Arrays.asList(getSharedPreferences(context).getString(key, "").split(","));
     }
 
     private void storeStringList(String key, List<String> list, Context context) {
@@ -44,10 +75,6 @@ public class SharedPreferenceHelper {
         String str = buffer.toString();
         editor.putString(key, str.substring(0, str.length() - 1));
         editor.apply();
-    }
-
-    public boolean isFollowed(MemberParliament memberParliament, Context context) {
-        return getFollowedMemberParliaments(context).contains(memberParliament.getName());
     }
 
 }

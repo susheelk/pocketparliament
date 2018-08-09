@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="checked"
         android:id="@+id/follow_box"
+        android:title="checked"
         app:actionViewClass="android.widget.CheckBox"
         app:showAsAction="always">
 

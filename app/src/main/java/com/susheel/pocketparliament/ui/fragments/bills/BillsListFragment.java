@@ -23,8 +23,11 @@ import com.susheel.pocketparliament.ui.adapters.BillsListAdapter;
 import com.susheel.pocketparliament.ui.adapters.RecyclerViewListener;
 import com.susheel.pocketparliament.ui.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.ui.tasks.GetBillsTask;
+import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +47,7 @@ public class BillsListFragment extends Fragment {
     private RecyclerView.LayoutManager manager;
     private BillsListAdapter adapter;
 
-    private boolean following;
+    private final SharedPreferenceHelper preferences = SharedPreferenceHelper.getInstance();
 
 
     public BillsListFragment() {
@@ -120,6 +123,11 @@ public class BillsListFragment extends Fragment {
             @Override
             public void onTaskSuccess(Class source, List<Bill> data) {
                 Log.i("getBills", data.size()+"");
+
+                if (getArguments().getBoolean(SharedPreferenceHelper.FOLLOWED_ONLY)){
+                    data = com.annimon.stream.Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(com.annimon.stream.Collectors.toList());
+                }
+
                 bills = data;
                 adapter.update(data);
                 swipeRefreshLayout.setRefreshing(false);
@@ -238,6 +246,12 @@ public class BillsListFragment extends Fragment {
 
         Fragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static Fragment forFollowed(boolean followed){
+        Fragment fragment = BillsListFragment.forRecent();
+        fragment.getArguments().putBoolean(SharedPreferenceHelper.FOLLOWED_ONLY, followed);
         return fragment;
     }
 

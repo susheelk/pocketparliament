@@ -2,18 +2,26 @@ package com.susheel.pocketparliament.ui;
 
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.model.legislation.Bill;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
 import com.susheel.pocketparliament.ui.fragments.bills.BillEventsFragment;
 import com.susheel.pocketparliament.ui.fragments.bills.BillOverviewFragment;
 import com.susheel.pocketparliament.ui.tasks.ColorUtils;
+import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
 
 public class BillActivity extends AppCompatActivity {
 
@@ -24,8 +32,10 @@ public class BillActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
+    private CheckBox followBox;
 
     private TabPagerAdapter adapter;
+    private final SharedPreferenceHelper preferences = SharedPreferenceHelper.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,5 +82,25 @@ public class BillActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Bill bill = new Bill();
+        bill.setNumber(getIntent().getExtras().getString(BillActivity.NUMBER));
+
+        getMenuInflater().inflate(R.menu.bill_activity_menu, menu);
+        MenuItem item = menu.findItem(R.id.follow_box);
+        followBox = (CheckBox) MenuItemCompat.getActionView(item);
+        followBox.setButtonDrawable(R.drawable.star_checkbox_selector);
+        followBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bill.setNumber(getIntent().getExtras().getString(BillActivity.NUMBER));
+                preferences.toggleFollowBill(bill, getApplicationContext());
+            }
+        });
+        followBox.setChecked(preferences.isFollowed(bill, getApplicationContext()));
+        return true;
     }
 }

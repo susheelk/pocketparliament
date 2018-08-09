@@ -10,16 +10,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.ui.fragments.bills.BillsListFragment;
 import com.susheel.pocketparliament.ui.fragments.mps.MpListFragment;
 import com.susheel.pocketparliament.ui.pages.AbstractPageFragment;
+
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends AbstractPageFragment {
+
+    private ImageView wall;
 
 
     public HomeFragment() {
@@ -53,15 +58,29 @@ public class HomeFragment extends AbstractPageFragment {
             }
         });
 
-        loadFollowedMps();
+        loadFollowed();
+        wall = (ImageView) view.findViewById(R.id.main_image);
+
+        int id = 0;
+
+        switch (new Random().nextInt(4)+1){
+            case 1: id = R.drawable.wall_1; break;
+            case 2: id = R.drawable.wall_2; break;
+            case 3: id = R.drawable.wall_3; break;
+            case 4: id = R.drawable.wall_4; break;
+            default: id = R.drawable.wall_1;
+        }
+        wall.setImageDrawable(getResources().getDrawable(id));
     }
 
-    private void loadFollowedMps(){
+    private void loadFollowed(){
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.followed_mp_frame, MpListFragment.forFollowed());
+        transaction.replace(R.id.followed_bills_frame, BillsListFragment.forRecent());
         transaction.commit();
     }
+
 
 
 }
