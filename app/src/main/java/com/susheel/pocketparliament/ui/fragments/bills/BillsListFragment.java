@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.annimon.stream.Collectors;
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.legislation.Bill;
 import com.susheel.pocketparliament.ui.BillActivity;
@@ -26,8 +27,7 @@ import com.susheel.pocketparliament.ui.tasks.GetBillsTask;
 import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.annimon.stream.Stream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,8 +125,10 @@ public class BillsListFragment extends Fragment {
                 Log.i("getBills", data.size()+"");
 
                 if (getArguments().getBoolean(SharedPreferenceHelper.FOLLOWED_ONLY)){
-                    data = com.annimon.stream.Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(com.annimon.stream.Collectors.toList());
+                    data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(Collectors.toList());
+                    swipeRefreshLayout.setEnabled(false);
                 }
+
 
                 bills = data;
                 adapter.update(data);

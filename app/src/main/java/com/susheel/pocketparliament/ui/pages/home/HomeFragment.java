@@ -76,8 +76,8 @@ public class HomeFragment extends AbstractPageFragment {
     private void loadFollowed(){
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.followed_mp_frame, MpListFragment.forFollowed());
-        transaction.replace(R.id.followed_bills_frame, BillsListFragment.forRecent());
+//        transaction.replace(R.id.followed_mp_frame, MpListFragment.forFollowed());
+        transaction.replace(R.id.followed_bills_frame, BillsListFragment.forFollowed(true));
         transaction.commit();
     }
 

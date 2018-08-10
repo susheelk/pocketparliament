@@ -14,7 +14,10 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.susheel.pocketparliament.R;
 import com.susheel.pocketparliament.model.MemberParliament;
+import com.susheel.pocketparliament.model.legislation.Bill;
 
+import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,8 +62,8 @@ public class MpListAdapter extends RecyclerView.Adapter<MpListAdapter.ViewHolder
         }
     }
 
-    public MpListAdapter(List<MemberParliament> list, Context context) {
-        this.list = list;
+    public MpListAdapter(Context context) {
+        this.list = new ArrayList<>();
         this.context = context;
         this.listener = new RecyclerViewListener() {
             @Override
@@ -68,6 +71,13 @@ public class MpListAdapter extends RecyclerView.Adapter<MpListAdapter.ViewHolder
 
             }
         };
+    }
+
+    public void update(List<MemberParliament> list) {
+        this.list.clear();
+        notifyDataSetChanged();
+        this.list.addAll(list);
+        notifyDataSetChanged();
     }
 
     public void addRecyclerViewListener(RecyclerViewListener listener) {

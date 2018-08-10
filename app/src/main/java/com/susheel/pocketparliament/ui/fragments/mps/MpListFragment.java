@@ -80,17 +80,15 @@ public class MpListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         View view = getView();
-        System.out.println("View is null: "+ view == null);
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        bindViews(view);
         getData(view);
-
-
     }
 
-    private void setupUI(View view) {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        bindViews(view);
         setupRecyclerView();
+        getData(view);
     }
 
     private void bindViews(View parentView) {
@@ -101,7 +99,7 @@ public class MpListFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new MpListAdapter(members, (AppCompatActivity)getActivity());
+        adapter = new MpListAdapter((AppCompatActivity)getActivity());
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -128,7 +126,7 @@ public class MpListFragment extends Fragment {
                 members = data;
                 progressBar.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-                setupUI(view);
+                adapter.update(data);
             }
 
             @Override
