@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:minHeight="100dp">
+
+    <TextView
+        android:id="@+id/vote_id"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="999"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/vote_date"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vote_id"
+        android:text="FEB 31, 2000"/>
+
+    <TextView
+        android:id="@+id/vote_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/vote_id"
+        android:layout_marginLeft="5dp"
+        android:text="Concurrence at report stage of Bill C-71, An Act to amend certain Acts and Regulations in relation to firearms"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vote_title"
+        android:layout_toRightOf="@id/vote_date"
+        android:textStyle="bold"
+        android:paddingTop="2dp"
+        android:layout_marginLeft="5dp"
+        android:text="AGREED TO "/>
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/result"
+        android:layout_below="@id/vote_title"
+        android:paddingTop="2dp"
+        android:layout_marginLeft="5dp"
+        android:text="20-50"/>
+
+</RelativeLayout>

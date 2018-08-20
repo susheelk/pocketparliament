@@ -1,9 +1,11 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.pages.home.HomeFragment">
+    tools:context=".ui.pages.home.HomeFragment"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -16,8 +18,9 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:contentScrim="@color/colorPrimary"
+            app:titleEnabled="false"
             app:expandedTitleTextAppearance="@color/colorAccent"
             android:fitsSystemWindows="true"
             android:textAlignment="textEnd"
@@ -32,81 +35,118 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@color/black"
+                android:fitsSystemWindows="true" />
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:gravity="center">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="200dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:src="@mipmap/ic_launcher"-->
+                    <!--android:layout_gravity="center"/>-->
+            <!--</LinearLayout>-->
+
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginBottom="?attr/actionBarSize"
                 android:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
                 app:layout_collapseMode="pin"
+                android:layout_gravity="top"
                 android:titleTextColor="@color/colorAccent">
             </android.support.v7.widget.Toolbar>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_gravity="bottom"
+                app:tabMode="fixed"
+                app:tabIndicatorColor="@android:color/white"
+                app:tabSelectedTextColor="@android:color/white"
+                app:tabTextColor="@color/white"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:clipToPadding="false"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical"-->
+            <!--xmlns:fresco="http://schemas.android.com/apk/res-auto">-->
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="@string/lorem"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textStyle="bold"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:padding="12dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textSize="20sp"/>&ndash;&gt;-->
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/lorem"-->
+                <!--android:text="@string/following_mps"-->
+                <!--android:textAllCaps="true"-->
                 <!--android:textStyle="bold"-->
-                <!--android:padding="12dp"-->
-                <!--android:textSize="20sp"/>-->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/following_mps"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"/>
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginLeft="10dp"/>-->
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/GenericCard"
-                app:contentPadding="0dp">
-                <FrameLayout
-                    android:id="@+id/followed_mp_frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </FrameLayout>
-            </android.support.v7.widget.CardView>
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--style="@style/GenericCard"-->
+                <!--app:contentPadding="0dp">-->
+                <!--<FrameLayout-->
+                    <!--android:id="@+id/followed_mp_frame"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                <!--</FrameLayout>-->
+            <!--</android.support.v7.widget.CardView>-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/following_bills"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="10dp"/>
-            
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/GenericCard"
-                app:contentPadding="0dp">
-                <FrameLayout
-                    android:id="@+id/followed_bills_frame"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </FrameLayout>
-            </android.support.v7.widget.CardView>
-            
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/following_bills"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:layout_marginLeft="10dp"/>-->
+            <!---->
+            <!--<android.support.v7.widget.CardView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--style="@style/GenericCard"-->
+                <!--app:contentPadding="0dp">-->
+                <!--<FrameLayout-->
+                    <!--android:id="@+id/followed_bills_frame"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                <!--</FrameLayout>-->
+            <!--</android.support.v7.widget.CardView>-->
+            <!---->
+        <!--</LinearLayout>-->
 
-    </android.support.v4.widget.NestedScrollView>
+    <!--</android.support.v4.widget.NestedScrollView>-->
 
 </android.support.design.widget.CoordinatorLayout>

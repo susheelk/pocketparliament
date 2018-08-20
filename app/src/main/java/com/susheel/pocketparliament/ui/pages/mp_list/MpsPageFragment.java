@@ -70,9 +70,9 @@ public class MpsPageFragment extends AbstractPageFragment {
 //        adapter.add("Favourites", new FavouriteMpTabFragment());
 //        adapter.add("All", new AllMpTabFragment());
         adapter.add("All", MpListFragment.forAll());
-        adapter.add("Cabinet", MpListFragment.forGroup(FilterParameters.GOVERNMENT, true));
-        adapter.add("Government", MpListFragment.forGroup(FilterParameters.GOVERNMENT, true));
-        adapter.add("Opposition", MpListFragment.forGroup(FilterParameters.GOVERNMENT, false));
+        adapter.add("Cabinet", MpListFragment.forGroup(FilterParameters.GOVERNMENT));
+        adapter.add("Government", MpListFragment.forGroup(FilterParameters.GOVERNMENT));
+        adapter.add("Opposition", MpListFragment.forGroup(FilterParameters.OPPOSITION));
         viewPager.setAdapter(adapter);
 //        viewPager.setSaveFromParentEnabled(false);
 

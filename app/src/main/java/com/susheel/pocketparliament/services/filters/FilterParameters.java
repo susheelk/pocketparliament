@@ -18,6 +18,7 @@ public interface FilterParameters {
     // MemberParliament Filters
     String GROUP = "group";
     String GOVERNMENT = "govt";
+    String OPPOSITION = "opp";
     String PARTY = "party";
     String MEMBER_PARLIAMENT = "mp";
 

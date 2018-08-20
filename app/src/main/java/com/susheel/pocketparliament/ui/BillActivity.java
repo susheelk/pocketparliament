@@ -6,7 +6,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +19,7 @@ import com.susheel.pocketparliament.model.legislation.Bill;
 import com.susheel.pocketparliament.ui.adapters.TabPagerAdapter;
 import com.susheel.pocketparliament.ui.fragments.bills.BillEventsFragment;
 import com.susheel.pocketparliament.ui.fragments.bills.BillOverviewFragment;
+import com.susheel.pocketparliament.ui.fragments.votes.VotesListFragment;
 import com.susheel.pocketparliament.ui.tasks.ColorUtils;
 import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
 
@@ -74,6 +74,7 @@ public class BillActivity extends AppCompatActivity {
         adapter = new TabPagerAdapter(getSupportFragmentManager());
         adapter.add("Overview", BillOverviewFragment.forBill(id));
         adapter.add("Events", BillEventsFragment.forBill(id));
+        adapter.add("Votes", VotesListFragment.forBill(id));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

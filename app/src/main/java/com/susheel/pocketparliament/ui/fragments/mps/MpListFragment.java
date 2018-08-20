@@ -165,7 +165,7 @@ public class MpListFragment extends Fragment {
      * @param type ie Government, Opposition, Cabinet
      * @return a Fragment for that group
      */
-    public static Fragment forGroup(String type, boolean value) {
+    public static Fragment forGroup(String type) {
 //        Bundle bundle = new Bundle();
 //        bundle.putBoolean(type, value);
 //        Fragment fragment = new MpListFragment();

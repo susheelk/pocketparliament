@@ -11,4 +11,7 @@
     <color name="link">#0000EE</color>
 
     <color name="senate">#8c010c</color>
+
+    <color name="positive">#99ff99</color>
+    <color name="negative">#ff6666</color>
 </resources>

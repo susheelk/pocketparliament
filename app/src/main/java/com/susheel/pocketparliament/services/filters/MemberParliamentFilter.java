@@ -52,6 +52,8 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         switch (value.toString()) {
             case FilterParameters.GOVERNMENT:
                 return Stream.of(data).filter(member-> member.getParty().isGovernment()).collect(Collectors.toList());
+            case FilterParameters.OPPOSITION:
+                return Stream.of(data).filter(member-> !member.getParty().isGovernment()).collect(Collectors.toList());
 
         }
         return data;

@@ -51,7 +51,7 @@ public class BillsPageFragment extends AbstractPageFragment {
         addPages(getView());
     }
 
-    public void addPages(View view) {
+    private void addPages(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         adapter = new TabPagerAdapter(getChildFragmentManager());
         adapter.add("Recent", BillsListFragment.forRecent());

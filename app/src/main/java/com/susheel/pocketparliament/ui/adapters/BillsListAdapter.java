@@ -71,7 +71,6 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         this.listener = new RecyclerViewListener() {
             @Override
             public void onItemClick(Object object) {
-
             }
         };
     }

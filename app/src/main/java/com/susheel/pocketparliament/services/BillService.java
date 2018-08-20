@@ -1,9 +1,12 @@
 package com.susheel.pocketparliament.services;
 
 import com.susheel.pocketparliament.model.legislation.Bill;
+import com.susheel.pocketparliament.model.legislation.Vote;
 import com.susheel.pocketparliament.services.parsers.BillParser;
+import com.susheel.pocketparliament.services.parsers.VoteParser;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class BillService extends HttpService {
     private static final BillService instance = new BillService();
@@ -22,6 +25,16 @@ public class BillService extends HttpService {
         String response = doRequest(HttpService.BILLSEARCH, "bills/"+id);
         return BillParser.getInstance().objectFromJson(response);
     }
+
+    public List<Vote> getVotes(String params) throws Exception {
+        String response = doRequest(HttpService.BILLSEARCH, "votes"+params);
+        return VoteParser.getInstance().listFromJson(response);
+    }
+
+//    public List<Vote> getVotesByBill(String session, String bill) throws Exception {
+//        String respone = doRequest(HttpService.OPEN_PARL, "votes/"+"bill=/bills/"+session+"/"+bill);
+//
+//    }
 
 
 }

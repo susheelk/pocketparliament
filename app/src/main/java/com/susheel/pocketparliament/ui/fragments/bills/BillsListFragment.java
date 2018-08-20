@@ -128,8 +128,6 @@ public class BillsListFragment extends Fragment {
                     data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(Collectors.toList());
                     swipeRefreshLayout.setEnabled(false);
                 }
-
-
                 bills = data;
                 adapter.update(data);
                 swipeRefreshLayout.setRefreshing(false);
