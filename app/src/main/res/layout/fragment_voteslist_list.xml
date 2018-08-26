@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ui.fragments.votes.VotesListFragment"
+    tools:context=".android.fragments.votes.VotesListFragment"
     tools:listitem="@layout/fragment_voteslist" />

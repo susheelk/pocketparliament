@@ -31,6 +31,11 @@ public class BillService extends HttpService {
         return VoteParser.getInstance().listFromJson(response);
     }
 
+    public Vote getVote(int id) throws Exception {
+        String response = doRequest(HttpService.BILLSEARCH, "votes/"+id);
+        return VoteParser.getInstance().objectFromJson(response);
+    }
+
 //    public List<Vote> getVotesByBill(String session, String bill) throws Exception {
 //        String respone = doRequest(HttpService.OPEN_PARL, "votes/"+"bill=/bills/"+session+"/"+bill);
 //

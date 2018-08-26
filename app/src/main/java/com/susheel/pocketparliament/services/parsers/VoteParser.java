@@ -26,4 +26,9 @@ public class VoteParser {
         String arrString = data.toString();
         return Arrays.asList(mapper.readValue(arrString, Vote[].class));
     }
+
+    public Vote objectFromJson(String json) throws IOException {
+        Vote vote =  mapper.readValue(json, Vote.class);
+        return vote;
+    }
 }

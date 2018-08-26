@@ -19,6 +19,7 @@ public interface FilterParameters {
     String GROUP = "group";
     String GOVERNMENT = "govt";
     String OPPOSITION = "opp";
+    String CABINET = "cabinet";
     String PARTY = "party";
     String MEMBER_PARLIAMENT = "mp";
 

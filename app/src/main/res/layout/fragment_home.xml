@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.pages.home.HomeFragment"
+    tools:context=".android.pages.home.HomeFragment"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout

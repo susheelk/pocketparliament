@@ -17,7 +17,7 @@
     </style>
 
     <style name="GenericCard">
-        <item name="cardElevation">150dp</item>
+        <item name="cardElevation">2dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginTop">10dp</item>

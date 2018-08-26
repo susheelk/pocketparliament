@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.susheel.pocketparliament.ui.pages.mp_list.FavouriteMpTabFragment">
+    tools:context="com.susheel.pocketparliament.android.pages.mp_list.FavouriteMpTabFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"

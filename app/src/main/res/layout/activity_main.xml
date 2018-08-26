@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.susheel.pocketparliament.ui.MainActivity">
+    tools:context="com.susheel.pocketparliament.android.activities.MainActivity">
 
     <!--This will be replaced with fragments-->
     <FrameLayout

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/selectableItemBackground"
-    tools:context=".ui.fragments.bills.BillsListFragment">
+    tools:context=".android.fragments.bills.BillsListFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"

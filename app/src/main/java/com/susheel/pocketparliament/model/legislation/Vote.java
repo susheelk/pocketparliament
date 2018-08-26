@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Vote{
+public class Vote {
 
     private int id;
     private Date date;
@@ -21,7 +21,7 @@ public class Vote{
     private int nays;
     private String result;
 
-//    private List<Ballot> ballots;
+    private List<Ballot> ballots;
 
     public int getId() {
         return id;
@@ -93,6 +93,14 @@ public class Vote{
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public List<Ballot> getBallots() {
+        return ballots;
+    }
+
+    public void setBallots(List<Ballot> ballots) {
+        this.ballots = ballots;
     }
 
 //    public List<Ballot> getBallots() {

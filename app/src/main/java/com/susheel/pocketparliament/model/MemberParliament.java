@@ -115,18 +115,23 @@ public class MemberParliament extends Person implements Parcelable, Searchable {
         return null;
     }
 
+    public void setName(String name) {
+        String[] names = name.split(" ");
+        setFirstName(names[0]);
+        setLastName(names[1]);
+    }
+
 
     public static MemberParliament forList(String name, String imageUrl, Riding riding, Party party, String apiUrl){
         MemberParliament member = new MemberParliament();
-        String[] names = name.split(" ");
-        member.setFirstName(names[0]);
-        member.setLastName(names[1]);
+        member.setName(name);
         member.setImageUrl(imageUrl);
         member.setRiding(riding);
         member.setParty(party);
         member.setApiUrl(apiUrl);
         return member;
     }
+
 
     @Override
     public int describeContents() {

@@ -5,9 +5,11 @@ import android.os.Bundle;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
+import com.susheel.pocketparliament.model.CabinetMember;
 import com.susheel.pocketparliament.model.MemberParliament;
-import com.susheel.pocketparliament.ui.tasks.SharedPreferenceHelper;
+import com.susheel.pocketparliament.android.tasks.SharedPreferenceHelper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +56,15 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
                 return Stream.of(data).filter(member-> member.getParty().isGovernment()).collect(Collectors.toList());
             case FilterParameters.OPPOSITION:
                 return Stream.of(data).filter(member-> !member.getParty().isGovernment()).collect(Collectors.toList());
+            case FilterParameters.CABINET:
+                data =  Stream.of(data).filter(member -> member instanceof CabinetMember).collect(Collectors.toList());
+                Collections.sort(data, (a, b) -> {
+                    Integer oA = ((CabinetMember)a).getOrderOfPrecedence();
+                    Integer oB = ((CabinetMember)b).getOrderOfPrecedence();
+                    return oA.compareTo(oB);
+                });
+                return data;
+
 
         }
         return data;

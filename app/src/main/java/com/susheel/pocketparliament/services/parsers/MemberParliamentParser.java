@@ -1,16 +1,20 @@
 package com.susheel.pocketparliament.services.parsers;
 
+import com.annimon.stream.Stream;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.susheel.pocketparliament.model.CabinetMember;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.model.Party;
 import com.susheel.pocketparliament.model.Riding;
+import com.susheel.pocketparliament.services.CabinetService;
 import com.susheel.pocketparliament.services.PartyService;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import java.util.Iterator;
@@ -31,8 +35,9 @@ public class MemberParliamentParser {
 
     final ObjectMapper mapper = new ObjectMapper();
     final PartyService partyService = PartyService.getInstance();
+    final CabinetService cabinetService = CabinetService.getInstance();
 
-    public List<MemberParliament> listFromJson(String json) throws IOException {
+    public List<MemberParliament> listFromJson(String json) throws Exception {
         List<MemberParliament> list = new ArrayList<>();
         JsonNode root = mapper.readTree(json);
         JsonNode objectsNode = root.get("objects");
@@ -51,15 +56,42 @@ public class MemberParliamentParser {
             String partyName = memberNode.path("current_party").path("short_name").get("en").asText();
             String apiUrl = memberNode.get("url").asText();
 
-            list.add(MemberParliament.forList(name, imageUrl, riding, partyService.getPartyByName(partyName), apiUrl));
+            MemberParliament memberParliament = MemberParliament.forList(name, imageUrl, riding, partyService.getPartyByName(partyName), apiUrl);
+
+            CabinetMember billSearchMember = cabinetService.getByName(name);
+
+            if (billSearchMember != null) {
+                CabinetMember member = new CabinetMember();
+                member.setOrderOfPrecedence(billSearchMember.getOrderOfPrecedence());
+                member.setPosition(billSearchMember.getPosition());
+
+                member.setImageUrl(imageUrl);
+                member.setRiding(riding);
+                member.setParty(partyService.getPartyByName(partyName));
+                member.setApiUrl(apiUrl);
+                member.setName(name);
+                list.add(member);
+                continue;
+            }
+
+            list.add(memberParliament);
             System.out.println();
         }
 
+        boolean allCabinets = true;
+        for(MemberParliament mp: list){
+            if (!(mp instanceof CabinetMember)){
+                allCabinets = false;
+                break;
+            }
+        }
+
         Collections.sort(list, (a, b) -> a.getLastName().compareTo(b.getLastName()));
+
         return list;
     }
 
-    public MemberParliament objectFromJson(String json) throws IOException {
+    public MemberParliament objectFromJson(String json) throws Exception {
         MemberParliament object = new MemberParliament();
         JsonNode root = mapper.readTree(json);
 
@@ -96,8 +128,6 @@ public class MemberParliamentParser {
             }
         }
 
-
-
         JsonNode otherInfoNode = root.path("other_info");
         JsonNode twitterNameNode = otherInfoNode.get("twitter");
         iterator = twitterNameNode.elements();
@@ -121,7 +151,33 @@ public class MemberParliamentParser {
         object.setImageUrl(root.get("image").asText());
         object.setTwitterUsername(twitterName);
 
+        CabinetMember billSearchMember = cabinetService.getByName(object.getName());
+
+        if (billSearchMember != null) {
+            CabinetMember member = new CabinetMember();
+            member.setOrderOfPrecedence(billSearchMember.getOrderOfPrecedence());
+            member.setPosition(billSearchMember.getPosition());
+            member.setRiding(riding);
+            member.setParty(party);
+            member.setImageUrl(root.get("image").asText());
+            member.setFirstName(root.get("given_name").asText());
+            member.setLastName(root.get("family_name").asText());
+            member.setEmailAddress(root.get("email").asText());
+            member.setPhoneNumber(root.get("voice").asText());
+            member.setImageUrl(root.get("image").asText());
+            member.setTwitterUsername(twitterName);
+            return member;
+        }
+
 
         return object;
+    }
+
+
+    public List<CabinetMember> cabinetMembersListFromJson(String json) throws IOException {
+        JsonNode root = mapper.readTree(json);
+        JsonNode data = root.get("data");
+        String arrString = data.toString();
+        return Arrays.asList(mapper.readValue(arrString, CabinetMember[].class));
     }
 }
