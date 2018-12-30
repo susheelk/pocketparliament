@@ -16,6 +16,8 @@ import android.view.MenuItem;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.android.pages.votes.VotesPageFragment;
+import com.susheel.pocketparliament.android.tasks.GetMemberParliamentTask;
 import com.susheel.pocketparliament.services.PartyService;
 import com.susheel.pocketparliament.android.pages.bills.BillsPageFragment;
 import com.susheel.pocketparliament.android.pages.home.HomeFragment;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         PartyService partyService = PartyService.getInstance();
         partyService.setInputStream(getResources().openRawResource(R.raw.parties));
         partyService.loadParties();
+        new GetMemberParliamentTask().execute();
 //        partyService.write();
 
         setContentView(R.layout.activity_main);
@@ -65,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.mp_menu_link: loadPage(new MpsPageFragment(), true);
                         break;
                     case R.id.bills_menu_link: loadPage(new BillsPageFragment(), true);
+                        break;
+                    case R.id.votes_menu_link: loadPage(new VotesPageFragment(), true);
 
                 }
                 closeNavigationDrawer();

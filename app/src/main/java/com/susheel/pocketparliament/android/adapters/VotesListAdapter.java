@@ -20,6 +20,7 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
     private Context context;
     private RecyclerViewListener listener;
 
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView id;
@@ -84,6 +85,11 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
             public void onItemClick(Object object) {
 
             }
+
+            @Override
+            public void onBottomReached() {
+
+            }
         };
     }
 
@@ -98,6 +104,11 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
         notifyDataSetChanged();
     }
 
+    public void addData(List<Vote> data){
+        this.data.addAll(data);
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.votes_list_row, parent, false);
@@ -107,6 +118,9 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.updateData(data.get(position));
+        if (position == data.size() - 1){
+            listener.onBottomReached();
+        }
     }
 
     @Override

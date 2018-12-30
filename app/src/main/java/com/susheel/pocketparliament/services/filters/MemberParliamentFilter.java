@@ -8,6 +8,8 @@ import com.annimon.stream.Stream;
 import com.susheel.pocketparliament.model.CabinetMember;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.android.tasks.SharedPreferenceHelper;
+import com.susheel.pocketparliament.model.legislation.Ballot;
+import com.susheel.pocketparliament.model.legislation.Vote;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,10 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
         this.context = context;
     }
 
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
     public MemberParliamentFilter(){}
 
     @Override
@@ -43,6 +49,8 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
                     case FilterParameters.QUERY: data = forQuery(data, entry.getValue()); break;
                     case FilterParameters.NAME: data = name(data, entry.getValue()); break;
                     case FilterParameters.FOLLOWED: data = followed(data, true); break;
+                    case FilterParameters.VOTED_FOR: data = forVoteResult(data, (Vote)(entry.getValue()), "Yea"); break;
+                    case FilterParameters.VOTED_AGAINST: data = forVoteResult(data, (Vote)(entry.getValue()), "Nay"); break;
                 }
                 continue;
             }
@@ -81,6 +89,18 @@ public class MemberParliamentFilter extends Filter<MemberParliament> {
     private List<MemberParliament> followed(List<MemberParliament> data, boolean followed) {
         SharedPreferenceHelper helper = SharedPreferenceHelper.getInstance();
         return Stream.of(data).filter(member -> helper.isFollowed(member, context)).collect(Collectors.toList());
+    }
+
+    private List<MemberParliament> forVoteResult(List<MemberParliament> data, Vote vote, String result) {
+        List<MemberParliament> list =  Stream.of(data).filter(member -> {
+            for (Ballot ballot: vote.getBallots()) {
+                if (ballot.getName().matches(member.getName())){
+                    return ballot.getVote().matches(result);
+                }
+            }
+            return false;
+        }).collect(Collectors.toList());
+        return list;
     }
 
     /** Check if filter will return only one object. Useful for performance reasons

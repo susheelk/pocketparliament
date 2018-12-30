@@ -179,4 +179,10 @@ public class MemberParliament extends Person implements Parcelable, Searchable {
     public boolean contains(String query) {
         return (getName().contains(query));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        MemberParliament compare = (MemberParliament)obj;
+        return compare.getApiUrl().matches(getApiUrl());
+    }
 }

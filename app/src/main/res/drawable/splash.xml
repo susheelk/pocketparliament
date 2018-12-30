@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/cardview_light_background"
+    <item android:drawable="@color/icon_bg"
         android:gravity="fill">
     </item>
 
-
-
-    <item android:gravity="center"
+    <item
+        android:gravity="center_horizontal|top"
         android:width="300dp"
-        android:height="400dp">
+        android:height="300dp"
+        android:top="100dp"
+        android:left="10dp">
         <bitmap
-            android:src="@drawable/splash_img"
+            android:src="@drawable/icon_simple"
             android:gravity="fill_horizontal|fill_vertical"/>
     </item>
+
+    <item
+        android:gravity="bottom|center_horizontal"
+        android:width="220dp"
+        android:height="30dp"
+        android:bottom="70dp">
+        <bitmap
+            android:src="@drawable/text" />
+    </item>
+
+
+
 
 </layer-list>

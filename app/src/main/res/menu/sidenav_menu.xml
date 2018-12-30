@@ -18,5 +18,13 @@
         android:icon="@drawable/ic_subject">
     </item>
 
+    <item
+        android:id="@+id/votes_menu_link"
+        android:title="Votes"
+        android:icon="@drawable/ic_check">
+    </item>
+
+
+
 
 </menu>

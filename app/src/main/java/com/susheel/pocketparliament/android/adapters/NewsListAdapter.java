@@ -9,62 +9,50 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.susheel.pocketparliament.R;
-import com.susheel.pocketparliament.model.legislation.Bill;
+import com.susheel.pocketparliament.model.NewsItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.ViewHolder> {
+public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.ViewHolder> {
 
-    private List<Bill> list;
+    private List<NewsItem> list;
     private Context context;
     private RecyclerViewListener listener;
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView number;
-        private TextView title;
+        private TextView tag;
+        private TextView description;
         private TextView date;
-        private TextView event;
 
-        private Bill bill;
+        private NewsItem newsItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            number = (TextView) itemView.findViewById(R.id.bill_number);
-            title = (TextView) itemView.findViewById(R.id.bill_title);
-            date = (TextView) itemView.findViewById(R.id.bill_date);
-            event = (TextView) itemView.findViewById(R.id.event);
+            tag = (TextView) itemView.findViewById(R.id.tag);
+            description = (TextView) itemView.findViewById(R.id.description);
+            date = (TextView) itemView.findViewById(R.id.news_date);
 
             itemView.setOnClickListener(this);
         }
 
-        public void updateData(Bill bill) {
-            this.bill = bill;
-            number.setText(bill.getNumber());
-            if(bill.getNumber().startsWith("S")){
-                number.setTextColor(context.getResources().getColor(R.color.senate));
-                System.out.println(bill.getNumber()+" red");
-            } else {
-                number.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
-            }
-
-            title.setText(bill.getTitle());
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-            date.setText(dateFormat.format(bill.getLastMajorEvent().getDate()));
-            date.setAllCaps(true);
-            event.setText(bill.getLastMajorEvent().getStatus());
+        public void updateData(NewsItem newsItem) {
+            this.newsItem = newsItem;
+            tag.setText(newsItem.getTagline());
+            description.setText(newsItem.getDescription());
+            date.setText(newsItem.getDate().toUpperCase());
         }
 
         @Override
         public void onClick(View view) {
-            Log.i("CLICK", number.getText().toString());
-            listener.onItemClick(bill);
+//            Log.i("CLICK", number.getText().toString());
+            listener.onItemClick(newsItem);
         }
     }
 
-    public BillsListAdapter(Context context) {
+    public NewsListAdapter(Context context) {
         this.list = new ArrayList<>();
         this.context = context;
         this.listener = new RecyclerViewListener() {
@@ -83,22 +71,22 @@ public class BillsListAdapter extends RecyclerView.Adapter<BillsListAdapter.View
         this.listener = listener;
     }
 
-    public void update(List<Bill> list){
+    public void update(List<NewsItem> list){
         this.list.clear();
         notifyDataSetChanged();
         this.list.addAll(list);
         notifyDataSetChanged();
     }
 
-    public void add(List<Bill> list){
+    public void add(List<NewsItem> list){
         this.list.addAll(list);
         notifyDataSetChanged();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bill_list_row, parent, false);
-        return new BillsListAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_row, parent, false);
+        return new NewsListAdapter.ViewHolder(view);
     }
 
     @Override

@@ -35,6 +35,8 @@ public class VotesListFragment extends Fragment {
     // Data
     private List<Vote> votes;
     private GetVotesTask task;
+    private GetVotesTask addTask;
+    private int page = 1;
 
     // Views
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -107,12 +109,18 @@ public class VotesListFragment extends Fragment {
             public void onItemClick(Object object) {
                 goToActivity((Vote)(object));
             }
+
+            @Override
+            public void onBottomReached() {
+                addData();
+            }
         });
         recyclerView.setAdapter(adapter);
 
     }
 
     private void getData(View view){
+        page = 1;
         swipeRefreshLayout.setRefreshing(true);
         task = new GetVotesTask();
         task.setAsyncResponseListener(new AsyncResponseListener<List<Vote>>() {
@@ -130,8 +138,41 @@ public class VotesListFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        task.execute(getArguments().getString("params"));
+
+        try {
+            task.execute(getArguments().getString("params"));
+        } catch (Exception e) {
+            task.execute("");
+        }
     }
+
+    private void addData(){
+        swipeRefreshLayout.setRefreshing(true);
+        task = new GetVotesTask();
+        task.setAsyncResponseListener(new AsyncResponseListener<List<Vote>>() {
+            @Override
+            public void onTaskSuccess(Class source, List<Vote> data) {
+                votes = data;
+                Log.i("Votes: ", data.size()+"");
+                adapter.addData(data);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onTaskError(Class source, String message) {
+                Log.e("ERR", message);
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        try {
+            task.execute(getArguments().getString("params")+"&page="+(++page));
+        } catch (Exception e) {
+            task.execute("?page="+(++page));
+        }
+    }
+
+
 
     private void goToActivity(Vote vote){
         Intent intent = new Intent(getActivity(), VoteActivity.class);
@@ -149,6 +190,10 @@ public class VotesListFragment extends Fragment {
         args.putString("params", "?bill_id="+billId);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static Fragment forAll() {
+        return new VotesListFragment();
     }
 
 }

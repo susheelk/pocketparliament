@@ -30,14 +30,26 @@
         android:paddingLeft="20dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
+        android:text="NAME"
         style="bold"/>
+
+    <ImageView
+        android:id="@+id/favorite_star"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="-20dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/name"
+        android:src="@drawable/ic_star_gold" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="20dp"
+        android:paddingRight="30dp"
         android:layout_toRightOf="@+id/drawee"
+        android:text="Description"
         android:layout_below="@+id/name"/>
 
 </RelativeLayout>

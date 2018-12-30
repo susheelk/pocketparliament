@@ -17,7 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.android.tasks.GetVoteTask;
 import com.susheel.pocketparliament.model.MemberParliament;
+import com.susheel.pocketparliament.model.legislation.Vote;
 import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.filters.FilterParameters;
 import com.susheel.pocketparliament.services.filters.MemberParliamentFilter;
@@ -27,6 +29,7 @@ import com.susheel.pocketparliament.android.adapters.RecyclerViewListener;
 import com.susheel.pocketparliament.android.tasks.AsyncResponseListener;
 import com.susheel.pocketparliament.android.tasks.GetMemberParliamentTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +37,6 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-// TODO: Fragment does not redraw on back press
 public class MpListFragment extends Fragment {
 
     Filter<MemberParliament> filter;
@@ -48,6 +50,26 @@ public class MpListFragment extends Fragment {
 
     MpListAdapter adapter;
     RecyclerView.LayoutManager manager;
+
+    AsyncResponseListener listener = new AsyncResponseListener<List<MemberParliament>>() {
+
+        @Override
+        public void onTaskSuccess(Class source, List<MemberParliament> data) {
+            members = data;
+            progressBar.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+//            adapter.setFollowingFirst(getArguments().getBoolean(FilterParameters.FOLLOWING_FIRST));
+            adapter.update(data);
+        }
+
+        @Override
+        public void onTaskError(Class source, String error) {
+            System.out.println(error);
+            progressBar.setVisibility(View.GONE);
+            noConnectionText.setVisibility(View.VISIBLE);
+        }
+    };
 
     public MpListFragment() {
     }
@@ -107,6 +129,11 @@ public class MpListFragment extends Fragment {
                 System.out.println(memberParliament.getName()+" Clicked");
                 gotoActivity(memberParliament);
             }
+
+            @Override
+            public void onBottomReached() {
+
+            }
         });
         recyclerView.setAdapter(adapter);
     }
@@ -115,25 +142,38 @@ public class MpListFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
         task = new GetMemberParliamentTask();
-        task.setAsyncResponseListener(new AsyncResponseListener<List<MemberParliament>>() {
+        task.setAsyncResponseListener(listener);
 
+        String result = getArguments().getString(FilterParameters.RESULT);
+        if(result != null){
+            int voteId = getArguments().getInt(FilterParameters.VOTE_ID);
+            buildForVote(voteId, result, filter);
+        } else {
+            task.execute(filter);
+        }
+    }
+
+    private void buildForVote(int voteId, String result, Filter<MemberParliament> filter) {
+        GetVoteTask voteTask = new GetVoteTask();
+        voteTask.setAsyncResponseListener(new AsyncResponseListener<Vote>() {
             @Override
-            public void onTaskSuccess(Class source, List<MemberParliament> data) {
-                members = data;
-                progressBar.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-                adapter.update(data);
+            public void onTaskSuccess(Class source, Vote data) {
+                filter.addConstraint(FilterParameters.VOTED_FOR, data);
+                GetMemberParliamentTask task = new GetMemberParliamentTask();
+                task.setAsyncResponseListener(listener);
+                task.execute(filter);
             }
 
             @Override
-            public void onTaskError(Class source, String error) {
-                System.out.println(error);
-                progressBar.setVisibility(View.GONE);
-                noConnectionText.setVisibility(View.VISIBLE);
+            public void onTaskError(Class source, String message) {
+
             }
         });
+        voteTask.execute(voteId);
+    }
 
-        task.execute(filter);
+    private void setUpTask(GetMemberParliamentTask task) {
+
     }
 
     private void gotoActivity(MemberParliament memberParliament){
@@ -185,7 +225,7 @@ public class MpListFragment extends Fragment {
 
     /** For one MP
      *
-     * @param person
+     * @param
      * @return
      */
     public static Fragment forOne(String name) {
@@ -211,11 +251,22 @@ public class MpListFragment extends Fragment {
         HashMap<String, Object> hashMap = (HashMap)map;
         Bundle bundle = new Bundle();
         bundle.putSerializable(FilterParameters.FILTER, hashMap);
+        bundle.putBoolean(FilterParameters.FOLLOWING_FIRST, true);
         Fragment fragment = new MpListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
+    public static Fragment forVote(int id, String result) {
+        Fragment fragment = new MpListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(FilterParameters.VOTE_ID, id);
+        bundle.putString(FilterParameters.RESULT, result);
+//        bundle.putBoolean(FilterParameters.FOLLOWING_FIRST, true);
+        bundle.putSerializable(FilterParameters.FILTER, new HashMap<>());
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
 
 }

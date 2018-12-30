@@ -67,8 +67,8 @@ public class VoteActivity extends AppCompatActivity {
         int nays = getIntent().getExtras().getInt("nays");
         adapter = new TabPagerAdapter(getSupportFragmentManager());
         adapter.add("Overview", VoteOverviewFragment.forVote(id));
-        adapter.add("For ("+yeas+")", MpListFragment.forAll());
-        adapter.add("Against ("+nays+")", MpListFragment.forAll());
+        adapter.add("Voted For ("+yeas+")", MpListFragment.forVote(id, "Yea"));
+        adapter.add("Voted Against ("+nays+")",MpListFragment.forVote(id, "Nay"));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

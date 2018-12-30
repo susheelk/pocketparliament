@@ -34,6 +34,7 @@
         <item name="android:windowBackground">
             @drawable/splash
         </item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
 

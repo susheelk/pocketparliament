@@ -38,6 +38,7 @@ public class BillsListFragment extends Fragment {
     // Data
     private List<Bill> bills;
     private GetBillsTask task;
+    private int page = 1;
 
     // Views
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -111,12 +112,18 @@ public class BillsListFragment extends Fragment {
             public void onItemClick(Object object) {
                 goToActivity((Bill)(object));
             }
+
+            @Override
+            public void onBottomReached() {
+                addData();
+            }
         });
         recyclerView.setAdapter(adapter);
 
     }
 
     private void getData(View view) {
+        page = 1;
         swipeRefreshLayout.setRefreshing(true);
         task = new GetBillsTask();
         task.setAsyncResponseListener(new AsyncResponseListener<List<Bill>>() {
@@ -147,6 +154,38 @@ public class BillsListFragment extends Fragment {
         task.execute(getArguments().getString("params"));
     }
 
+    private void addData(){
+        page = 1;
+        swipeRefreshLayout.setRefreshing(true);
+        task = new GetBillsTask();
+        task.setAsyncResponseListener(new AsyncResponseListener<List<Bill>>() {
+            @Override
+            public void onTaskSuccess(Class source, List<Bill> data) {
+                Log.i("addBills", data.size()+"");
+
+                if (getArguments().getBoolean(SharedPreferenceHelper.FOLLOWED_ONLY)){
+                    data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(Collectors.toList());
+                    swipeRefreshLayout.setEnabled(false);
+                }
+//                bills.addAll(data);
+                adapter.add(data);
+                swipeRefreshLayout.setRefreshing(false);
+
+                if(data.size() == 0){
+                    Log.i("empty", "empty");
+//                    Toast.makeText(getContext(), "No bills", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onTaskError(Class source, String message) {
+                Log.e("getBills", message+"");
+                displayError();
+            }
+        });
+        task.execute(getArguments().getString("params")+"&page="+(++page));
+    }
+
     private synchronized void displayError(){
         swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
@@ -169,7 +208,7 @@ public class BillsListFragment extends Fragment {
      */
     public static Fragment forRecent() {
         Bundle bundle = new Bundle();
-        bundle.putString("params", "?include=number,title,lastMajorEvent,dateLastUpdated&size=900");
+        bundle.putString("params", "?include=number,title,lastMajorEvent,dateLastUpdated&size=20");
         Fragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -185,7 +224,7 @@ public class BillsListFragment extends Fragment {
     public static Fragment forSponsor(String name) {
         Bundle bundle = new Bundle();
         name = name.replace(" ", "_");
-        bundle.putString("params", "?include=number,title,lastMajorEvent,sponsor,dateLastUpdated&size=50&sponsor_name="+name);
+        bundle.putString("params", "?include=number,title,lastMajorEvent,sponsor,dateLastUpdated&size=20&sponsor_name="+name);
 
         Fragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
@@ -199,7 +238,7 @@ public class BillsListFragment extends Fragment {
      */
     public static Fragment forLaw(boolean law) {
         Bundle bundle = new Bundle();
-        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=500&law="+law);
+        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=20&law="+law);
 
         Fragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
@@ -214,7 +253,7 @@ public class BillsListFragment extends Fragment {
     public static Fragment forStatus(String status) {
         Bundle bundle = new Bundle();
         status = status.replace(" ", "_");
-        bundle.putString("params", "?include=number,title,lastMajorEvent,dateLastUpdated&size=50&bill_state="+status);
+        bundle.putString("params", "?include=number,title,lastMajorEvent,dateLastUpdated&size=20&bill_state="+status);
 
         Fragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
@@ -228,7 +267,7 @@ public class BillsListFragment extends Fragment {
      */
     public static Fragment forNew(boolean bnew) {
         Bundle bundle = new Bundle();
-        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=50&new="+bnew);
+        bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=20&new="+bnew);
 
         Fragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
