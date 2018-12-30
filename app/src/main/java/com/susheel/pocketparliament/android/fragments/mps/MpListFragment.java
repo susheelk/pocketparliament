@@ -158,7 +158,11 @@ public class MpListFragment extends Fragment {
         voteTask.setAsyncResponseListener(new AsyncResponseListener<Vote>() {
             @Override
             public void onTaskSuccess(Class source, Vote data) {
-                filter.addConstraint(FilterParameters.VOTED_FOR, data);
+                if(result.matches("Yea")){
+                    filter.addConstraint(FilterParameters.VOTED_FOR, data);
+                } else{
+                    filter.addConstraint(FilterParameters.VOTED_AGAINST, data);
+                }
                 GetMemberParliamentTask task = new GetMemberParliamentTask();
                 task.setAsyncResponseListener(listener);
                 task.execute(filter);

@@ -196,4 +196,12 @@ public class VotesListFragment extends Fragment {
         return new VotesListFragment();
     }
 
+    public static Fragment forResult(String result){
+        Fragment fragment = new VotesListFragment();
+        Bundle args = new Bundle();
+        args.putString("params", "?result="+result);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 }

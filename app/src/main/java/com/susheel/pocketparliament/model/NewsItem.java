@@ -7,6 +7,15 @@ public class NewsItem {
     private String date;
     private String description;
     protected String tagline;
+    private int billId;
+
+    public int getBillId() {
+        return billId;
+    }
+
+    public void setBillId(int billId) {
+        this.billId = billId;
+    }
 
     public String getTitle() {
         return title;

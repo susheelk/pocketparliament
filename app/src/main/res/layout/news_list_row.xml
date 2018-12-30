@@ -5,6 +5,7 @@
     android:clickable="true"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@drawable/ripple_bg"
     android:minHeight="50dp"
     style="@style/GenericCard">
 

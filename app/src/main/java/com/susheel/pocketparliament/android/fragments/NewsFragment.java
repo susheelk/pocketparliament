@@ -1,6 +1,7 @@
 package com.susheel.pocketparliament.android.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.android.activities.BillActivity;
 import com.susheel.pocketparliament.android.adapters.BillsListAdapter;
 import com.susheel.pocketparliament.android.adapters.NewsListAdapter;
 import com.susheel.pocketparliament.android.adapters.RecyclerViewListener;
@@ -101,7 +103,12 @@ public class NewsFragment extends Fragment {
         adapter.addRecyclerViewListener(new RecyclerViewListener() {
             @Override
             public void onItemClick(Object object) {
-//                goToActivity((Bill)(object));
+                NewsItem newsItem = (NewsItem) object;
+                Bill bill = new Bill();
+                bill.setTitle(newsItem.getDescription());
+                bill.setNumber(newsItem.getBillNumber());
+                bill.setId(newsItem.getBillId());
+                goToBillActivity(bill);
             }
 
             @Override
@@ -120,8 +127,10 @@ public class NewsFragment extends Fragment {
         task.setAsyncResponseListener(new AsyncResponseListener<List<NewsItem>>() {
             @Override
             public void onTaskSuccess(Class source, List<NewsItem> data) {
-                Log.i("getNews", data.size()+"");
-                adapter.update(data);
+                if (data != null){
+                    Log.i("getNews", data.size()+"");
+                    adapter.update(data);
+                }
                 swipeRefreshLayout.setRefreshing(false);
             }
 
@@ -157,6 +166,17 @@ public class NewsFragment extends Fragment {
     private synchronized void displayError(){
         swipeRefreshLayout.setRefreshing(false);
         Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToBillActivity(Bill bill){
+        Log.i("GOTO", "bill");
+        Intent intent = new Intent(getActivity(), BillActivity.class);
+        Bundle args = new Bundle();
+        args.putString(BillActivity.NUMBER, bill.getNumber());
+        args.putString(BillActivity.TITLE, bill.getTitle());
+        args.putInt(BillActivity.ID, bill.getId());
+        intent.putExtras(args);
+        startActivity(intent);
     }
 
 
