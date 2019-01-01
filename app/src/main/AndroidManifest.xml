@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.susheel.pocketparliament">
+    package="tech.susheelkona.pocketparliament">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -51,7 +51,7 @@
             android:theme="@style/AppThemeNoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".android.activities.SpashActivity"
+            android:name=".android.activities.SplashActivity"
             android:theme="@style/SplashStyle"
             android:screenOrientation="portrait">
             <intent-filter>

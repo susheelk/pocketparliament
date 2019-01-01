@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId 'com.susheel.pocketparliament'
+        applicationId 'tech.susheelkona.pocketparliament'
         minSdkVersion 21
         targetSdkVersion 26
 
