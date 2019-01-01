@@ -132,7 +132,7 @@ public class BillsListFragment extends Fragment {
                 Log.i("getBills", data.size()+"");
 
                 if (getArguments().getBoolean(SharedPreferenceHelper.FOLLOWED_ONLY)){
-                    data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(Collectors.toList());
+                    data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getActivity().getApplicationContext())).collect(Collectors.toList());
                     swipeRefreshLayout.setEnabled(false);
                 }
                 bills = data;

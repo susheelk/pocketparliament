@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.model.legislation.Ballot;
 import com.susheel.pocketparliament.model.legislation.Vote;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +20,7 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
     private List<Vote> data;
     private Context context;
     private RecyclerViewListener listener;
+    private boolean showBallots = false;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -29,6 +31,8 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
         private TextView result;
         private TextView count;
         private View layout;
+        private View ballotHolder;
+        private TextView ballotText;
 
         private Vote vote;
 
@@ -40,6 +44,9 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
             result = (TextView) itemView.findViewById(R.id.result);
             result.setAllCaps(true);
             count = (TextView) itemView.findViewById(R.id.count);
+            ballotText = (TextView) itemView.findViewById(R.id.ballot_text);
+            ballotHolder = itemView.findViewById(R.id.ballot_layout);
+            ballotHolder.setVisibility(View.GONE);
             layout = itemView;
             itemView.setOnClickListener(this);
         }
@@ -55,17 +62,24 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
             String sResult = vote.getResult();
 
             if(vote.getResult().matches("Agreed To")){
-                layout.setBackgroundColor(context.getResources().getColor(R.color.positive));
+//                layout.setBackgroundColor(context.getResources().getColor(R.color.positive));
                 result.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
                 sResult = "passed";
                 id.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
             } else if (vote.getResult().matches("Negatived")){
-                layout.setBackgroundColor(context.getResources().getColor(R.color.negative));
+//                layout.setBackgroundColor(context.getResources().getColor(R.color.negative));
                 id.setTextColor(context.getResources().getColor(R.color.senate));
+                result.setTextColor(context.getResources().getColor(R.color.senate));
                 sResult = "failed";
             }
             result.setText(sResult+":");
             count.setText(vote.getYeas()+" for, "+vote.getNays()+" against");
+
+            if (vote.getBallots() != null && !vote.getBallots().isEmpty() && showBallots){
+                ballotHolder.setVisibility(View.VISIBLE);
+                Ballot ballot = vote.getBallots().get(0);
+                ballotText.setText(ballot.getName()+" voted "+ballot.getVote());
+            }
         }
 
         @Override
@@ -75,6 +89,10 @@ public class VotesListAdapter extends RecyclerView.Adapter<VotesListAdapter.View
     }
 
     public VotesListAdapter() {
+    }
+
+    public void showBallots(boolean showBallots){
+        this.showBallots = showBallots;
     }
 
     public VotesListAdapter(Context context) {

@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.susheel.pocketparliament.R;
+import com.susheel.pocketparliament.android.fragments.votes.VotesListFragment;
 import com.susheel.pocketparliament.model.MemberParliament;
 import com.susheel.pocketparliament.services.filters.Filter;
 import com.susheel.pocketparliament.services.filters.FilterParameters;
@@ -114,6 +115,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
 
         adapter.add("Overview", MpOverviewFragment.getForMemberParliament(memberParliament));
         adapter.add("Bills", BillsListFragment.forSponsor(memberParliament.getName()));
+        adapter.add("Votes", VotesListFragment.forMemberParliament(memberParliament.getName()));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

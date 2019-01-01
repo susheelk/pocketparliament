@@ -50,7 +50,7 @@ public class VotesPageFragment extends AbstractPageFragment {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         adapter = new TabPagerAdapter(getChildFragmentManager());
         adapter.add("Recent", VotesListFragment.forAll());
-        adapter.add("Passed", VotesListFragment.forResult("Agreed+to"));
+        adapter.add("Passed", VotesListFragment.forResult("Agreed+To"));
         adapter.add("Failed", VotesListFragment.forResult("Negatived"));
 
         viewPager.setAdapter(adapter);

@@ -37,6 +37,7 @@ public class VotesListFragment extends Fragment {
     private GetVotesTask task;
     private GetVotesTask addTask;
     private int page = 1;
+    private boolean displayVotes = false;
 
     // Views
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -54,13 +55,20 @@ public class VotesListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
+
         return inflater.inflate(R.layout.fragment_votes_list, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        try {
+            displayVotes = getArguments().getBoolean("displayBallots");
+        } catch (Exception e) {
+
+        }
         bindViews(view);
         setUpRecyclerView();
         getData(view);
@@ -100,6 +108,7 @@ public class VotesListFragment extends Fragment {
 
     public void setUpRecyclerView(){
         adapter = new VotesListAdapter((AppCompatActivity)getActivity());
+        adapter.showBallots(displayVotes);
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -200,6 +209,15 @@ public class VotesListFragment extends Fragment {
         Fragment fragment = new VotesListFragment();
         Bundle args = new Bundle();
         args.putString("params", "?result="+result);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static Fragment forMemberParliament(String name){
+        Fragment fragment = new VotesListFragment();
+        Bundle args = new Bundle();
+        args.putString("params", "?mps="+name);
+        args.putBoolean("displayBallots", true);
         fragment.setArguments(args);
         return fragment;
     }

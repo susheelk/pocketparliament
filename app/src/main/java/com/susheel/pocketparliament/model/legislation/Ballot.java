@@ -4,7 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-public class Ballot implements Parcelable {
+import java.io.Serializable;
+
+public class Ballot implements Parcelable, Serializable {
     private int id;
     private String name;
     private String vote;
