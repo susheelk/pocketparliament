@@ -77,8 +77,18 @@ public class BillOverviewFragment extends Fragment {
             public void onTaskSuccess(Class source, Bill data) {
                 title.setText(data.getTitle());
                 AppCompatActivity activity = ((AppCompatActivity)getActivity());
-                activity.getSupportActionBar().
-                        setTitle(data.getBillType()+" "+data.getNumber());
+                try {
+                    activity.getSupportActionBar().
+                            setTitle(data.getBillType()+" "+data.getNumber());
+                } catch (Exception e){
+                    try {
+                        Thread.sleep(1000);
+                        activity.getSupportActionBar().
+                                setTitle(data.getBillType()+" "+data.getNumber());
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
 
                 progressBar.setVisibility(View.GONE);
                 content.setVisibility(View.VISIBLE);

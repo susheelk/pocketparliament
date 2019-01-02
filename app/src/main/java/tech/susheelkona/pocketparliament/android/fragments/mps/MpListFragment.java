@@ -38,7 +38,7 @@ import java.util.Map;
  */
 public class MpListFragment extends Fragment {
 
-    Filter<MemberParliament> filter;
+    Filter<MemberParliament> filter = new MemberParliamentFilter();
     List<MemberParliament> members;
     GetMemberParliamentTask task;
 
@@ -77,7 +77,12 @@ public class MpListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        HashMap<String, Object> map = (HashMap<String, Object>) (getArguments().getSerializable(FilterParameters.FILTER));
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            map = (HashMap<String, Object>) (getArguments().getSerializable(FilterParameters.FILTER));
+        } catch (Exception e){
+
+        }
         filter = new MemberParliamentFilter(map, getContext());
     }
 
@@ -266,7 +271,7 @@ public class MpListFragment extends Fragment {
         bundle.putInt(FilterParameters.VOTE_ID, id);
         bundle.putString(FilterParameters.RESULT, result);
 //        bundle.putBoolean(FilterParameters.FOLLOWING_FIRST, true);
-        bundle.putSerializable(FilterParameters.FILTER, new HashMap<>());
+//        bundle.putSerializable(FilterParameters.FILTER, new HashMap<>());
         fragment.setArguments(bundle);
         return fragment;
     }

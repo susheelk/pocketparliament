@@ -2,11 +2,12 @@ package tech.susheelkona.pocketparliament.model.legislation;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Vote {
+public class Vote implements Serializable {
 
     private int id;
     private Date date;

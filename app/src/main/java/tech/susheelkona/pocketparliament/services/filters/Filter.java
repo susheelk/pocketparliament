@@ -13,14 +13,15 @@ import java.util.Map;
  */
 
 public abstract class Filter<T> {
-    final Map<String, Object> filters;
+    Map<String, Object> filters = new HashMap<>();
 
-    public static void fromBundle() {
-
-    }
 
     public Filter(Map<String, Object> filters) {
-        this.filters = filters;
+        if (filters != null){
+            this.filters = filters;
+        } else {
+            this.filters = new HashMap<>();
+        }
     }
 
     // No Filters
