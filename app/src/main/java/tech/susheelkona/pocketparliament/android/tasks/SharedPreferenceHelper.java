@@ -3,12 +3,16 @@ package tech.susheelkona.pocketparliament.android.tasks;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import tech.susheelkona.pocketparliament.model.MemberParliament;
 import tech.susheelkona.pocketparliament.model.legislation.Bill;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class SharedPreferenceHelper {
 
@@ -43,7 +47,7 @@ public class SharedPreferenceHelper {
     }
 
     public void toggleFollowBill(Bill bill, Context context) {
-        List<String> followed = new ArrayList<>(getFollowedMemberParliaments(context));
+        List<String> followed = new ArrayList<>(getFollowedBills(context));
         if(followed.contains(bill.getNumber())) {
             followed.remove(bill.getNumber());
         } else {
@@ -53,7 +57,9 @@ public class SharedPreferenceHelper {
     }
 
     public List<String> getFollowedBills(Context context){
-        return getStringList("bill_follows", context);
+        List<String> follows = getStringList("bill_follows", context);
+        follows = Stream.of(follows).filter(s -> s.startsWith("S-") || s.startsWith("C-")).collect(Collectors.toList());
+        return follows;
     }
 
     public boolean isFollowed(Bill bill, Context context){
@@ -75,6 +81,23 @@ public class SharedPreferenceHelper {
         String str = buffer.toString();
         editor.putString(key, str.substring(0, str.length() - 1));
         editor.apply();
+    }
+
+
+    public void storeLastCheck(int lastVote, String lastNews, Context context){
+        SharedPreferences preferences = getSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("last_news_tag", lastNews);
+        editor.putInt("last_vote_id", lastVote);
+        editor.apply();
+    }
+
+    public int getLastVote(Context context){
+        return getSharedPreferences(context).getInt("last_vote_id", -1);
+    }
+
+    public String getLastNews(Context context) {
+        return getSharedPreferences(context).getString("last_news_tag", "EMPTY");
     }
 
 }

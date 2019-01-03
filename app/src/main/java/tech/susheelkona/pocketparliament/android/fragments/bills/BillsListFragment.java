@@ -67,7 +67,7 @@ public class BillsListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         bindViews(view);
         setUpRecyclerView();
-        getData(view);
+//        getData(view);
     }
 
     @Override
@@ -133,7 +133,9 @@ public class BillsListFragment extends Fragment {
                 Log.i("getBills", data.size()+"");
 
                 if (getArguments().getBoolean(SharedPreferenceHelper.FOLLOWED_ONLY)){
-                    data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getActivity().getApplicationContext())).collect(Collectors.toList());
+                    if (getContext() != null){
+                        data = Stream.of(data).filter(bill -> preferences.isFollowed(bill, getContext())).collect(Collectors.toList());
+                    }
                     swipeRefreshLayout.setEnabled(false);
                 }
                 bills = data;

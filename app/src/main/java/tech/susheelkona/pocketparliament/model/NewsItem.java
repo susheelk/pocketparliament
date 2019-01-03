@@ -68,4 +68,9 @@ public class NewsItem {
     public void generateTagline() {
         setTagline(billNumber+", "+title);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((NewsItem)obj).getTagline().matches(getTagline());
+    }
 }

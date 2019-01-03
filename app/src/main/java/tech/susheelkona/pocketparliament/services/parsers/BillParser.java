@@ -7,6 +7,7 @@ import tech.susheelkona.pocketparliament.model.legislation.Bill;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class BillParser {
@@ -15,7 +16,7 @@ public class BillParser {
         return instance;
     }
 
-    private final ObjectMapper mapper = new ObjectMapper(){{
+    private static final ObjectMapper mapper = new ObjectMapper(){{
         setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
     }};
 
@@ -30,4 +31,12 @@ public class BillParser {
     public Bill objectFromJson(String json) throws IOException {
         return mapper.readValue(json, Bill.class);
     }
+
+    public static Date getLastUpdated(String json) throws Exception {
+        JsonNode root = mapper.readTree(json);
+        JsonNode ndate = root.get("lastUpdated");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return format.parse(ndate.asText());
+    }
+
 }

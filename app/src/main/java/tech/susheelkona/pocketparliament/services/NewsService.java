@@ -1,8 +1,10 @@
 package tech.susheelkona.pocketparliament.services;
 
 import tech.susheelkona.pocketparliament.model.NewsItem;
+import tech.susheelkona.pocketparliament.services.parsers.BillParser;
 import tech.susheelkona.pocketparliament.services.parsers.NewsParser;
 
+import java.util.Date;
 import java.util.List;
 
 public class NewsService extends HttpService {
@@ -11,9 +13,12 @@ public class NewsService extends HttpService {
         return instance;
     }
 
+    private Date lastUpdated;
+
     public List<NewsItem> get(String params) throws Exception {
         String response = doRequest(BILLSEARCH, "news"+params);
         List<NewsItem> list = NewsParser.getInstance().listFromJson(response);
+        lastUpdated = BillParser.getLastUpdated(response);
         return list;
     }
 

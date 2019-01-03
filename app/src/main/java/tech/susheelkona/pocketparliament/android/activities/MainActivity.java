@@ -1,6 +1,9 @@
 package tech.susheelkona.pocketparliament.android.activities;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,6 +19,10 @@ import android.view.MenuItem;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import tech.susheelkona.pocketparliament.android.background.BackgroundFetchWorker;
 import tech.susheelkona.pocketparliament.android.pages.votes.VotesPageFragment;
 import tech.susheelkona.pocketparliament.R;
 import tech.susheelkona.pocketparliament.android.tasks.GetMemberParliamentTask;
@@ -24,6 +31,8 @@ import tech.susheelkona.pocketparliament.android.pages.bills.BillsPageFragment;
 import tech.susheelkona.pocketparliament.android.pages.home.HomeFragment;
 import tech.susheelkona.pocketparliament.android.pages.mp_list.MpsPageFragment;
 import com.twitter.sdk.android.core.Twitter;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         partyService.setInputStream(getResources().openRawResource(R.raw.parties));
         partyService.loadParties();
         new GetMemberParliamentTask().execute();
+        createNotificationChannels();
 //        partyService.write();
 
         setContentView(R.layout.activity_main);
@@ -77,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        scheduleCheckTask();
     }
 
     @Override
@@ -138,5 +149,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void openDrawer(){
         drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    private void createNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(getString(R.string.news_notification_chanel), "News", importance);
+            channel.setDescription("News");
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void scheduleCheckTask(){
+        PeriodicWorkRequest.Builder workRequestBuild = new
+                PeriodicWorkRequest.Builder(BackgroundFetchWorker.class, 2, TimeUnit.MINUTES);
+        WorkManager.getInstance().enqueue(workRequestBuild.build());
     }
 }
