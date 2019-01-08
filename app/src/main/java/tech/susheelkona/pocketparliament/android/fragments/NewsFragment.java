@@ -17,12 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import tech.susheelkona.pocketparliament.android.activities.BillActivity;
 import tech.susheelkona.pocketparliament.android.adapters.NewsListAdapter;
 import tech.susheelkona.pocketparliament.R;
 import tech.susheelkona.pocketparliament.android.adapters.RecyclerViewListener;
 import tech.susheelkona.pocketparliament.android.tasks.AsyncResponseListener;
 import tech.susheelkona.pocketparliament.android.tasks.GetNewsTask;
+import tech.susheelkona.pocketparliament.android.tasks.SharedPreferenceHelper;
 import tech.susheelkona.pocketparliament.model.NewsItem;
 import tech.susheelkona.pocketparliament.model.legislation.Bill;
 
@@ -31,11 +35,12 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment {
+public class NewsFragment extends Fragment{
 
     // Data
     private GetNewsTask task;
     private int page = 1;
+    private SharedPreferenceHelper preferences = SharedPreferenceHelper.getInstance();
 
     // Views
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -127,6 +132,13 @@ public class NewsFragment extends Fragment {
             public void onTaskSuccess(Class source, List<NewsItem> data) {
                 if (data != null){
                     Log.i("getNews", data.size()+"");
+                    if (getArguments() != null
+                            && (getArguments().containsKey(SharedPreferenceHelper.FOLLOWED_ONLY))
+                            && (getArguments().getBoolean(SharedPreferenceHelper.FOLLOWED_ONLY))
+                            && getContext() != null){
+                        List<String> bills = preferences.getFollowedBills(getContext());
+                        data = Stream.of(data).filter(news -> bills.contains(news.getBillNumber())).collect(Collectors.toList());
+                    }
                     adapter.update(data);
                 }
                 swipeRefreshLayout.setRefreshing(false);
@@ -177,6 +189,12 @@ public class NewsFragment extends Fragment {
         startActivity(intent);
     }
 
-
+    public static Fragment forFollowed(){
+        Fragment fragment = new NewsFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(SharedPreferenceHelper.FOLLOWED_ONLY, true);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
 }

@@ -216,6 +216,7 @@ public class VotesListFragment extends Fragment {
     public static Fragment forMemberParliament(String name){
         Fragment fragment = new VotesListFragment();
         Bundle args = new Bundle();
+        name = name.replace(" ", "+");
         args.putString("params", "?mps="+name);
         args.putBoolean("displayBallots", true);
         fragment.setArguments(args);

@@ -87,7 +87,7 @@ public class HomeFragment extends AbstractPageFragment {
         adapter = new TabPagerAdapter(getChildFragmentManager());
 //        adapter.add("News", BillsListFragment.forRecent());
         adapter.add("News", new NewsFragment());
-        adapter.add("Following", MpListFragment.forFollowed());
+        adapter.add("Following", NewsFragment.forFollowed());
 
         viewPager.setAdapter(adapter);
         tabLayout = (TabLayout) view.findViewById(tech.susheelkona.pocketparliament.R.id.tabs);

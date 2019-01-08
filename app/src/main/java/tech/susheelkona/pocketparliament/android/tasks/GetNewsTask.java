@@ -19,7 +19,8 @@ public class GetNewsTask extends AbstractAsyncTask<String, Void, List<NewsItem>>
     @Override
     protected List<NewsItem> doInBackground(String... args) {
         try {
-            return service.get(args[0]);
+            List<NewsItem> list =  service.get(args[0]);
+            return list;
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage());
             error = true;

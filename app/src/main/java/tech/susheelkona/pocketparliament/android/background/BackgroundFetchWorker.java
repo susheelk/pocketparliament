@@ -64,10 +64,22 @@ public class BackgroundFetchWorker extends Worker {
             }
         }
         pushNotifications(newsItems, null);
+//        testNotifications();
         if (!newsItems.isEmpty()){
             preferences.storeLastCheck(0, newsItems.get(0).getTagline(), getApplicationContext());
         }
         return Result.success();
+    }
+
+    private void testNotifications(){
+        NotificationManagerCompat manager = NotificationManagerCompat.from(getApplicationContext());
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(),
+                getApplicationContext().getString(R.string.news_notification_chanel))
+                .setContentTitle("Bill")
+                .setGroup(getApplicationContext().getString(R.string.news_notification_chanel))
+                .setContentText("TEST")
+                .setSmallIcon(R.drawable.ic_notif_bill);
+        manager.notify(new Random().nextInt(), mBuilder.build());
     }
 
     private void pushNotifications(List<NewsItem> newsItems, List<Vote> votes){

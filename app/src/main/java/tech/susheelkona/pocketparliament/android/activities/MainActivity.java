@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    static String TAG = "NOTIF_WORKER";
 
 //    public static final HashMap<Integer, Class> pageFragmentMap = new HashMap<Integer, Class>(){{
 //        put(R.id.home_menu_link, HomeFragment.class);
@@ -162,8 +163,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void scheduleCheckTask(){
-        PeriodicWorkRequest.Builder workRequestBuild = new
-                PeriodicWorkRequest.Builder(BackgroundFetchWorker.class, 2, TimeUnit.MINUTES);
-        WorkManager.getInstance().enqueue(workRequestBuild.build());
+        WorkManager manager = WorkManager.getInstance();
+        if(manager.getWorkInfosByTagLiveData(TAG).getValue() == null){
+            PeriodicWorkRequest.Builder workRequestBuild = new
+                    PeriodicWorkRequest.Builder(BackgroundFetchWorker.class, 1, TimeUnit.HOURS);
+            workRequestBuild.addTag(TAG);
+            WorkManager.getInstance().enqueue(workRequestBuild.build());
+        }
     }
 }

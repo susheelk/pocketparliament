@@ -36,6 +36,7 @@ public class MemberParliament extends Person implements Parcelable, Searchable {
 
     public MemberParliament(int id, String firstName, String lastName) {
         super(id, firstName, lastName);
+
     }
 
     public String getParlUrl() {
