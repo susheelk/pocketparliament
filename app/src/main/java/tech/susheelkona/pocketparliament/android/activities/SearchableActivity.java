@@ -57,7 +57,7 @@ public class SearchableActivity extends AppCompatActivity {
         searchItem = menu.findItem(R.id.search_button);
         searchItem.expandActionView();
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setQueryHint("Search MPs, Bills, Committees...");
+        searchView.setQueryHint("Search MPs, Bills...");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

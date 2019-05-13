@@ -23,6 +23,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import tech.susheelkona.pocketparliament.android.background.BackgroundFetchWorker;
+import tech.susheelkona.pocketparliament.android.fragments.Refreshable;
 import tech.susheelkona.pocketparliament.android.pages.votes.VotesPageFragment;
 import tech.susheelkona.pocketparliament.R;
 import tech.susheelkona.pocketparliament.android.tasks.GetMemberParliamentTask;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 //    public static final HashMap<Integer, Class> pageFragmentMap = new HashMap<Integer, Class>(){{
 //        put(R.id.home_menu_link, HomeFragment.class);
 //    }};
+
+    private Refreshable currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,16 +77,30 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 item.setChecked(true);
-                switch (item.getItemId()) {
-                    case R.id.home_menu_link: loadPage(new HomeFragment(), true);
-                        break;
-                    case R.id.mp_menu_link: loadPage(new MpsPageFragment(), true);
-                        break;
-                    case R.id.bills_menu_link: loadPage(new BillsPageFragment(), true);
-                        break;
-                    case R.id.votes_menu_link: loadPage(new VotesPageFragment(), true);
 
+                Fragment currentFragment = new Fragment();
+                boolean backStack = false;
+                switch (item.getItemId()) {
+                    case R.id.home_menu_link:
+                        currentFragment = new HomeFragment();
+                        backStack = true;
+                        break;
+                    case R.id.mp_menu_link:
+                        currentFragment = new MpsPageFragment();
+                        backStack = true;
+                        break;
+                    case R.id.bills_menu_link:
+                        currentFragment = new BillsPageFragment();
+                        backStack = true;
+                        break;
+                    case R.id.votes_menu_link:
+                        currentFragment = new VotesPageFragment();
+                        backStack = true;
+                        break;
                 }
+
+                loadPage(currentFragment, backStack);
+                addRefreshable(currentFragment);
                 closeNavigationDrawer();
                 return true;
             }
@@ -123,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void addRefreshable(Fragment fragment) {
+        if (fragment instanceof Refreshable) {
+            currentPage = (Refreshable) fragment;
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -134,6 +157,16 @@ public class MainActivity extends AppCompatActivity {
                 openDrawer();
                 return true;
 
+            case R.id.refresh_button:
+                if (currentPage != null){
+                    currentPage.refresh();
+                }
+                return true;
+
+            case R.id.settings_button:
+                openNotificationSettings();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -141,6 +174,18 @@ public class MainActivity extends AppCompatActivity {
 
     protected void openSearchActivity(){
         Intent intent = new Intent(this, SearchableActivity.class);
+        startActivity(intent);
+    }
+
+    protected void openNotificationSettings() {
+        Intent intent = new Intent();
+        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+        } else {
+            intent.putExtra("app_package", getPackageName());
+            intent.putExtra("app_uid", getApplicationInfo().uid);
+        }
         startActivity(intent);
     }
 
@@ -156,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(getString(R.string.news_notification_chanel), "News", importance);
-            channel.setDescription("News");
+            channel.setDescription("Bills");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

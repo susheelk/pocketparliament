@@ -27,6 +27,7 @@
 
     <string name="Search">Search</string>
     <string name="Settings">Settings</string>
+    <string name="NotifSettings">Notification Settings</string>
     <string name="Refresh">Refresh</string>
 
     <string name="visit_legisinfo"><u>Visit LEGISINFO page</u></string>

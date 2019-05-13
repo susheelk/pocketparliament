@@ -16,6 +16,7 @@ import android.widget.ImageView;
 
 import tech.susheelkona.pocketparliament.android.adapters.TabPagerAdapter;
 import tech.susheelkona.pocketparliament.android.fragments.NewsFragment;
+import tech.susheelkona.pocketparliament.android.fragments.Refreshable;
 import tech.susheelkona.pocketparliament.android.fragments.mps.MpListFragment;
 import tech.susheelkona.pocketparliament.android.pages.AbstractPageFragment;
 
@@ -24,12 +25,15 @@ import java.util.Random;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends AbstractPageFragment {
+public class HomeFragment extends AbstractPageFragment implements Refreshable {
 
     private ImageView wall;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private TabPagerAdapter adapter;
+
+    private NewsFragment allNews;
+    private NewsFragment followed;
 
     public HomeFragment() {
     }
@@ -86,12 +90,23 @@ public class HomeFragment extends AbstractPageFragment {
         viewPager = (ViewPager) view.findViewById(tech.susheelkona.pocketparliament.R.id.view_pager);
         adapter = new TabPagerAdapter(getChildFragmentManager());
 //        adapter.add("News", BillsListFragment.forRecent());
-        adapter.add("News", new NewsFragment());
-        adapter.add("Following", NewsFragment.forFollowed());
+        allNews = new NewsFragment();
+        followed = (NewsFragment) NewsFragment.forFollowed();
+        adapter.add("News", allNews);
+        adapter.add("Following", followed);
 
         viewPager.setAdapter(adapter);
         tabLayout = (TabLayout) view.findViewById(tech.susheelkona.pocketparliament.R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    @Override
+    public void refresh() {
+        if (allNews != null && allNews.isVisible()) {
+            allNews.refresh();
+        }
+        if (followed != null && followed.isVisible()) {
+            followed.refresh();
+        }
+    }
 }

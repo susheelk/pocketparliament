@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment{
+public class NewsFragment extends Fragment implements Refreshable{
 
     // Data
     private GetNewsTask task;
@@ -90,9 +90,7 @@ public class NewsFragment extends Fragment{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                parent.setVisibility(View.INVISIBLE);
-                getData();
-                parent.setVisibility(View.VISIBLE);
+                refresh();
             }
         });
     }
@@ -197,4 +195,10 @@ public class NewsFragment extends Fragment{
         return fragment;
     }
 
+    @Override
+    public void refresh() {
+        getView().setVisibility(View.INVISIBLE);
+        getData();
+        getView().setVisibility(View.VISIBLE);
+    }
 }

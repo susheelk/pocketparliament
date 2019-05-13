@@ -34,7 +34,7 @@ import com.annimon.stream.Stream;
  * A simple {@link Fragment} subclass.
 
  */
-public class BillsListFragment extends Fragment {
+public class BillsListFragment extends Fragment{
 
     // Data
     private List<Bill> bills;
