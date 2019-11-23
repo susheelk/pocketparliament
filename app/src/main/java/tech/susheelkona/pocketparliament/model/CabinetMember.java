@@ -21,6 +21,11 @@ public class CabinetMember extends MemberParliament {
     }
 
     @Override
+    public String getFlattened() {
+        return super.getFlattened() + getPosition().replaceAll("\\s", "").toLowerCase();
+    }
+
+    @Override
     public String getBlurb() {
         return getPosition();
     }

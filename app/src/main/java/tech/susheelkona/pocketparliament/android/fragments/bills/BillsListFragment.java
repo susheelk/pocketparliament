@@ -205,6 +205,10 @@ public class BillsListFragment extends Fragment{
         startActivity(intent);
     }
 
+    public int getDataSize() {
+        return bills.size();
+    }
+
     /** Returns list of recent bills
      *
      * @return
@@ -282,11 +286,11 @@ public class BillsListFragment extends Fragment{
      * @param query
      * @return
      */
-    public static Fragment forSearch(String query){
+    public static BillsListFragment forSearch(String query){
         Bundle bundle = new Bundle();
         bundle.putString("params", "?include=number,title,lastMajorEvent,law,dateLastUpdated&size=50&query="+query);
 
-        Fragment fragment = new BillsListFragment();
+        BillsListFragment fragment = new BillsListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

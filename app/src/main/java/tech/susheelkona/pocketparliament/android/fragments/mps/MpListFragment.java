@@ -60,6 +60,7 @@ public class MpListFragment extends Fragment {
 
 //            adapter.setFollowingFirst(getArguments().getBoolean(FilterParameters.FOLLOWING_FIRST));
             adapter.update(data);
+            data = data;
         }
 
         @Override
@@ -193,6 +194,10 @@ public class MpListFragment extends Fragment {
         startActivity(intent);
     }
 
+    public int getDataSize() {
+        return members.size();
+    }
+
     /** All MPs
      *
      * @return a Fragment displaying all MPs
@@ -225,7 +230,7 @@ public class MpListFragment extends Fragment {
      * @param query
      * @return
      */
-    public static Fragment forSearch(String query) {
+    public static MpListFragment forSearch(String query) {
         Map<String, Object> map = new HashMap<>();
         map.put(FilterParameters.QUERY, query);
         return withFilterMap(map);
@@ -255,12 +260,12 @@ public class MpListFragment extends Fragment {
      * @param map
      * @return
      */
-    public static Fragment withFilterMap(Map<String, Object> map) {
+    public static MpListFragment withFilterMap(Map<String, Object> map) {
         HashMap<String, Object> hashMap = (HashMap)map;
         Bundle bundle = new Bundle();
         bundle.putSerializable(FilterParameters.FILTER, hashMap);
         bundle.putBoolean(FilterParameters.FOLLOWING_FIRST, true);
-        Fragment fragment = new MpListFragment();
+        MpListFragment fragment = new MpListFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

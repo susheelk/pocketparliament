@@ -144,7 +144,13 @@ public class Bill implements Searchable {
     }
 
     @Override
+    public String getFlattened() {
+        return (title + number + id).replaceAll("\\s", "").toLowerCase();
+    }
+
+    @Override
     public boolean contains(String query) {
-        return (title.contains(query) || number.contains(query) || id == Integer.parseInt(query));
+        query = query.replaceAll("\\s", "");
+        return getFlattened().contains(query);
     }
 }

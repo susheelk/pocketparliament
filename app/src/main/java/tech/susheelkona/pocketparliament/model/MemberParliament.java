@@ -177,8 +177,19 @@ public class MemberParliament extends Person implements Parcelable, Searchable {
     };
 
     @Override
+    public String getFlattened() {
+        String allInfo = getName() + getRiding().getName() + getParty().getName();
+        return allInfo.toLowerCase().replaceAll("\\s", "");
+    }
+
+    @Override
     public boolean contains(String query) {
-        return (getName().contains(query));
+        if(query == "") {
+            return false;
+        }
+        query = query.toLowerCase().replaceAll("\\s", "");
+        String flat = getFlattened();
+        return flat.contains(query);
     }
 
     @Override

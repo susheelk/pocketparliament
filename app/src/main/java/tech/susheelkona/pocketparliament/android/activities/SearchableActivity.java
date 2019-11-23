@@ -11,10 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import tech.susheelkona.pocketparliament.R;
-import tech.susheelkona.pocketparliament.android.fragments.bills.BillsListFragment;
+import tech.susheelkona.pocketparliament.SearchResultsFragment;
 
 public class SearchableActivity extends AppCompatActivity {
 
@@ -23,8 +22,8 @@ public class SearchableActivity extends AppCompatActivity {
     private MenuItem searchItem;
 
     private ProgressBar progressBar;
-    private TextView mpSearchTitle;
-    private TextView billSearchTitle;
+
+    SearchResultsFragment resultsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +35,10 @@ public class SearchableActivity extends AppCompatActivity {
         bindViews();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setElevation(0);
     }
 
     private void bindViews() {
-        mpSearchTitle = (TextView) findViewById(R.id.mps_search_title);
-        billSearchTitle = (TextView) findViewById(R.id.bills_search_title);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }
 
@@ -68,16 +66,8 @@ public class SearchableActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String query) {
 
-                mpSearchTitle.setVisibility(View.GONE);
-                billSearchTitle.setVisibility(View.GONE);
                 progressBar.setVisibility(View.VISIBLE);
-
                 onUpdateText(query);
-
-                if(query.length() > 1){
-                    mpSearchTitle.setVisibility(View.VISIBLE);
-                    billSearchTitle.setVisibility(View.VISIBLE);
-                }
                 progressBar.setVisibility(View.GONE);
 
                 return false;
@@ -113,7 +103,8 @@ public class SearchableActivity extends AppCompatActivity {
     public void onUpdateText(String query){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.bills_content_frame, BillsListFragment.forSearch(query));
+        resultsFragment = SearchResultsFragment.forSearch(query, resultsFragment == null ? 0 : resultsFragment.getSelectedPage());
+        transaction.replace(R.id.bills_content_frame, resultsFragment);
 //        transaction.replace(R.id.mps_content_frame, MpListFragment.forSearch(query));
         transaction.commit();
 
