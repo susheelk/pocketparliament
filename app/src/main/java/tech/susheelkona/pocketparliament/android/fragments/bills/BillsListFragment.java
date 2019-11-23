@@ -191,7 +191,7 @@ public class BillsListFragment extends Fragment{
 
     private synchronized void displayError(){
         swipeRefreshLayout.setRefreshing(false);
-        Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
     }
 
     private void goToActivity(Bill bill){

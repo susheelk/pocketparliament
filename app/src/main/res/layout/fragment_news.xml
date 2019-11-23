@@ -12,13 +12,24 @@
         android:layout_height="match_parent"
         android:id="@+id/swipe_refresh">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:scrollbars="vertical">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/no_content"
+                layout="@layout/no_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:scrollbars="vertical">
+            </android.support.v7.widget.RecyclerView>
+        </FrameLayout>
+
+
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

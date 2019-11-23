@@ -45,6 +45,7 @@ public class NewsFragment extends Fragment implements Refreshable{
     // Views
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
+    private View noContentView;
 
     // Adapters
     private RecyclerView.LayoutManager manager;
@@ -93,6 +94,8 @@ public class NewsFragment extends Fragment implements Refreshable{
                 refresh();
             }
         });
+        noContentView = parent.findViewById(R.id.no_content);
+        noContentView.setVisibility(View.GONE);
     }
 
     public void setUpRecyclerView(){
@@ -138,12 +141,14 @@ public class NewsFragment extends Fragment implements Refreshable{
                         data = Stream.of(data).filter(news -> bills.contains(news.getBillNumber())).collect(Collectors.toList());
                     }
                     adapter.update(data);
+                    noContentView.setVisibility(data.size() == 0 ? View.VISIBLE : View.GONE);
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onTaskError(Class source, String message) {
+                noContentView.setVisibility(View.VISIBLE);
                 Log.e("getNews", message);
                 displayError();
             }
@@ -160,6 +165,7 @@ public class NewsFragment extends Fragment implements Refreshable{
                 Log.i("getNews", data.size()+"");
                 adapter.add(data);
                 swipeRefreshLayout.setRefreshing(false);
+
             }
 
             @Override
@@ -173,7 +179,8 @@ public class NewsFragment extends Fragment implements Refreshable{
 
     private synchronized void displayError(){
         swipeRefreshLayout.setRefreshing(false);
-        Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
+        noContentView.setVisibility(View.VISIBLE);
+//        Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT).show();
     }
 
     private void goToBillActivity(Bill bill){

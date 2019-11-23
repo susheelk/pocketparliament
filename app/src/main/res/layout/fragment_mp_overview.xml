@@ -72,6 +72,7 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/tweets_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/GenericCard"
@@ -89,7 +90,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/tweets_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"></android.support.v7.widget.RecyclerView>
+                        android:layout_height="300dp"></android.support.v7.widget.RecyclerView>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

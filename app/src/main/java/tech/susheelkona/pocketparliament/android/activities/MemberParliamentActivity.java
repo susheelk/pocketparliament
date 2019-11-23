@@ -142,7 +142,7 @@ public class MemberParliamentActivity extends AppCompatActivity {
 
             @Override
             public void onTaskError(Class source, String message) {
-
+                Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
             }
         });
         progressBar.setVisibility(View.VISIBLE);

@@ -4,6 +4,7 @@ package tech.susheelkona.pocketparliament.android.fragments.mps;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ public class MpOverviewFragment extends Fragment {
     private Button emailButton;
     private Button websiteButton;
     private Button parlButton;
+    private View tweetsContainer;
 
     public MpOverviewFragment() {}
 
@@ -55,7 +57,9 @@ public class MpOverviewFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         bindViews(view);
-        buildTweetsView();
+        if(memberParliament.getTwitterUsername() != null) {
+            buildTweetsView();
+        }
         attachButtonClickListeners();
     }
 
@@ -65,10 +69,13 @@ public class MpOverviewFragment extends Fragment {
         emailButton = (Button) view.findViewById(R.id.email_button);
         websiteButton = (Button) view.findViewById(R.id.website_button);
         parlButton = (Button) view.findViewById(R.id.parl_site_button);
+        tweetsContainer = view.findViewById(R.id.tweets_container);
+        tweetsContainer.setVisibility(View.GONE);
     }
 
     private void buildTweetsView(){
-        tweetsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()){
+        tweetsContainer.setVisibility(View.VISIBLE);
+        tweetsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;

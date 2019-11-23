@@ -129,26 +129,31 @@ public class MemberParliamentParser {
 
         JsonNode otherInfoNode = root.path("other_info");
         JsonNode twitterNameNode = otherInfoNode.get("twitter");
-        iterator = twitterNameNode.elements();
-        String twitterName = "";
-        while (iterator.hasNext()) {
-            twitterName = iterator.next().asText();
+
+        if(twitterNameNode != null) {
+            iterator = twitterNameNode.elements();
+            String twitterName = "";
+            while (iterator.hasNext()) {
+                twitterName = iterator.next().asText();
+                object.setTwitterUsername(twitterName);
+            }
         }
 
         JsonNode idsNode = otherInfoNode.get("parl_id");
-        iterator = idsNode.elements();
-        int id = iterator.next().asInt();
-        object.setId(id);
+        if (idsNode != null) {
+            iterator = idsNode.elements();
+            int id = iterator.next().asInt();
+            object.setId(id);
+        }
 
         object.setRiding(riding);
         object.setParty(party);
         object.setImageUrl(root.get("image").asText());
         object.setFirstName(root.get("given_name").asText());
         object.setLastName(root.get("family_name").asText());
-        object.setEmailAddress(root.get("email").asText());
-        object.setPhoneNumber(root.get("voice").asText());
+        object.setEmailAddress(root.get("email") != null ? root.get("email").asText() : null);
+        object.setPhoneNumber(root.get("voice") != null ? root.get("voice").asText() : null);
         object.setImageUrl(root.get("image").asText());
-        object.setTwitterUsername(twitterName);
 
         CabinetMember billSearchMember = cabinetService.getByName(object.getName());
 
@@ -164,7 +169,6 @@ public class MemberParliamentParser {
             member.setEmailAddress(root.get("email").asText());
             member.setPhoneNumber(root.get("voice").asText());
             member.setImageUrl(root.get("image").asText());
-            member.setTwitterUsername(twitterName);
             return member;
         }
 
